@@ -1,7 +1,8 @@
 package com.m2i.medic.models;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -9,20 +10,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Document
-public class Medic {
+public class Duree {
 
 	@Id
 	private String id;
 	
-	private String nom;
+	private int nbJour;
 	
-	@DBRef
-	private Duree duree;
-	
-	@DBRef
-	private Frequence frequence;
-	
+	private LocalDateTime dateDebut;
 }

@@ -15,4 +15,6 @@ public class CreationDureeDto {
 	
 	private LocalDateTime dateDebut;
 	
+	private LocalDateTime dateFin;
+	
 }

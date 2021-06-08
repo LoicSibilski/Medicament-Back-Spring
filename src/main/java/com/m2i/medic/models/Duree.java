@@ -21,4 +21,8 @@ public class Duree {
 	private int nbJour;
 	
 	private LocalDateTime dateDebut;
+	
+	private LocalDateTime dateFin;
+	
+	
 }

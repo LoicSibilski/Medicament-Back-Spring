@@ -1,5 +1,7 @@
 package com.m2i.medic.configs;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,8 +25,9 @@ import com.m2i.medic.services.implementations.MedicServiceImpl;
 public class ServiceConfig {
 
 	@Bean
-	public MedicService medicServiceFactory(MedicRepository medicRepo, ObjectMapper mapper) {
-		return new MedicServiceImpl(medicRepo, mapper);
+	public MedicService medicServiceFactory(
+			MedicRepository medicRepo, ObjectMapper mapper, DateTimeFormatter dateFormatter, DateTimeFormatter timeFormatter) {
+		return new MedicServiceImpl(medicRepo, mapper, dateFormatter, timeFormatter);
 	}
 	
 	@Bean
@@ -45,5 +48,17 @@ public class ServiceConfig {
 			.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 			.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 		
+	}
+
+	@Bean
+	public DateTimeFormatter timeFormatter() {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		return timeFormatter;
+	}
+	
+	@Bean
+	public DateTimeFormatter dateFormatter() {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return dateFormatter;
 	}
 }

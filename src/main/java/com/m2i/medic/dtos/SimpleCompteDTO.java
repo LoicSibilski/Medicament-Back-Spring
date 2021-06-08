@@ -9,8 +9,6 @@ public class SimpleCompteDTO {
 	
 	private String id;
 	private String email;
-	// supprimer
 	private String motDePasse;
-	private String motDePasseConfirme;
 
 }

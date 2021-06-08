@@ -1,6 +1,7 @@
 package com.m2i.medic.services.implementations;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 import org.bson.internal.Base64;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,10 @@ public class CompteServiceImpl implements CompteService {
 	
 	private CompteRepository repository;
 	
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+)$");
+	
+	public static final Pattern VALID_MOTDEPASSE_ADDRESS_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
+	
 	/**
 	 * Constructeur
 	 * @param repository
@@ -36,10 +41,7 @@ public class CompteServiceImpl implements CompteService {
 
 	@Override
 	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO dto) {
-		// verifier que l'email, le mot de passe et le mot de passe ont une valeur
-		verifierCreationCompte(dto);
-		// verifier que les mots de passe sont identiques
-		verifierMotDePasses(dto.getMotDePasse(), dto.getMotDePasseConfirme());
+		verifierCreationCompte(dto); 
 		Compte compte = this.mapper.convertValue(dto, Compte.class);
 		compte.setMotDePasse(Base64.encode(dto.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
 		compte.setDateCreation(LocalDateTime.now());
@@ -49,14 +51,65 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	/**
-	 * Cette méthode permet de vérifier si les attributs (email, mot de passe, mot de passe confirmé) d'un compte sont remplis
+	 * Cette méthode permet de vérifier si le compte est conforme
 	 * @param dto
 	 */
 	private void verifierCreationCompte(CreationNouveauCompteDTO dto) {
-		if(dto.getEmail() == null || dto.getMotDePasse() == null || dto.getMotDePasseConfirme() == null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST); // Afficher un message de l'attribut null
+		String motDePasse = dto.getMotDePasse();
+		String motDePasseConfirme = dto.getMotDePasseConfirme();
+		
+//		verifier que l'email est unique
+		verifierEmailExiste(dto);
+		
+//		verifier que l'email correspond au bon format (regex)
+		verifierEmailFormat(dto);
+		
+//		verifier que le mot de passe correspond au bon format (regex)
+		verifierMotDePasseFormat(dto);
+
+		
+//		verifier que les mots de passe sont identiques
+		verifierMotDePasses(motDePasse, motDePasseConfirme);
+	}
+	
+	/**
+	 * Cette méthode permet de vérifier si l'email existe dans la base de données
+	 * @param dto
+	 */
+	private void verifierEmailExiste(CreationNouveauCompteDTO dto) {
+		CreationNouveauCompteDTO compteRecupere = this.repository.findByEmail(dto.getEmail());
+		System.out.println(compteRecupere);
+		if(compteRecupere != null) {			
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà !");
 		}
 	}
+	
+	/**
+	 * Cette méthode permet de vérifier si l'email correspond au bon format (regex)
+	 * @param dto
+	 */
+	private void verifierEmailFormat(CreationNouveauCompteDTO dto) {
+		String email = dto.getEmail();
+        boolean emailValide = VALID_EMAIL_ADDRESS_REGEX.matcher(email).find();
+//        System.out.println(email + " " + emailValide);
+        if(!emailValide) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email ne respecte pas le bon format");
+        }
+	}
+	
+	/**
+	 * Cette méthode permet de vérifier si le mot de passe correspond au bon format (regex)
+	 * @param dto
+	 */
+	private void verifierMotDePasseFormat(CreationNouveauCompteDTO dto) {
+		String motDePasse = dto.getMotDePasse();
+        boolean motDePasseValide = VALID_MOTDEPASSE_ADDRESS_REGEX.matcher(motDePasse).find();
+//		System.out.println(motDePasse + " " + motDePasseValide);
+        if(!motDePasseValide) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le mot de passe ne respecte pas le bon format");
+        }
+	}
+	
 	
 	/**
 	 * Cette méthode permet de vérifier que les deux mots de passe sont identiques
@@ -64,9 +117,9 @@ public class CompteServiceImpl implements CompteService {
 	 * @param motDePasseConfirme
 	 */
 	private void verifierMotDePasses(String motDePasse, String motDePasseConfirme) {
-		System.out.println(motDePasse + " " + motDePasseConfirme);
-		if(motDePasse != motDePasseConfirme) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Les mots de passe sont incorrectes");
+		boolean motDePassesDifferents = (motDePasse.equals(motDePasseConfirme));
+		if(!motDePassesDifferents) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Les mots de passe ne sont pas identiques");
 		}
 	}
 	

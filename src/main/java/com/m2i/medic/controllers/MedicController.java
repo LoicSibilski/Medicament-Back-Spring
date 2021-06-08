@@ -1,10 +1,8 @@
 package com.m2i.medic.controllers;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.m2i.medic.models.Medic;
-import com.m2i.medic.models.MedicTmp;
-import com.m2i.medic.services.GenericService;
 import com.m2i.medic.services.MedicService;
 
 
@@ -45,7 +41,7 @@ public class MedicController {
 	public void save(@RequestBody JsonNode medicTmp) {
 		System.out.println(medicTmp);
 		try {
-			this.medicService.convertTmpToReal(medicTmp);
+			this.medicService.convertionJsonMedicVersCreationMedicDto(medicTmp);
 		} catch (IllegalArgumentException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

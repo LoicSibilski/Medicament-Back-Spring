@@ -1,9 +1,11 @@
 package com.m2i.medic.services.implementations;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.m2i.medic.dtos.CreationDureeDto;
 import com.m2i.medic.models.Duree;
 import com.m2i.medic.repositories.DureeRepository;
 import com.m2i.medic.services.GenericService;
@@ -12,7 +14,7 @@ public class DureeServiceImpl implements GenericService<Duree>{
 
 	@Autowired
 	private DureeRepository dureeRepository;
-	
+		
 	public List<Duree> getAll() {
 		return this.dureeRepository.findAll();
 	}

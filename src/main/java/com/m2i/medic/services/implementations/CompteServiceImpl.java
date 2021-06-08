@@ -1,6 +1,8 @@
 package com.m2i.medic.services.implementations;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.bson.internal.Base64;
@@ -10,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.SimpleCompteDTO;
 import com.m2i.medic.models.Compte;
 import com.m2i.medic.repositories.CompteRepository;
 import com.m2i.medic.services.CompteService;
@@ -40,7 +43,7 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO dto) {
+	public CompteDTO creationNouveauCompteParDTO(CreationNouveauCompteDTO dto) {
 		verifierCreationCompte(dto); 
 		Compte compte = this.mapper.convertValue(dto, Compte.class);
 		compte.setMotDePasse(Base64.encode(dto.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
@@ -122,5 +125,34 @@ public class CompteServiceImpl implements CompteService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Les mots de passe ne sont pas identiques");
 		}
 	}
+
+	@Override
+	public List<SimpleCompteDTO> recupererTousLesComptes() {
+		List<Compte> comptes = this.repository.findAll();
+		
+		List<SimpleCompteDTO> compteDTO = new ArrayList<>();
+		for (Compte compte : comptes) {
+			compteDTO.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
+		}
+		return compteDTO;
+	}
+
+	@Override
+	public SimpleCompteDTO recupererUnCompteParId(String id) {
+		Compte compte = this.repository.findById(id)
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return mapper.convertValue(compte, SimpleCompteDTO.class);
+	}
+
+	@Override
+	public void supprimerUnCompteParId(String id) {
+		if(this.repository.existsById(id))
+			this.repository.deleteById(id);
+		else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+	}
+	
+	
 	
 }

@@ -25,6 +25,13 @@ public interface CompteService {
 	 * @return List<CompteDTO>
 	 */
 	public List<SimpleCompteDTO> recupererTousLesComptes();
+	
+	/**
+	 * Cette méthode permet de récupére un compte
+	 * @param id
+	 * @return SimpleCompteDTO
+	 */
+	public SimpleCompteDTO recupererCompte(String id);
 
 
 }

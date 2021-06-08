@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.m2i.medic.dtos.AssistantOuAssisteDTO;
 import com.m2i.medic.models.Utilisateur;
 import com.m2i.medic.repositories.UtilisateurRepository;
 import com.m2i.medic.services.UtilisateurService;
@@ -48,6 +49,21 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	@Override
 	public void deleteAll() {
 		this.repository.deleteAll();
+	}
+
+	@Override
+	public List<Utilisateur> findAllByCompteId(String id) {
+		return this.repository.findAllByCompteId(id);
+	}
+
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id) {
+		return this.repository.findAllAssistantsByCompteId(id);
+	}
+
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id) {
+		return this.repository.findAllAssistesByCompteId(id);
 	}
 
 }

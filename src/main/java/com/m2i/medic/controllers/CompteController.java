@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.CreationNouveauCompteDTO;
 import com.m2i.medic.dtos.SimpleCompteDTO;
 import com.m2i.medic.services.CompteService;
+
 
 /**
  * Cette classe représente un controller de compte
@@ -41,7 +43,13 @@ public class CompteController {
 	 * @return List<SimpleCompteDTO>
 	 */
 	@GetMapping("")
-	public List<SimpleCompteDTO> recupérerTousLesComptes(){
+	public List<SimpleCompteDTO> recupererTousLesComptes(){
 		return this.service.recupererTousLesComptes();
 	}
+	
+	@GetMapping("{id}")
+	public SimpleCompteDTO recupererCompte(@PathVariable String id) {
+		return this.service.recupererCompte(id);
+	}
+	
 }

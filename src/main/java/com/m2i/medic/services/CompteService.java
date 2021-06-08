@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.SimpleCompteDTO;
 
 /**
  * Cette classe représente un service de compte
@@ -23,7 +24,7 @@ public interface CompteService {
 	 * Cette méthode permet de récupérer tous les comptes
 	 * @return List<CompteDTO>
 	 */
-	public List<CompteDTO> recupererTousLesComptes();
+	public List<SimpleCompteDTO> recupererTousLesComptes();
 
 
 }

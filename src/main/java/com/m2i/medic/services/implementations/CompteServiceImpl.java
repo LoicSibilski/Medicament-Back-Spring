@@ -136,6 +136,13 @@ public class CompteServiceImpl implements CompteService {
 		}
 		return compteDTO;
 	}
+
+	@Override
+	public SimpleCompteDTO recupererCompte(String id) {
+		Compte compte = this.repository.findById(id)
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return mapper.convertValue(compte, SimpleCompteDTO.class);
+	}
 	
 	
 	

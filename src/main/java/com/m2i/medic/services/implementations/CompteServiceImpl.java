@@ -43,7 +43,7 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO dto) {
+	public CompteDTO creationNouveauCompteParDTO(CreationNouveauCompteDTO dto) {
 		verifierCreationCompte(dto); 
 		Compte compte = this.mapper.convertValue(dto, Compte.class);
 		compte.setMotDePasse(Base64.encode(dto.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
@@ -138,10 +138,19 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public SimpleCompteDTO recupererCompte(String id) {
+	public SimpleCompteDTO recupererUnCompteParId(String id) {
 		Compte compte = this.repository.findById(id)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return mapper.convertValue(compte, SimpleCompteDTO.class);
+	}
+
+	@Override
+	public void supprimerUnCompteParId(String id) {
+		if(this.repository.existsById(id))
+			this.repository.deleteById(id);
+		else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
 	}
 	
 	

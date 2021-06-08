@@ -14,11 +14,11 @@ import com.m2i.medic.dtos.SimpleCompteDTO;
 public interface CompteService {
 
 	/**
-	 * Cette méthode permet de créer un nouveau compte
+	 * Cette méthode permet de créer un nouveau compte à partir d'un DTO
 	 * @param dto
 	 * @return CompteDTO
 	 */
-	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO dto);
+	public CompteDTO creationNouveauCompteParDTO(CreationNouveauCompteDTO dto);
 	
 	/**
 	 * Cette méthode permet de récupérer tous les comptes
@@ -27,11 +27,16 @@ public interface CompteService {
 	public List<SimpleCompteDTO> recupererTousLesComptes();
 	
 	/**
-	 * Cette méthode permet de récupére un compte
+	 * Cette méthode permet de récupére un compte à partir d'un id
 	 * @param id
 	 * @return SimpleCompteDTO
 	 */
-	public SimpleCompteDTO recupererCompte(String id);
+	public SimpleCompteDTO recupererUnCompteParId(String id);
 
-
+	/**
+	 * Cette méthode permet de supprimer un compte à partir d'un id
+	 * @param id
+	 */
+	public void supprimerUnCompteParId(String id);
+	
 }

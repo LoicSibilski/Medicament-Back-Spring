@@ -21,11 +21,21 @@ import com.m2i.medic.services.implementations.CompteServiceImpl;
 @Configuration
 public class CompteConfig {
 	
+	/**
+	 * Cette méthode permet de retourner un objet pour le service d'un compte
+	 * @param repository
+	 * @param mapper
+	 * @return un objet utile à l'implémentation des services d'un compte
+	 */
 	@Bean
 	public CompteService compteService(CompteRepository repository, ObjectMapper mapper) {
 		return new CompteServiceImpl(repository, mapper);
 	}
 
+	/**
+	 * Cette méthode permet de retourner un objet pour faire la correspondance avec un modèle
+	 * @return objet mapper utile pour convertir un objet en entrée avec un modèle
+	 */
 	@Bean
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper().registerModule(new JavaTimeModule())

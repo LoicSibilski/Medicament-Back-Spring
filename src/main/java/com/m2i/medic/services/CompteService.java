@@ -14,30 +14,33 @@ import com.m2i.medic.dtos.SimpleCompteDTO;
 public interface CompteService {
 
 	/**
-	 * Cette méthode permet de créer un nouveau compte à partir d'un DTO
-	 * @param dto
-	 * @return CompteDTO
+	 * Cette méthode permet de créer un nouveau compte à partir d'un compte
+	 * @param un nouveau compte
+	 * @return un compte 
 	 */
-	public CompteDTO creationNouveauCompteParDTO(CreationNouveauCompteDTO dto);
+	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO nouveauCompte);
 	
 	/**
 	 * Cette méthode permet de récupérer tous les comptes
-	 * @return List<CompteDTO>
+	 * @return une liste de comptes
 	 */
 	public List<SimpleCompteDTO> recupererTousLesComptes();
 	
 	/**
-	 * Cette méthode permet de récupére un compte à partir d'un id
-	 * @param id
-	 * @return SimpleCompteDTO
+	 * Cette méthode permet de récupére un compte à partir d'un identifiant
+	 * @param l'identifiant d'un compte
+	 * @return un compte
 	 */
-	public SimpleCompteDTO recupererUnCompteParId(String id);
+	public SimpleCompteDTO recupererUnCompte(String identifiant);
 
 	/**
-	 * Cette méthode permet de supprimer un compte à partir d'un id
-	 * @param id
+	 * Cette méthode permet de supprimer un compte à partir d'un identifiant
+	 * @param l'identifiant d'un compte
 	 */
-	public void supprimerUnCompteParId(String id);
+	public void supprimerUnCompte(String identifiant);
 	
-	
+	/**
+	 * Cette méthode permet de supprimer tous les comptes
+	 */
+	public void supprimerTousLesComptes();
 }

@@ -12,6 +12,7 @@ public class CompteDTO {
 	private String id;
 	private String email;
 	private String motDePasse;
+	private Boolean etat;
 	private LocalDateTime dateCreation;
 	private LocalDateTime dateMisJour;
 	

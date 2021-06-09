@@ -43,44 +43,39 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public CompteDTO creationNouveauCompteParDTO(CreationNouveauCompteDTO dto) {
-		verifierCreationCompte(dto); 
-		Compte compte = this.mapper.convertValue(dto, Compte.class);
-		compte.setMotDePasse(Base64.encode(dto.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
+	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO nouveauCompte) {
+		verifierCreationCompte(nouveauCompte); 
+		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
+		compte.setMotDePasse(Base64.encode(nouveauCompte.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
 		compte.setDateCreation(LocalDateTime.now());
 		compte.setDateMisJour(LocalDateTime.now());
-		Compte result = this.repository.save(compte);
-		return this.mapper.convertValue(result, CompteDTO.class);
+		Compte compteSauvegarde = this.repository.save(compte);
+		return this.mapper.convertValue(compteSauvegarde, CompteDTO.class);
 	}
-	
+
 	/**
 	 * Cette méthode permet de vérifier si le compte est conforme
-	 * @param dto
+	 * @param un compte
 	 */
-	private void verifierCreationCompte(CreationNouveauCompteDTO dto) {
-		String motDePasse = dto.getMotDePasse();
-		String motDePasseConfirme = dto.getMotDePasseConfirme();
+	private void verifierCreationCompte(CreationNouveauCompteDTO compte) {
 		
 //		verifier que l'email est unique
-		verifierEmailExiste(dto);
+		verifierEmailExiste(compte);
 		
 //		verifier que l'email correspond au bon format (regex)
-		verifierEmailFormat(dto);
+		verifierEmailFormat(compte);
 		
 //		verifier que le mot de passe correspond au bon format (regex)
-		verifierMotDePasseFormat(dto);
+		verifierMotDePasseFormat(compte);
 
-		
-//		verifier que les mots de passe sont identiques
-		verifierMotDePasses(motDePasse, motDePasseConfirme);
 	}
 	
 	/**
 	 * Cette méthode permet de vérifier si l'email existe dans la base de données
-	 * @param dto
+	 * @param un compte
 	 */
-	private void verifierEmailExiste(CreationNouveauCompteDTO dto) {
-		CreationNouveauCompteDTO compteRecupere = this.repository.findByEmail(dto.getEmail());
+	private void verifierEmailExiste(CreationNouveauCompteDTO compte) {
+		CreationNouveauCompteDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
 		System.out.println(compteRecupere);
 		if(compteRecupere != null) {			
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà !");
@@ -89,12 +84,11 @@ public class CompteServiceImpl implements CompteService {
 	
 	/**
 	 * Cette méthode permet de vérifier si l'email correspond au bon format (regex)
-	 * @param dto
+	 * @param un compte
 	 */
-	private void verifierEmailFormat(CreationNouveauCompteDTO dto) {
-		String email = dto.getEmail();
+	private void verifierEmailFormat(CreationNouveauCompteDTO compte) {
+		String email = compte.getEmail();
         boolean emailValide = VALID_EMAIL_ADDRESS_REGEX.matcher(email).find();
-//        System.out.println(email + " " + emailValide);
         if(!emailValide) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email ne respecte pas le bon format");
         }
@@ -102,55 +96,46 @@ public class CompteServiceImpl implements CompteService {
 	
 	/**
 	 * Cette méthode permet de vérifier si le mot de passe correspond au bon format (regex)
-	 * @param dto
+	 * @param un compte
 	 */
-	private void verifierMotDePasseFormat(CreationNouveauCompteDTO dto) {
-		String motDePasse = dto.getMotDePasse();
+	private void verifierMotDePasseFormat(CreationNouveauCompteDTO compte) {
+		String motDePasse = compte.getMotDePasse();
         boolean motDePasseValide = VALID_MOTDEPASSE_ADDRESS_REGEX.matcher(motDePasse).find();
-//		System.out.println(motDePasse + " " + motDePasseValide);
         if(!motDePasseValide) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le mot de passe ne respecte pas le bon format");
         }
 	}
 	
-	
-	/**
-	 * Cette méthode permet de vérifier que les deux mots de passe sont identiques
-	 * @param motDePasse
-	 * @param motDePasseConfirme
-	 */
-	private void verifierMotDePasses(String motDePasse, String motDePasseConfirme) {
-		boolean motDePassesDifferents = (motDePasse.equals(motDePasseConfirme));
-		if(!motDePassesDifferents) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Les mots de passe ne sont pas identiques");
-		}
-	}
-
 	@Override
 	public List<SimpleCompteDTO> recupererTousLesComptes() {
-		List<Compte> comptes = this.repository.findAll();
+		List<Compte> listeComptes = this.repository.findAll();
 		
-		List<SimpleCompteDTO> compteDTO = new ArrayList<>();
-		for (Compte compte : comptes) {
-			compteDTO.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
+		List<SimpleCompteDTO> nouvelleListeCompte = new ArrayList<>();
+		for (Compte compte : listeComptes) {
+			nouvelleListeCompte.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
 		}
-		return compteDTO;
+		return nouvelleListeCompte;
 	}
 
 	@Override
-	public SimpleCompteDTO recupererUnCompteParId(String id) {
-		Compte compte = this.repository.findById(id)
+	public SimpleCompteDTO recupererUnCompte(String identifiant) {
+		Compte compte = this.repository.findById(identifiant)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return mapper.convertValue(compte, SimpleCompteDTO.class);
 	}
 
 	@Override
-	public void supprimerUnCompteParId(String id) {
-		if(this.repository.existsById(id))
-			this.repository.deleteById(id);
+	public void supprimerUnCompte(String identifiant) {
+		if(this.repository.existsById(identifiant))
+			this.repository.deleteById(identifiant);
 		else
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
+	}
+
+	@Override
+	public void supprimerTousLesComptes() {
+		this.repository.deleteAll();
 	}
 	
 	

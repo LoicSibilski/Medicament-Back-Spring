@@ -134,6 +134,11 @@ public class CompteServiceImpl implements CompteService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
 	}
+
+	@Override
+	public void supprimerTousLesComptes() {
+		this.repository.deleteAll();
+	}
 	
 	
 	

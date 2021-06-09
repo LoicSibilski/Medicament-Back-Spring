@@ -58,8 +58,6 @@ public class CompteServiceImpl implements CompteService {
 	 * @param dto
 	 */
 	private void verifierCreationCompte(CreationNouveauCompteDTO dto) {
-		String motDePasse = dto.getMotDePasse();
-		String motDePasseConfirme = dto.getMotDePasseConfirme();
 		
 //		verifier que l'email est unique
 		verifierEmailExiste(dto);
@@ -70,9 +68,6 @@ public class CompteServiceImpl implements CompteService {
 //		verifier que le mot de passe correspond au bon format (regex)
 		verifierMotDePasseFormat(dto);
 
-		
-//		verifier que les mots de passe sont identiques
-		verifierMotDePasses(motDePasse, motDePasseConfirme);
 	}
 	
 	/**
@@ -113,19 +108,6 @@ public class CompteServiceImpl implements CompteService {
         }
 	}
 	
-	
-	/**
-	 * Cette méthode permet de vérifier que les deux mots de passe sont identiques
-	 * @param motDePasse
-	 * @param motDePasseConfirme
-	 */
-	private void verifierMotDePasses(String motDePasse, String motDePasseConfirme) {
-		boolean motDePassesDifferents = (motDePasse.equals(motDePasseConfirme));
-		if(!motDePassesDifferents) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Les mots de passe ne sont pas identiques");
-		}
-	}
-
 	@Override
 	public List<SimpleCompteDTO> recupererTousLesComptes() {
 		List<Compte> comptes = this.repository.findAll();

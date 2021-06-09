@@ -58,5 +58,10 @@ public class CompteController {
 		this.service.supprimerUnCompteParId(id);
 	}
 	
+	@DeleteMapping()
+	public void supprimerTousLesComptes() {
+		this.service.supprimerTousLesComptes();
+	}
+	
 	
 }

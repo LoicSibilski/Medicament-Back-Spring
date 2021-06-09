@@ -46,7 +46,7 @@ public class CompteServiceImpl implements CompteService {
 	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO nouveauCompte) {
 		verifierCreationCompte(nouveauCompte); 
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
-		compte.setMotDePasse(Base64.encode(nouveauCompte.getMotDePasse().getBytes())); // modifier le chiffrement (actuellement ce n'est pas sécurisé)
+		compte.setMotDePasse(Base64.encode(nouveauCompte.getMotDePasse().getBytes())); // modifier le chiffrement
 		compte.setDateCreation(LocalDateTime.now());
 		compte.setDateMisJour(LocalDateTime.now());
 		Compte compteSauvegarde = this.repository.save(compte);
@@ -58,16 +58,9 @@ public class CompteServiceImpl implements CompteService {
 	 * @param un compte
 	 */
 	private void verifierCreationCompte(CreationNouveauCompteDTO compte) {
-		
-//		verifier que l'email est unique
 		verifierEmailExiste(compte);
-		
-//		verifier que l'email correspond au bon format (regex)
 		verifierEmailFormat(compte);
-		
-//		verifier que le mot de passe correspond au bon format (regex)
 		verifierMotDePasseFormat(compte);
-
 	}
 	
 	/**
@@ -110,11 +103,11 @@ public class CompteServiceImpl implements CompteService {
 	public List<SimpleCompteDTO> recupererTousLesComptes() {
 		List<Compte> listeComptes = this.repository.findAll();
 		
-		List<SimpleCompteDTO> nouvelleListeCompte = new ArrayList<>();
+		List<SimpleCompteDTO> nouvelleListeComptes = new ArrayList<>();
 		for (Compte compte : listeComptes) {
-			nouvelleListeCompte.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
+			nouvelleListeComptes.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
 		}
-		return nouvelleListeCompte;
+		return nouvelleListeComptes;
 	}
 
 	@Override

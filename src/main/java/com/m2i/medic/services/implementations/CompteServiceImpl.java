@@ -69,9 +69,8 @@ public class CompteServiceImpl implements CompteService {
 	 */
 	private void verifierEmailExiste(CreationNouveauCompteDTO compte) {
 		CreationNouveauCompteDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
-		System.out.println(compteRecupere);
 		if(compteRecupere != null) {			
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà !");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
 		}
 	}
 	
@@ -102,7 +101,6 @@ public class CompteServiceImpl implements CompteService {
 	@Override
 	public List<SimpleCompteDTO> recupererTousLesComptes() {
 		List<Compte> listeComptes = this.repository.findAll();
-		
 		List<SimpleCompteDTO> nouvelleListeComptes = new ArrayList<>();
 		for (Compte compte : listeComptes) {
 			nouvelleListeComptes.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
@@ -113,7 +111,7 @@ public class CompteServiceImpl implements CompteService {
 	@Override
 	public SimpleCompteDTO recupererUnCompte(String identifiant) {
 		Compte compte = this.repository.findById(identifiant)
-				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte n'existe pas"));
 		return mapper.convertValue(compte, SimpleCompteDTO.class);
 	}
 
@@ -122,7 +120,7 @@ public class CompteServiceImpl implements CompteService {
 		if(this.repository.existsById(identifiant))
 			this.repository.deleteById(identifiant);
 		else
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte n'existe pas");
 		
 	}
 

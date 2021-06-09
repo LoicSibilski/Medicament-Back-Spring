@@ -39,5 +39,8 @@ public interface CompteService {
 	 */
 	public void supprimerUnCompteParId(String id);
 	
-	
+	/**
+	 * Cette méthode permet de supprimer tous les comptes
+	 */
+	public void supprimerTousLesComptes();
 }

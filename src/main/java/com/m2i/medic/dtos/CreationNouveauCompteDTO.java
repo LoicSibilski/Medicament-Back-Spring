@@ -12,5 +12,5 @@ public class CreationNouveauCompteDTO {
 
 	private String email;
 	private String motDePasse;
-	
+
 }

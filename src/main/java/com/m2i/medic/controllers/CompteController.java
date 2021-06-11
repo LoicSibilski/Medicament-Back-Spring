@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.dtos.CompteDTO;
-import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.InscriptionDTO;
 import com.m2i.medic.services.CompteService;
 
 
@@ -34,7 +34,7 @@ public class CompteController {
 	 * @return un service pour créer un compte
 	 */
 	@PostMapping("")
-	public CompteDTO creationNouveauCompte(@RequestBody CreationNouveauCompteDTO nouveauCompte) {
+	public CompteDTO creationNouveauCompte(@RequestBody InscriptionDTO nouveauCompte) {
 		return this.service.creationNouveauCompte(nouveauCompte);
 	}
 	

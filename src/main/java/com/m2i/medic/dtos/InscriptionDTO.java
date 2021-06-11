@@ -8,7 +8,7 @@ import lombok.Data;
  *
  */
 @Data
-public class CreationNouveauCompteDTO {
+public class InscriptionDTO {
 
 	private String email;
 	private String motDePasse;

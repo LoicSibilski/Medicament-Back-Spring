@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.CompteDTO;
-import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.InscriptionDTO;
 import com.m2i.medic.models.Compte;
 import com.m2i.medic.repositories.CompteRepository;
 import com.m2i.medic.services.CompteService;
@@ -42,7 +42,7 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO nouveauCompte) {
+	public CompteDTO creationNouveauCompte(InscriptionDTO nouveauCompte) {
 		verifierCreationCompte(nouveauCompte); 
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
 		compte.setMotDePasse(Base64.encode(nouveauCompte.getMotDePasse().getBytes())); // modifier le chiffrement
@@ -56,7 +56,7 @@ public class CompteServiceImpl implements CompteService {
 	 * Cette méthode permet de vérifier si le compte est conforme
 	 * @param un compte
 	 */
-	private void verifierCreationCompte(CreationNouveauCompteDTO compte) {
+	private void verifierCreationCompte(InscriptionDTO compte) {
 		verifierEmailExiste(compte);
 		verifierEmailFormat(compte);
 		verifierMotDePasseFormat(compte);
@@ -66,8 +66,8 @@ public class CompteServiceImpl implements CompteService {
 	 * Cette méthode permet de vérifier si l'email existe dans la base de données
 	 * @param un compte
 	 */
-	private void verifierEmailExiste(CreationNouveauCompteDTO compte) {
-		CreationNouveauCompteDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
+	private void verifierEmailExiste(InscriptionDTO compte) {
+		InscriptionDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
 		if(compteRecupere != null) {			
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
 		}
@@ -77,7 +77,7 @@ public class CompteServiceImpl implements CompteService {
 	 * Cette méthode permet de vérifier si l'email correspond au bon format (regex)
 	 * @param un compte
 	 */
-	private void verifierEmailFormat(CreationNouveauCompteDTO compte) {
+	private void verifierEmailFormat(InscriptionDTO compte) {
 		String email = compte.getEmail();
         boolean emailValide = VALID_EMAIL_ADDRESS_REGEX.matcher(email).find();
         if(!emailValide) {
@@ -89,7 +89,7 @@ public class CompteServiceImpl implements CompteService {
 	 * Cette méthode permet de vérifier si le mot de passe correspond au bon format (regex)
 	 * @param un compte
 	 */
-	private void verifierMotDePasseFormat(CreationNouveauCompteDTO compte) {
+	private void verifierMotDePasseFormat(InscriptionDTO compte) {
 		String motDePasse = compte.getMotDePasse();
         boolean motDePasseValide = VALID_MOTDEPASSE_ADDRESS_REGEX.matcher(motDePasse).find();
         if(!motDePasseValide) {

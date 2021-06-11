@@ -3,7 +3,7 @@ package com.m2i.medic.services;
 import java.util.List;
 
 import com.m2i.medic.dtos.CompteDTO;
-import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.InscriptionDTO;
 
 /**
  * Cette classe représente un service de compte
@@ -17,7 +17,7 @@ public interface CompteService {
 	 * @param un nouveau compte
 	 * @return un compte 
 	 */
-	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO nouveauCompte);
+	public CompteDTO creationNouveauCompte(InscriptionDTO nouveauCompte);
 	
 	/**
 	 * Cette méthode permet de récupérer tous les comptes

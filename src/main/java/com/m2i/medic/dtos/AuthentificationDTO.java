@@ -1,6 +1,7 @@
 package com.m2i.medic.dtos;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Cette classe représente un DTO d'authentification d'un compte
@@ -8,6 +9,7 @@ import lombok.Data;
  *
  */
 @Data
+@NoArgsConstructor
 public class AuthentificationDTO {
 
 	private String email;

@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.CreationNouveauCompteDTO;
-import com.m2i.medic.dtos.SimpleCompteDTO;
 import com.m2i.medic.models.Compte;
 import com.m2i.medic.repositories.CompteRepository;
 import com.m2i.medic.services.CompteService;
@@ -99,20 +98,20 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	@Override
-	public List<SimpleCompteDTO> recupererTousLesComptes() {
+	public List<CompteDTO> recupererTousLesComptes() {
 		List<Compte> listeComptes = this.repository.findAll();
-		List<SimpleCompteDTO> nouvelleListeComptes = new ArrayList<>();
+		List<CompteDTO> nouvelleListeComptes = new ArrayList<>();
 		for (Compte compte : listeComptes) {
-			nouvelleListeComptes.add(this.mapper.convertValue(compte, SimpleCompteDTO.class));
+			nouvelleListeComptes.add(this.mapper.convertValue(compte, CompteDTO.class));
 		}
 		return nouvelleListeComptes;
 	}
 
 	@Override
-	public SimpleCompteDTO recupererUnCompte(String identifiant) {
+	public CompteDTO recupererUnCompte(String identifiant) {
 		Compte compte = this.repository.findById(identifiant)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte n'existe pas"));
-		return mapper.convertValue(compte, SimpleCompteDTO.class);
+		return mapper.convertValue(compte, CompteDTO.class);
 	}
 
 	@Override

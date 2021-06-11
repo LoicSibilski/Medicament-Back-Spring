@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.CreationNouveauCompteDTO;
-import com.m2i.medic.dtos.SimpleCompteDTO;
 import com.m2i.medic.services.CompteService;
 
 
@@ -44,7 +43,7 @@ public class CompteController {
 	 * @return un service pour récupérer une liste de comptes
 	 */
 	@GetMapping("")
-	public List<SimpleCompteDTO> recupererTousLesComptes(){
+	public List<CompteDTO> recupererTousLesComptes(){
 		return this.service.recupererTousLesComptes();
 	}
 	
@@ -54,7 +53,7 @@ public class CompteController {
 	 * @return un service pour récupérer un compte
 	 */
 	@GetMapping("{id}")
-	public SimpleCompteDTO recupererUnCompte(@PathVariable String id) {
+	public CompteDTO recupererUnCompte(@PathVariable String id) {
 		return this.service.recupererUnCompte(id);
 	}
 	

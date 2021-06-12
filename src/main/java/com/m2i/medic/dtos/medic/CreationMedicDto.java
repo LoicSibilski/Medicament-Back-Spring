@@ -1,4 +1,7 @@
-package com.m2i.medic.dtos;
+package com.m2i.medic.dtos.medic;
+
+import com.m2i.medic.dtos.duree.CreationDureeDto;
+import com.m2i.medic.dtos.frequence.CreationFrequenceDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

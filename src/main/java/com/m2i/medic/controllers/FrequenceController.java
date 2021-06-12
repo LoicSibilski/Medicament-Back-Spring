@@ -13,43 +13,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.models.Frequence;
-import com.m2i.medic.services.GenericService;
-
+import com.m2i.medic.services.GenericCRUDService;
 
 @RestController
 @RequestMapping("frequences")
 public class FrequenceController {
 
-	@Autowired
-	private GenericService<Frequence> frequenceService;
-
-	@GetMapping()
-	public List<Frequence> getAll() {
-		return this.frequenceService.getAll();
-	}
-
-	@GetMapping("/{id}")
-	public Frequence getFrequenceById(@PathVariable String id) {
-		return this.frequenceService.getById(id);
-	}
-
-	@PostMapping()
-	public void save(@RequestBody Frequence[] frequences) {
-		this.frequenceService.save(frequences);
-	}
-
-	@PutMapping()
-	public void updateById( @RequestBody Frequence frequence) {
-		this.frequenceService.updateById(frequence);
-	}
-
-	@DeleteMapping("/{id}")
-	public void deleteByID(@PathVariable String id) {
-		this.frequenceService.deleteByID(id);
-	}
-	
-	@DeleteMapping()
-	public void deleteAll() {
-		this.frequenceService.deleteAll();
-	}
+//	@Autowired
+//	private GenericCRUDService<Frequence> frequenceService;
+//
+//	@GetMapping()
+//	public List<Frequence> getAll() {
+//		return this.frequenceService.getAll();
+//	}
+//
+//	@GetMapping("/{id}")
+//	public Frequence getFrequenceById(@PathVariable String id) {
+//		return this.frequenceService.getById(id);
+//	}
+//
+//	@PutMapping()
+//	public void updateById(@RequestBody Frequence frequence) {
+//		this.frequenceService.updateById(frequence);
+//	}
+//
+//	@DeleteMapping("/{id}")
+//	public void deleteByID(@PathVariable String id) {
+//		this.frequenceService.deleteByID(id);
+//	}
+//
+//	@DeleteMapping()
+//	public void deleteAll() {
+//		this.frequenceService.deleteAll();
+//	}
 }

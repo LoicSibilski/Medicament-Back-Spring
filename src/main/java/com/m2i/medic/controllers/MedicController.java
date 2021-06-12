@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.m2i.medic.dtos.medic.CreationMedicDto;
+import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Medic;
-import com.m2i.medic.services.MedicService;
+import com.m2i.medic.services.medic.MedicDtoService;
 
 
 @RestController
@@ -25,42 +27,44 @@ import com.m2i.medic.services.MedicService;
 public class MedicController {
 
 	@Autowired
-	private MedicService medicService;
+	private MedicDtoService medicDtoService;
 
 	@GetMapping()
-	public List<Medic> getAll() {
-		return this.medicService.getAll();
+	public List<MedicDto> getAll() {
+		return this.medicDtoService.getAll();
 	}
 
 	@GetMapping("medic/{id}")
-	public Medic getMedicById(@PathVariable String id) {
-		return this.medicService.getById(id);
+	public MedicDto getMedicById(@PathVariable String id) {
+		return this.medicDtoService.getById(id);
 	}
 
 	@PostMapping()
-	public void save(@RequestBody JsonNode medicTmp) {
-		System.out.println(medicTmp);
+	public CreationMedicDto save(@RequestBody JsonNode jsonNode) {
+		System.out.println(jsonNode);
 		try {
-			this.medicService.convertionJsonMedicVersCreationMedicDto(medicTmp);
+			this.medicDtoService.save(jsonNode);
+			System.out.println("tous marche c'est termine");
 		} catch (IllegalArgumentException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 //		this.medicService.save(medics);
 	}
 
 	@PutMapping()
-	public void updateById( @RequestBody Medic medic) {
-		this.medicService.updateById(medic);
+	public void updateById( @RequestBody MedicDto medicDto) {
+		this.medicDtoService.updateById(medicDto);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteByID(@PathVariable String id) {
-		this.medicService.deleteByID(id);
+		this.medicDtoService.deleteByID(id);
 	}
 	
 	@DeleteMapping()
 	public void deleteAll() {
-		this.medicService.deleteAll();
+		this.medicDtoService.deleteAll();
 	}
 }

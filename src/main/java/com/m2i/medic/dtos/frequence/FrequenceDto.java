@@ -1,4 +1,4 @@
-package com.m2i.medic.dtos;
+package com.m2i.medic.dtos.frequence;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,10 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CreationFrequenceDto {
-
-	List<LocalDateTime> prises;
+@NoArgsConstructor
+public class FrequenceDto {
 	
+	private String id;
+
+	private List<LocalDateTime> prises;
+
+
 }

@@ -6,28 +6,28 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.duree.CreationDureeDto;
-import com.m2i.medic.dtos.frequence.CreationFrequenceDto;
-import com.m2i.medic.dtos.medic.CreationMedicDto;
+import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.medic.CreationDureeDtoService;
-import com.m2i.medic.services.medic.CreationFrequenceDtoService;
-import com.m2i.medic.services.medic.CreationMedicDtoService;
+import com.m2i.medic.services.medic.SimpleDureeDtoService;
+import com.m2i.medic.services.medic.SimpleFrequenceDtoService;
+import com.m2i.medic.services.medic.SimpleMedicDtoService;
 
-public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
+public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 
 	private JsonNodeService jsonService;
-	private CreationFrequenceDtoService frequenceDtoService;
-	private CreationDureeDtoService dureeDtoService;
+	private SimpleFrequenceDtoService frequenceDtoService;
+	private SimpleDureeDtoService dureeDtoService;
 
-	public CreationMedicDtoServiceImpl(JsonNodeService jsonService, CreationFrequenceDtoService frequenceDtoService,
-			CreationDureeDtoService dureeDtoService) {
+	public SimpleMedicDtoServiceImpl(JsonNodeService jsonService, SimpleFrequenceDtoService frequenceDtoService,
+			SimpleDureeDtoService dureeDtoService) {
 		this.jsonService = jsonService;
 		this.frequenceDtoService = frequenceDtoService;
 		this.dureeDtoService = dureeDtoService;
 	}
 
-	public CreationMedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
+	public SimpleMedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
 			throws JsonProcessingException, IllegalArgumentException {
 
 		String nom = this.jsonService.getSingleValueFromJsonNode(jsonNode, "nom");
@@ -53,17 +53,17 @@ public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 	 *                    du medicaments.
 	 * @return CreationMedicDto.
 	 */
-	private CreationMedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq,
+	private SimpleMedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq,
 			Map<String, Object> mapDuree, List<LocalTime> listeHeures) {
 		System.out.println("'''''''''createMedicDtoFromMaps''''");
 		System.out.println("Map Duree =>" + mapDuree);
 		System.out.println("Map Frequence =>" + mapFreq);
 
-		CreationDureeDto dureeDto = this.dureeDtoService.createDureeDtoFromMap(mapDuree);
-		CreationFrequenceDto frequenceDto = this.frequenceDtoService.createFrequenceFromMapDateFin(mapFreq, dureeDto,
+		SimpleDureeDto dureeDto = this.dureeDtoService.createDureeDtoFromMap(mapDuree);
+		SimpleFrequenceDto frequenceDto = this.frequenceDtoService.createFrequenceFromMapDateFin(mapFreq, dureeDto,
 				listeHeures);
 
-		CreationMedicDto medicDto = new CreationMedicDto(nom, dureeDto, frequenceDto);
+		SimpleMedicDto medicDto = new SimpleMedicDto(nom, dureeDto, frequenceDto);
 
 		System.out.println("''''''''''''''''''''''''''''''''''''''''''''''''''''");
 

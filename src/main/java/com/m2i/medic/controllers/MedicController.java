@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.medic.CreationMedicDto;
+import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.services.medic.MedicDtoService;
@@ -40,7 +40,7 @@ public class MedicController {
 	}
 
 	@PostMapping()
-	public CreationMedicDto save(@RequestBody JsonNode jsonNode) {
+	public SimpleMedicDto save(@RequestBody JsonNode jsonNode) {
 		System.out.println(jsonNode);
 		try {
 			this.medicDtoService.save(jsonNode);

@@ -5,20 +5,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.CreationDureeDto;
-import com.m2i.medic.services.medic.CreationDureeDtoService;
+import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.services.medic.SimpleDureeDtoService;
 
-public class CreationDureeDtoServiceImpl implements CreationDureeDtoService {
+public class SimpleDureeDtoServiceImpl implements SimpleDureeDtoService {
 
 	private DateTimeFormatter dateFormatter;
 
-	public CreationDureeDtoServiceImpl(DateTimeFormatter dateFormatter) {
+	public SimpleDureeDtoServiceImpl(DateTimeFormatter dateFormatter) {
 		this.dateFormatter = dateFormatter;
 	}
 
-	public CreationDureeDto createDureeDtoFromMap(Map<String, Object> mapDuree) {
+	public SimpleDureeDto createDureeDtoFromMap(Map<String, Object> mapDuree) {
 
-		CreationDureeDto dureeDto = getDureeWithDateDebutFromMap(mapDuree);
+		SimpleDureeDto dureeDto = getDureeWithDateDebutFromMap(mapDuree);
 		String choix = mapDuree.get("choixDuree").toString();
 		
 		setDureeDtoFromMap(mapDuree, dureeDto, choix);
@@ -32,7 +32,7 @@ public class CreationDureeDtoServiceImpl implements CreationDureeDtoService {
 	 * @param dureeDto: CreationDureeDto = Object dto contenant la date de debut.
 	 * @param choix :String = option que l'utilisateur a choisit ("Pas de fin", "Pendant X jours" ...).
 	 */
-	private void setDureeDtoFromMap(Map<String, Object> mapDuree, CreationDureeDto dureeDto, String choix) {
+	private void setDureeDtoFromMap(Map<String, Object> mapDuree, SimpleDureeDto dureeDto, String choix) {
 		if (choix.equals("Pas de fin")) {
 			dureeDto.setDateFin(dureeDto.getDateDebut().plusYears(1));
 
@@ -51,8 +51,8 @@ public class CreationDureeDtoServiceImpl implements CreationDureeDtoService {
 	 * @param mapDuree : Map contenant toutes les informations concernant la duree dans le Json envoye par l'utilisateur
 	 * @return CreationDureeDto 
 	 */
-	private CreationDureeDto getDureeWithDateDebutFromMap(Map<String, Object> mapDuree) {
-		CreationDureeDto dureeDto = new CreationDureeDto();
+	private SimpleDureeDto getDureeWithDateDebutFromMap(Map<String, Object> mapDuree) {
+		SimpleDureeDto dureeDto = new SimpleDureeDto();
 
 		LocalDate date = LocalDate.parse(mapDuree.get("dateDebut").toString(), this.dateFormatter);
 		LocalDateTime dateDebut = date.atStartOfDay();

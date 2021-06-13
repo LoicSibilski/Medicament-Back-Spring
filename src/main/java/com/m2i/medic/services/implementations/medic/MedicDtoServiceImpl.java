@@ -3,11 +3,11 @@ package com.m2i.medic.services.implementations.medic;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m2i.medic.dtos.medic.CreationMedicDto;
+import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.MedicRepository;
-import com.m2i.medic.services.medic.CreationMedicDtoService;
+import com.m2i.medic.services.medic.SimpleMedicDtoService;
 import com.m2i.medic.services.medic.MedicDtoService;
 
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class MedicDtoServiceImpl implements MedicDtoService {
 
 	private MedicRepository medicRepository;
-	private CreationMedicDtoService medicDtoService;
+	private SimpleMedicDtoService medicDtoService;
 	private ObjectMapper mapper;
 
-	public MedicDtoServiceImpl(MedicRepository medicRepo, CreationMedicDtoService medicDtoService,
+	public MedicDtoServiceImpl(MedicRepository medicRepo, SimpleMedicDtoService medicDtoService,
 			ObjectMapper mapper) {
 		this.medicRepository = medicRepo;
 		this.medicDtoService = medicDtoService;
@@ -40,11 +40,11 @@ public class MedicDtoServiceImpl implements MedicDtoService {
 		return mapper.convertValue(medic, MedicDto.class);
 	}
 
-	public CreationMedicDto save(JsonNode jsonNode) throws JsonProcessingException, IllegalArgumentException {
-		CreationMedicDto creationMedicDto = this.medicDtoService.createMedicDtoFromJsonNode(jsonNode);
+	public SimpleMedicDto save(JsonNode jsonNode) throws JsonProcessingException, IllegalArgumentException {
+		SimpleMedicDto creationMedicDto = this.medicDtoService.createMedicDtoFromJsonNode(jsonNode);
 		Medic entity = this.mapper.convertValue(creationMedicDto, Medic.class);
 		Medic result = this.medicRepository.save(entity);
-		return this.mapper.convertValue(result, CreationMedicDto.class);
+		return this.mapper.convertValue(result, SimpleMedicDto.class);
 	}
 	
 	@Override

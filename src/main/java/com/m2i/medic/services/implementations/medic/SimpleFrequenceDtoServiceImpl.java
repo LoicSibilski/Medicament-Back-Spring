@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.CreationDureeDto;
-import com.m2i.medic.dtos.frequence.CreationFrequenceDto;
-import com.m2i.medic.services.medic.CreationFrequenceDtoService;
+import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.services.medic.SimpleFrequenceDtoService;
 
-public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoService {
+public class SimpleFrequenceDtoServiceImpl implements SimpleFrequenceDtoService {
 
-	public CreationFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, CreationDureeDto dureeDto,
+	public SimpleFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
 			List<LocalTime> listeHeures) {
 
 		String choixFreq = mapFreq.get("choixFrequence").toString();
 		List<LocalDateTime> listeJours = creationListeJours(mapFreq, dureeDto, choixFreq);
 		List<LocalDateTime> prises = creationPrisesAvecJoursEtHeures(listeJours, listeHeures);
-		CreationFrequenceDto frequenceDto = new CreationFrequenceDto();
+		SimpleFrequenceDto frequenceDto = new SimpleFrequenceDto();
 
 		frequenceDto.setPrises(prises);
 
@@ -33,7 +33,7 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 	 * @param choixFreq : String : choix du type de frequence par l'utilisateur 
 	 * @return List<LocalDateTime> : listeJours : liste de tous les jours ou l'utilisateur devra prendre son medicament. le temps est initialise a 00:00
 	 */
-	private List<LocalDateTime> creationListeJours(Map<String, Object> mapFreq, CreationDureeDto dureeDto,
+	private List<LocalDateTime> creationListeJours(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
 			String choixFreq) {
 
 		List<LocalDateTime> listeJours = new ArrayList<>();
@@ -62,7 +62,7 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 	 * @param dureeDto : object CreationDureeDto. </br>
 	 * @return listeJours : [12/06, 13/06, 14/06, 15/06 .... 20/06]
 	 */
-	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursXParJour(CreationDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursXParJour(SimpleDureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		for (LocalDateTime date = dureeDto.getDateDebut(); date
 				.isBefore(dureeDto.getDateFin()); date = date.plusDays(1)) {
@@ -71,20 +71,20 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursToutesLesXHeures(CreationDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursToutesLesXHeures(SimpleDureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixChaqueJoursToutesLesXHeures");
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(CreationDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(SimpleDureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixTousLesXJours");
 
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixCertainsjours(CreationDureeDto dureeDto,
+	private List<LocalDateTime> creationListeJoursAvexChoixCertainsjours(SimpleDureeDto dureeDto,
 			Map<String, Object> mapFreq) {
 		
 		List<LocalDateTime> listeJours = new ArrayList<>();

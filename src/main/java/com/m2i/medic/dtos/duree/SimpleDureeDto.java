@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreationDureeDto {
+public class SimpleDureeDto {
 	
 	private LocalDateTime dateDebut;
 	

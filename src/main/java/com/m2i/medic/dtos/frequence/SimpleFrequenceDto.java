@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreationFrequenceDto {
+public class SimpleFrequenceDto {
 
 	List<LocalDateTime> prises;
 	

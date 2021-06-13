@@ -5,10 +5,10 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.CreationDureeDto;
-import com.m2i.medic.dtos.frequence.CreationFrequenceDto;
+import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
 
-public interface CreationFrequenceDtoService {
+public interface SimpleFrequenceDtoService {
 	
 	/**
 	 * La methode permet de creer un dto FrequenceDto
@@ -18,7 +18,7 @@ public interface CreationFrequenceDtoService {
 	 * @param listeHeures : liste des horaires de prises.
 	 * @return 
 	 */
-	public CreationFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, CreationDureeDto dureeDto,
+	public SimpleFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
 			List<LocalTime> listeHeures);
 
 

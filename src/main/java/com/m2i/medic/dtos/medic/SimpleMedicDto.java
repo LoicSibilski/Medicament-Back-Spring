@@ -10,14 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicDto {
-	
-	private String id;
-	
+public class SimpleMedicDto {
+
 	private String nom;
 	
 	private SimpleDureeDto dureeDto;
 	
 	private SimpleFrequenceDto frequenceDto;
-
+	
 }

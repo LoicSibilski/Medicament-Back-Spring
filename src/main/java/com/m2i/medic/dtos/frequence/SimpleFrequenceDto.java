@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SimpleFrequenceDto {
 
+	private String id;
+	
 	List<LocalDateTime> prises;
 	
 }

@@ -9,10 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.duree.DureeDto;
 import com.m2i.medic.dtos.frequence.FrequenceDto;
-import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
-import com.m2i.medic.models.Duree;
-import com.m2i.medic.models.Frequence;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.MedicRepository;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
@@ -65,6 +62,7 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 	 */
 	private SimpleMedicDto convertSimpleDtoFromMedic(Medic medic) {
 		SimpleMedicDto simpleMedicDto = new SimpleMedicDto();
+		simpleMedicDto.setId(medic.getId());
 		simpleMedicDto.setNom(medic.getNom());
 		simpleMedicDto.setDureeDto(this.mapper.convertValue(medic.getDuree(), DureeDto.class));
 		simpleMedicDto.setFrequenceDto(this.mapper.convertValue(medic.getFrequence(), FrequenceDto.class));

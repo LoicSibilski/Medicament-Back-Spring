@@ -36,7 +36,7 @@ public class MedicController {
 		return this.simpleMedicDtoService.getAll();
 	}
 
-	@GetMapping("medic/{id}")
+	@GetMapping("/{id}")
 	public SimpleMedicDto findSimpleMedicById(@PathVariable String id) {
 		return this.simpleMedicDtoService.getById(id);
 	}

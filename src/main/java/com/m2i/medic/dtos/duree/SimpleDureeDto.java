@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SimpleDureeDto {
 	
+	private String id;
+
 	private LocalDateTime dateDebut;
-	
+
 	private LocalDateTime dateFin;
-	
+
 }

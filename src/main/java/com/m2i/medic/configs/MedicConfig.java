@@ -14,12 +14,12 @@ import com.m2i.medic.models.Frequence;
 import com.m2i.medic.repositories.MedicRepository;
 import com.m2i.medic.services.GenericCRUDService;
 import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.implementations.medic.SimpleDureeDtoServiceImpl;
-import com.m2i.medic.services.implementations.medic.SimpleFrequenceDtoServiceImpl;
+import com.m2i.medic.services.duree.SimpleDureeDtoService;
+import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
 import com.m2i.medic.services.implementations.medic.SimpleMedicDtoServiceImpl;
+import com.m2i.medic.services.implementations.duree.SimpleDureeDtoServiceImpl;
+import com.m2i.medic.services.implementations.frequence.SimpleFrequenceDtoServiceImpl;
 import com.m2i.medic.services.implementations.medic.MedicDtoServiceImpl;
-import com.m2i.medic.services.medic.SimpleDureeDtoService;
-import com.m2i.medic.services.medic.SimpleFrequenceDtoService;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
 import com.m2i.medic.services.medic.MedicDtoService;
 

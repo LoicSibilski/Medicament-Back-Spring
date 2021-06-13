@@ -10,8 +10,8 @@ import com.m2i.medic.dtos.duree.SimpleDureeDto;
 import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.medic.SimpleDureeDtoService;
-import com.m2i.medic.services.medic.SimpleFrequenceDtoService;
+import com.m2i.medic.services.duree.SimpleDureeDtoService;
+import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
 
 public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {

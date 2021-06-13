@@ -1,4 +1,4 @@
-package com.m2i.medic.services.implementations.medic;
+package com.m2i.medic.services.implementations.frequence;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.m2i.medic.dtos.duree.SimpleDureeDto;
 import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
-import com.m2i.medic.services.medic.SimpleFrequenceDtoService;
+import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
 
 public class SimpleFrequenceDtoServiceImpl implements SimpleFrequenceDtoService {
 

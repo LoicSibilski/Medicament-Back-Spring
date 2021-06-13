@@ -1,4 +1,4 @@
-package com.m2i.medic.services.implementations.medic;
+package com.m2i.medic.services.implementations.duree;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.services.medic.SimpleDureeDtoService;
+import com.m2i.medic.services.duree.SimpleDureeDtoService;
 
 public class SimpleDureeDtoServiceImpl implements SimpleDureeDtoService {
 

@@ -1,4 +1,4 @@
-package com.m2i.medic.services.medic;
+package com.m2i.medic.services.frequence;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

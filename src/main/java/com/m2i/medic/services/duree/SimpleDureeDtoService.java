@@ -1,4 +1,4 @@
-package com.m2i.medic.services.medic;
+package com.m2i.medic.services.duree;
 
 import java.util.Map;
 

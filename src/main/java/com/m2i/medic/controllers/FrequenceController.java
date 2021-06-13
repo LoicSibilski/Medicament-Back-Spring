@@ -12,37 +12,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.m2i.medic.models.Frequence;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
+import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.services.frequence.ModificationFrequenceDtoService;
+import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
+
 
 @RestController
 @RequestMapping("frequences")
 public class FrequenceController {
 
-//	@Autowired
-//	private GenericCRUDService<Frequence> frequenceService;
-//
-//	@GetMapping()
-//	public List<Frequence> getAll() {
-//		return this.frequenceService.getAll();
-//	}
-//
-//	@GetMapping("/{id}")
-//	public Frequence getFrequenceById(@PathVariable String id) {
-//		return this.frequenceService.getById(id);
-//	}
-//
-//	@PutMapping()
-//	public void updateById(@RequestBody Frequence frequence) {
-//		this.frequenceService.updateById(frequence);
-//	}
-//
-//	@DeleteMapping("/{id}")
-//	public void deleteByID(@PathVariable String id) {
-//		this.frequenceService.deleteByID(id);
-//	}
-//
-//	@DeleteMapping()
-//	public void deleteAll() {
-//		this.frequenceService.deleteAll();
-//	}
+	@Autowired
+	private ModificationFrequenceDtoService modifFrequenceService;
+
+	@Autowired
+	private SimpleFrequenceDtoService simpleFrequenceService;
+	
+	@GetMapping("")
+	public List<SimpleFrequenceDto> getAll() {
+		return this.simpleFrequenceService.getAll();
+	}
+
+	@GetMapping("/{id}")
+	public SimpleFrequenceDto getFrequenceById(@PathVariable String id) {
+		return this.simpleFrequenceService.getById(id);
+	}
+
+	@PostMapping("")
+	public void save(@RequestBody FrequenceDto duree) {
+		this.modifFrequenceService.updateById(duree);
+	}
+	
+	@PutMapping("")
+	public void updateById(@RequestBody FrequenceDto duree) {
+		this.modifFrequenceService.updateById(duree);
+	}
+
+	@DeleteMapping("/{id}")
+	public void deleteByID(@PathVariable String id) {
+		this.simpleFrequenceService.deleteByID(id);
+	}
+
+	@DeleteMapping()
+	public void deleteAll() {
+		this.simpleFrequenceService.deleteAll();
+	}
 }

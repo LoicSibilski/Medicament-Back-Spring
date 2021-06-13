@@ -17,8 +17,8 @@ public class DureeConfig {
 	
 	@Bean
 	public JsonDureeDtoServiceImpl jsonDureeDtoServiceFactory(DateTimeFormatter dateTimeFormatter,
-			ModificationDureeService modifDureeService) {
-		return new JsonDureeDtoServiceImpl(dateTimeFormatter, modifDureeService);
+			ModificationDureeService modifDureeService, ObjectMapper mapper) {
+		return new JsonDureeDtoServiceImpl(dateTimeFormatter, modifDureeService, mapper);
 	}
 	
 	@Bean

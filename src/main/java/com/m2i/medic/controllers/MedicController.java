@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.services.medic.ModificationMedicService;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
@@ -27,6 +28,7 @@ public class MedicController {
 	@Autowired
 	private ModificationMedicService modificationMedicDtoService;
 
+	@Autowired
 	private SimpleMedicDtoService simpleMedicDtoService;
 
 	@GetMapping("")
@@ -40,7 +42,7 @@ public class MedicController {
 	}
 
 	@PostMapping("")
-	public SimpleMedicDto save(@RequestBody JsonNode jsonNode)
+	public MedicDto save(@RequestBody JsonNode jsonNode)
 			throws JsonProcessingException, IllegalArgumentException {
 
 		return this.modificationMedicDtoService.save(jsonNode);

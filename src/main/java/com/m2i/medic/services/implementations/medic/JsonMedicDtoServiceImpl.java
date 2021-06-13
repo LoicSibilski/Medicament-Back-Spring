@@ -6,9 +6,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
-import com.m2i.medic.dtos.medic.SimpleMedicDto;
+import com.m2i.medic.dtos.duree.DureeDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
+import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.services.duree.JsonDureeDtoService;
 import com.m2i.medic.services.frequence.JsonFrequenceDtoService;
 import com.m2i.medic.services.json.JsonNodeService;
@@ -27,10 +27,11 @@ public class JsonMedicDtoServiceImpl implements JsonMedicDtoService {
 		this.jsonDureeDtoService = jsonDureeDtoService;
 	}
 
-	public SimpleMedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
+	public MedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
 			throws JsonProcessingException, IllegalArgumentException {
 
 		String nom = this.jsonService.getSingleValueFromJsonNode(jsonNode, "nom");
+		nom = nom.substring(1, nom.length()-1);
 		Map<String, Object> mapDuree = this.jsonService.getMapFromJsonNodeWithKey(jsonNode, "dureeData");
 		Map<String, Object> mapFreq = this.jsonService.getMapFromJsonNodeWithKey(jsonNode, "frequenceData");
 		List<LocalTime> listeHeures = this.jsonService.getListFromJsonNodeWithKey(jsonNode, "listeHeures", "heure");
@@ -38,19 +39,21 @@ public class JsonMedicDtoServiceImpl implements JsonMedicDtoService {
 		return createMedicDtoFromMaps(nom, mapFreq, mapDuree, listeHeures);
 	}
 
-	public SimpleMedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq, Map<String, Object> mapDuree,
+	public MedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq, Map<String, Object> mapDuree,
 			List<LocalTime> listeHeures) {
 		System.out.println("'''''''''createMedicDtoFromMaps''''");
 		System.out.println("Map Duree =>" + mapDuree);
 		System.out.println("Map Frequence =>" + mapFreq);
 
-		SimpleDureeDto dureeDto = this.jsonDureeDtoService.createDureeDtoFromMap(mapDuree);
+		DureeDto dureeDto = this.jsonDureeDtoService.createDureeDtoFromMap(mapDuree);
 
-		SimpleFrequenceDto frequenceDto = this.jsonFrequenceDtoService.createFrequenceFromMapDateFin(mapFreq, dureeDto,
+		FrequenceDto frequenceDto = this.jsonFrequenceDtoService.createFrequenceFromMapDateFin(mapFreq, dureeDto,
 				listeHeures);
 
-		SimpleMedicDto medicDto = new SimpleMedicDto(nom, dureeDto, frequenceDto);
-
+		MedicDto medicDto = new MedicDto();
+		medicDto.setNom(nom);
+		medicDto.setDureeDto(dureeDto);
+		medicDto.setFrequenceDto(frequenceDto);
 		System.out.println("''''''''''''''''''''''''''''''''''''''''''''''''''''");
 
 		return medicDto;

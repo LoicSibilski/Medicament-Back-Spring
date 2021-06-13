@@ -6,34 +6,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.m2i.medic.dtos.duree.DureeDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
 import com.m2i.medic.services.frequence.JsonFrequenceDtoService;
+import com.m2i.medic.services.frequence.ModificationFrequenceDtoService;
 
-public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService{
+public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 
-	public SimpleFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
+	private ModificationFrequenceDtoService modifFrequenceService;
+	private ObjectMapper mapper;
+
+	public JsonFrequenceDtoServiceImpl(ModificationFrequenceDtoService modifFrequenceService, ObjectMapper mapper) {
+		this.modifFrequenceService = modifFrequenceService;
+		this.mapper = mapper;
+	}
+
+	public FrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, DureeDto dureeDto,
 			List<LocalTime> listeHeures) {
 
 		String choixFreq = mapFreq.get("choixFrequence").toString();
 		List<LocalDateTime> listeJours = creationListeJours(mapFreq, dureeDto, choixFreq);
 		List<LocalDateTime> prises = creationPrisesAvecJoursEtHeures(listeJours, listeHeures);
-		SimpleFrequenceDto frequenceDto = new SimpleFrequenceDto();
+		FrequenceDto frequenceDto = new FrequenceDto();
 
 		frequenceDto.setPrises(prises);
+
+		FrequenceDto freqDto = this.mapper.convertValue(frequenceDto, FrequenceDto.class);
+		frequenceDto  = this.mapper.convertValue(this.modifFrequenceService.save(freqDto), FrequenceDto.class);
 
 		return frequenceDto;
 	}
 
 	/**
-	 * La methode permet de creer une liste de jours a partir du choix de l'utilisateur, des informations de la frequence et de sa duree.
+	 * La methode permet de creer une liste de jours a partir du choix de
+	 * l'utilisateur, des informations de la frequence et de sa duree.
 	 * 
-	 * @param mapFreq : Map contenant toutes les informations concernant la frequence dans le Json envoye par l'utilisateur
-	 * @param dureeDto : duree de la frequence
-	 * @param choixFreq : String : choix du type de frequence par l'utilisateur 
-	 * @return List<LocalDateTime> : listeJours : liste de tous les jours ou l'utilisateur devra prendre son medicament. le temps est initialise a 00:00
+	 * @param mapFreq   : Map contenant toutes les informations concernant la
+	 *                  frequence dans le Json envoye par l'utilisateur
+	 * @param dureeDto  : duree de la frequence
+	 * @param choixFreq : String : choix du type de frequence par l'utilisateur
+	 * @return List<LocalDateTime> : listeJours : liste de tous les jours ou
+	 *         l'utilisateur devra prendre son medicament. le temps est initialise a
+	 *         00:00
 	 */
-	private List<LocalDateTime> creationListeJours(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
+	private List<LocalDateTime> creationListeJours(Map<String, Object> mapFreq, DureeDto dureeDto,
 			String choixFreq) {
 
 		List<LocalDateTime> listeJours = new ArrayList<>();
@@ -62,7 +79,7 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService{
 	 * @param dureeDto : object CreationDureeDto. </br>
 	 * @return listeJours : [12/06, 13/06, 14/06, 15/06 .... 20/06]
 	 */
-	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursXParJour(SimpleDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursXParJour(DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		for (LocalDateTime date = dureeDto.getDateDebut(); date
 				.isBefore(dureeDto.getDateFin()); date = date.plusDays(1)) {
@@ -71,22 +88,22 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService{
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursToutesLesXHeures(SimpleDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursToutesLesXHeures(DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixChaqueJoursToutesLesXHeures");
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(SimpleDureeDto dureeDto) {
+	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixTousLesXJours");
 
 		return listeJours;
 	}
 
-	private List<LocalDateTime> creationListeJoursAvexChoixCertainsjours(SimpleDureeDto dureeDto,
+	private List<LocalDateTime> creationListeJoursAvexChoixCertainsjours(DureeDto dureeDto,
 			Map<String, Object> mapFreq) {
-		
+
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixCertainsjours");
 
@@ -119,8 +136,9 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService{
 	/**
 	 * La methode permet de creer une liste de jours de la semaines.
 	 * 
-	 * @param mapFreq : Map contenant toutes les informations concernant la frequence dans le Json envoye par l'utilisateur
-
+	 * @param mapFreq : Map contenant toutes les informations concernant la
+	 *                frequence dans le Json envoye par l'utilisateur
+	 * 
 	 * @return List<String> = liste des jours de la semaines ["Lundi", "Mercredi",
 	 *         "Jeudi", "Dimanche"]
 	 */
@@ -134,5 +152,5 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService{
 		}
 		return listeJoursDeLaSemaine;
 	}
-	
+
 }

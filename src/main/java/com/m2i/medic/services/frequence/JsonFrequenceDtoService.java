@@ -4,8 +4,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.dtos.duree.DureeDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
 
 public interface JsonFrequenceDtoService {
 	
@@ -17,7 +17,7 @@ public interface JsonFrequenceDtoService {
 	 * @param listeHeures : liste des horaires de prises.
 	 * @return 
 	 */
-	public SimpleFrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, SimpleDureeDto dureeDto,
+	public FrequenceDto createFrequenceFromMapDateFin(Map<String, Object> mapFreq, DureeDto dureeDto,
 			List<LocalTime> listeHeures);
 
 }

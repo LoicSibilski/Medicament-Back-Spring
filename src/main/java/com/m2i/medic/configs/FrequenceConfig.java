@@ -1,13 +1,12 @@
 package com.m2i.medic.configs;
 
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.repositories.FrequenceRepository;
-import com.m2i.medic.services.duree.ModificationDureeService;
+import com.m2i.medic.services.frequence.ModificationFrequenceDtoService;
 import com.m2i.medic.services.implementations.frequence.JsonFrequenceDtoServiceImpl;
 import com.m2i.medic.services.implementations.frequence.ModificationFrequenceDtoServiceImpl;
 import com.m2i.medic.services.implementations.frequence.SimpleFrequenceDtoServiceImpl;
@@ -16,9 +15,9 @@ import com.m2i.medic.services.implementations.frequence.SimpleFrequenceDtoServic
 public class FrequenceConfig {
 	
 	@Bean
-	public JsonFrequenceDtoServiceImpl jsonFrequenceDtoServiceFactory(DateTimeFormatter dateTimeFormatter,
-			ModificationDureeService modifDureeService) {
-		return new JsonFrequenceDtoServiceImpl();
+	public JsonFrequenceDtoServiceImpl jsonFrequenceDtoServiceFactory(ModificationFrequenceDtoService modifFreqServ,
+			ObjectMapper mapper) {
+		return new JsonFrequenceDtoServiceImpl(modifFreqServ, mapper);
 	}
 	
 	@Bean

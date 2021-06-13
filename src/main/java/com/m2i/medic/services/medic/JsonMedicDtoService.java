@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.medic.SimpleMedicDto;
+import com.m2i.medic.dtos.medic.MedicDto;
 
 public interface JsonMedicDtoService {
 	
@@ -18,7 +18,7 @@ public interface JsonMedicDtoService {
 	 *                 options possible.
 	 * @return CreationMedicDto.
 	 */
-	public SimpleMedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
+	public MedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
 			throws JsonProcessingException, IllegalArgumentException ;
 	
 	/**
@@ -36,7 +36,7 @@ public interface JsonMedicDtoService {
 	 *                    du medicaments.
 	 * @return CreationMedicDto.
 	 */
-	public SimpleMedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq, Map<String, Object> mapDuree,
+	public MedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq, Map<String, Object> mapDuree,
 			List<LocalTime> listeHeures);
 
 }

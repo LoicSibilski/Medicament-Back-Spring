@@ -21,4 +21,8 @@ public class Frequence {
 	
 	private List<LocalDateTime> prises;
 	
+	public Frequence(String id) {
+		this.id = id;
+	}
+	
 }

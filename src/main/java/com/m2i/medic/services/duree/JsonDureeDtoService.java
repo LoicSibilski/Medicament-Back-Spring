@@ -2,7 +2,7 @@ package com.m2i.medic.services.duree;
 
 import java.util.Map;
 
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.dtos.duree.DureeDto;
 
 public interface JsonDureeDtoService {
 
@@ -13,7 +13,7 @@ public interface JsonDureeDtoService {
 	 * 
 	 * @return CreationDureeDto : un object dto contenant la duree.
 	 */
-	public SimpleDureeDto createDureeDtoFromMap(Map<String, Object> mapDuree);
+	public DureeDto createDureeDtoFromMap(Map<String, Object> mapDuree);
 
 	
 }

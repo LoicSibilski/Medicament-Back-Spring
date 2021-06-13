@@ -7,7 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.m2i.medic.dtos.duree.DureeDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
+import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
+import com.m2i.medic.models.Duree;
+import com.m2i.medic.models.Frequence;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.MedicRepository;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
@@ -25,9 +30,8 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 	@Override
 	public List<SimpleMedicDto> getAll() {
 		List<Medic> medics = this.medicRepository.findAll();
-
 		return medics.stream().map(medic -> {
-			return this.mapper.convertValue(medic, SimpleMedicDto.class);
+			return convertSimpleDtoFromMedic(medic);
 		}).collect(Collectors.toList());
 	}
 
@@ -51,6 +55,21 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 		for (Medic medic : liste) {
 			this.deleteByID(medic.getId());
 		}
+	}
+	
+	/**
+	 * Convertis un objet Medic en un SimpleMedicDto.
+	 * 
+	 * @param medic : Frais comme un gardon, tous juste sortie de la base 
+	 * @return SimpleMedicDto
+	 */
+	private SimpleMedicDto convertSimpleDtoFromMedic(Medic medic) {
+		SimpleMedicDto simpleMedicDto = new SimpleMedicDto();
+		simpleMedicDto.setNom(medic.getNom());
+		simpleMedicDto.setDureeDto(this.mapper.convertValue(medic.getDuree(), DureeDto.class));
+		simpleMedicDto.setFrequenceDto(this.mapper.convertValue(medic.getFrequence(), FrequenceDto.class));
+		
+		return simpleMedicDto;
 	}
 
 }

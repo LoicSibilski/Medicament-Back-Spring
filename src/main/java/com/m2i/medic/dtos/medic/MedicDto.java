@@ -1,7 +1,7 @@
 package com.m2i.medic.dtos.medic;
 
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.dtos.duree.DureeDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +16,8 @@ public class MedicDto {
 	
 	private String nom;
 	
-	private SimpleDureeDto dureeDto;
+	private DureeDto dureeDto;
 	
-	private SimpleFrequenceDto frequenceDto;
+	private FrequenceDto frequenceDto;
 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.models.Duree;
-import com.m2i.medic.services.GenericCRUDService;
 
 @RestController
 @RequestMapping("durees")

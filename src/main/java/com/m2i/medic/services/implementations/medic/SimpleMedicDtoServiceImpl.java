@@ -51,7 +51,6 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 		for (Medic medic : liste) {
 			this.deleteByID(medic.getId());
 		}
-
 	}
 
 }

@@ -1,34 +1,37 @@
 package com.m2i.medic.configs;
 
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.repositories.MedicRepository;
+import com.m2i.medic.services.implementations.medic.JsonMedicDtoServiceImpl;
 import com.m2i.medic.services.implementations.medic.ModificationMedicServiceImpl;
 import com.m2i.medic.services.implementations.medic.SimpleMedicDtoServiceImpl;
-import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.duree.SimpleDureeDtoService;
-import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
-import com.m2i.medic.services.medic.ModificationMedicService;
-import com.m2i.medic.services.medic.SimpleMedicDtoService;
+import com.m2i.medic.services.json.JsonNodeService;
+import com.m2i.medic.services.duree.JsonDureeDtoService;
+import com.m2i.medic.services.frequence.JsonFrequenceDtoService;
+import com.m2i.medic.services.medic.JsonMedicDtoService;
 
 @Configuration
 public class MedicConfig {
 
 	@Bean
-	public SimpleMedicDtoService medicDtoServiceFactory(MedicRepository medicRepo, ObjectMapper mapper) {
-		return new SimpleMedicDtoServiceImpl(medicRepo, mapper);
+	public JsonMedicDtoServiceImpl jsonMedicDtoServiceFactory(JsonNodeService jsonNodeService,
+			JsonFrequenceDtoService jsonFrequenceService, JsonDureeDtoService jsonDureeService) {
+		return new JsonMedicDtoServiceImpl(jsonNodeService, jsonFrequenceService, jsonDureeService);
 	}
 
 	@Bean
-	public ModificationMedicService modifDtoServiceFactory(MedicRepository medicRepo, ObjectMapper mapper,
-			JsonNodeService jsonNodeService, SimpleFrequenceDtoService simpleFrequenceDtoService,
-			SimpleDureeDtoService simpleDureeDtoService) {
-		return new ModificationMedicServiceImpl(mapper, medicRepo, jsonNodeService, simpleFrequenceDtoService,
-				simpleDureeDtoService);
+	public ModificationMedicServiceImpl modifMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepo,
+			JsonMedicDtoService jsonMedicService) {
+		return new ModificationMedicServiceImpl(mapper, medicRepo, jsonMedicService);
+	}
+
+	@Bean
+	public SimpleMedicDtoServiceImpl simpleMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepo) {
+		return new SimpleMedicDtoServiceImpl(medicRepo, mapper);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.m2i.medic.services;
+package com.m2i.medic.services.json;
 
 import java.time.LocalTime;
 import java.util.List;

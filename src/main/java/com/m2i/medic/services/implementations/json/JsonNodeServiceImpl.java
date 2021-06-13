@@ -1,4 +1,4 @@
-package com.m2i.medic.services.implementations;
+package com.m2i.medic.services.implementations.json;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.m2i.medic.services.JsonNodeService;
+import com.m2i.medic.services.json.JsonNodeService;
 
 public class JsonNodeServiceImpl implements JsonNodeService {
 

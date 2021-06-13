@@ -1,62 +1,54 @@
 package com.m2i.medic.services.implementations.duree;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.models.Duree;
+import com.m2i.medic.repositories.DureeRepository;
 import com.m2i.medic.services.duree.SimpleDureeDtoService;
 
 public class SimpleDureeDtoServiceImpl implements SimpleDureeDtoService {
 
-	private DateTimeFormatter dateFormatter;
+	private ObjectMapper mapper;
+	private DureeRepository dureeRepo;
 
-	public SimpleDureeDtoServiceImpl(DateTimeFormatter dateFormatter) {
-		this.dateFormatter = dateFormatter;
+	public SimpleDureeDtoServiceImpl(DureeRepository dureeRepo, ObjectMapper mapper) {
+		this.dureeRepo = dureeRepo;
+		this.mapper = mapper;
+	}
+	
+	@Override
+	public List<SimpleDureeDto> getAll() {
+		List<Duree> durees = this.dureeRepo.findAll();
+
+		return durees.stream().map(duree -> {
+			return this.mapper.convertValue(duree, SimpleDureeDto.class);
+		}).collect(Collectors.toList());
 	}
 
-	public SimpleDureeDto createDureeDtoFromMap(Map<String, Object> mapDuree) {
-
-		SimpleDureeDto dureeDto = getDureeWithDateDebutFromMap(mapDuree);
-		String choix = mapDuree.get("choixDuree").toString();
-		
-		setDureeDtoFromMap(mapDuree, dureeDto, choix);
-
-		return dureeDto;
+	@Override
+	public SimpleDureeDto getById(String id) {
+		Duree duree = this.dureeRepo.findById(id).get();
+		return mapper.convertValue(duree, SimpleDureeDto.class);
+	}
+	@Override
+	public void deleteByID(String id) {
+		if (this.dureeRepo.existsById(id))
+			this.dureeRepo.deleteById(id);
+		else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	}
 
-	/**
-	 * 
-	 * @param mapDuree : Map contenant toutes les informations concernant la duree dans le Json envoye par l'utilisateur
-	 * @param dureeDto: CreationDureeDto = Object dto contenant la date de debut.
-	 * @param choix :String = option que l'utilisateur a choisit ("Pas de fin", "Pendant X jours" ...).
-	 */
-	private void setDureeDtoFromMap(Map<String, Object> mapDuree, SimpleDureeDto dureeDto, String choix) {
-		if (choix.equals("Pas de fin")) {
-			dureeDto.setDateFin(dureeDto.getDateDebut().plusYears(1));
-
-		} else if (choix.equals("Pendant X jours") && mapDuree.get("nbJour") != null) {
-			Integer nbJour = (Integer) mapDuree.get("nbJour");
-			dureeDto.setDateFin(dureeDto.getDateDebut().plusDays(nbJour));
-
-		} else if (choix.equals("Jusque date") && mapDuree.get("dateFin") != null) {
-			LocalDate date = LocalDate.parse(mapDuree.get("dateFin").toString(), this.dateFormatter);
-			dureeDto.setDateFin(date.atStartOfDay());
+	@Override
+	public void deleteAll() {
+		List<Duree> liste = this.dureeRepo.findAll();
+		for (Duree duree : liste) {
+			this.deleteByID(duree.getId());
 		}
-	}
-
-	/**
-	 * La methode initialise la date de debut du dto CreationDureeDto
-	 * @param mapDuree : Map contenant toutes les informations concernant la duree dans le Json envoye par l'utilisateur
-	 * @return CreationDureeDto 
-	 */
-	private SimpleDureeDto getDureeWithDateDebutFromMap(Map<String, Object> mapDuree) {
-		SimpleDureeDto dureeDto = new SimpleDureeDto();
-
-		LocalDate date = LocalDate.parse(mapDuree.get("dateDebut").toString(), this.dateFormatter);
-		LocalDateTime dateDebut = date.atStartOfDay();
-		dureeDto.setDateDebut(dateDebut);
-		return dureeDto;
 	}
 }

@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.implementations.JsonNodeServiceImpl;
+import com.m2i.medic.services.implementations.json.JsonNodeServiceImpl;
+import com.m2i.medic.services.json.JsonNodeService;
 
 @Configuration
 public class JsonConfig {

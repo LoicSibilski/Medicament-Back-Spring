@@ -1,73 +1,57 @@
 package com.m2i.medic.services.implementations.medic;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
-import com.m2i.medic.services.JsonNodeService;
-import com.m2i.medic.services.duree.SimpleDureeDtoService;
-import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
+import com.m2i.medic.models.Medic;
+import com.m2i.medic.repositories.MedicRepository;
 import com.m2i.medic.services.medic.SimpleMedicDtoService;
 
 public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 
-	private JsonNodeService jsonService;
-	private SimpleFrequenceDtoService frequenceDtoService;
-	private SimpleDureeDtoService dureeDtoService;
+	private MedicRepository medicRepository;
+	private ObjectMapper mapper;
 
-	public SimpleMedicDtoServiceImpl(JsonNodeService jsonService, SimpleFrequenceDtoService frequenceDtoService,
-			SimpleDureeDtoService dureeDtoService) {
-		this.jsonService = jsonService;
-		this.frequenceDtoService = frequenceDtoService;
-		this.dureeDtoService = dureeDtoService;
+	public SimpleMedicDtoServiceImpl(MedicRepository medicRepo, ObjectMapper mapper) {
+		this.medicRepository = medicRepo;
+		this.mapper = mapper;
 	}
 
-	public SimpleMedicDto createMedicDtoFromJsonNode(JsonNode jsonNode)
-			throws JsonProcessingException, IllegalArgumentException {
+	@Override
+	public List<SimpleMedicDto> getAll() {
+		List<Medic> medics = this.medicRepository.findAll();
 
-		String nom = this.jsonService.getSingleValueFromJsonNode(jsonNode, "nom");
-		Map<String, Object> mapDuree = this.jsonService.getMapFromJsonNodeWithKey(jsonNode, "dureeData");
-		Map<String, Object> mapFreq = this.jsonService.getMapFromJsonNodeWithKey(jsonNode, "frequenceData");
-		List<LocalTime> listeHeures = this.jsonService.getListFromJsonNodeWithKey(jsonNode, "listeHeures", "heure");
-
-		return createMedicDtoFromMaps(nom, mapFreq, mapDuree, listeHeures);
+		return medics.stream().map(medic -> {
+			return this.mapper.convertValue(medic, SimpleMedicDto.class);
+		}).collect(Collectors.toList());
 	}
 
-	/**
-	 * La methode permets de construire un dto creationMedicDto a partir des
-	 * elements en parametres.
-	 * 
-	 * @param nom         : String
-	 * @param mapFreq     : Map<String, Object> : map contenant toutes les valeurs
-	 *                    concernant la frequence. Cette map sera transformee en un
-	 *                    objet FrequenceDto.
-	 * @param mapDuree:   Map<String, Object> : map contenant toutes les valeurs
-	 *                    concernant la duree. Cette map sera transformee en un
-	 *                    objet DureeDto.
-	 * @param listeHeures : List<LocalTime> : liste contenant les horaires de prise
-	 *                    du medicaments.
-	 * @return CreationMedicDto.
-	 */
-	private SimpleMedicDto createMedicDtoFromMaps(String nom, Map<String, Object> mapFreq,
-			Map<String, Object> mapDuree, List<LocalTime> listeHeures) {
-		System.out.println("'''''''''createMedicDtoFromMaps''''");
-		System.out.println("Map Duree =>" + mapDuree);
-		System.out.println("Map Frequence =>" + mapFreq);
+	@Override
+	public SimpleMedicDto getById(String id) {
+		Medic medic = this.medicRepository.findById(id).get();
+		return mapper.convertValue(medic, SimpleMedicDto.class);
+	}
 
-		SimpleDureeDto dureeDto = this.dureeDtoService.createDureeDtoFromMap(mapDuree);
-		SimpleFrequenceDto frequenceDto = this.frequenceDtoService.createFrequenceFromMapDateFin(mapFreq, dureeDto,
-				listeHeures);
+	@Override
+	public void deleteByID(String id) {
+		if (this.medicRepository.existsById(id))
+			this.medicRepository.deleteById(id);
+		else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	}
 
-		SimpleMedicDto medicDto = new SimpleMedicDto(nom, dureeDto, frequenceDto);
+	@Override
+	public void deleteAll() {
+		List<Medic> liste = this.medicRepository.findAll();
+		for (Medic medic : liste) {
+			this.deleteByID(medic.getId());
+		}
 
-		System.out.println("''''''''''''''''''''''''''''''''''''''''''''''''''''");
-
-		return medicDto;
 	}
 
 }

@@ -8,6 +8,8 @@ public interface GenericCRUDService <T> {
 	
 	public T getById(String id);
 			
+	public T save( T entity);
+
 	public T updateById( T entity);
 	
 	public void deleteByID(String id);

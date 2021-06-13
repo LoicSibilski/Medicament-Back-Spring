@@ -12,15 +12,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import com.m2i.medic.models.Duree;
-import com.m2i.medic.models.Frequence;
-import com.m2i.medic.repositories.MedicRepository;
-import com.m2i.medic.services.GenericCRUDService;
-import com.m2i.medic.services.implementations.duree.SimpleDureeDtoServiceImpl;
-import com.m2i.medic.services.implementations.frequence.SimpleFrequenceDtoServiceImpl;
-import com.m2i.medic.services.implementations.medic.MedicDtoServiceImpl;
-import com.m2i.medic.services.medic.MedicDtoService;
-
 @Configuration
 public class ServiceConfig {
 

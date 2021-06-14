@@ -26,17 +26,17 @@ public interface CompteService {
 	public List<CompteDTO> recupererTousLesComptes();
 	
 	/**
-	 * Cette méthode permet de récupére un compte à partir d'un identifiant
-	 * @param l'identifiant d'un compte
+	 * Cette méthode permet de récupére un compte à partir d'un id
+	 * @param l'id d'un compte
 	 * @return un compte
 	 */
-	public CompteDTO recupererUnCompte(String identifiant);
+	public CompteDTO recupererUnCompte(String id);
 
 	/**
-	 * Cette méthode permet de supprimer un compte à partir d'un identifiant
-	 * @param l'identifiant d'un compte
+	 * Cette méthode permet de supprimer un compte à partir d'un id
+	 * @param l'id d'un compte
 	 */
-	public void supprimerUnCompte(String identifiant);
+	public void supprimerUnCompte(String id);
 	
 	/**
 	 * Cette méthode permet de supprimer tous les comptes

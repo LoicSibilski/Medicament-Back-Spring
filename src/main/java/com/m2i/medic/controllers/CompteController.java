@@ -47,7 +47,7 @@ public class CompteController {
 	
 	/**
 	 * Cette méthode permet de retourner un service pour récupérer un compte
-	 * @param l'identifiant d'un compte
+	 * @param l'id d'un compte
 	 * @return un service pour récupérer un compte
 	 */
 	@GetMapping("{id}")

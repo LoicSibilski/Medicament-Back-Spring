@@ -12,8 +12,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.m2i.medic.repositories.CompteRepository;
 import com.m2i.medic.services.AuthentificationService;
 import com.m2i.medic.services.CompteService;
+import com.m2i.medic.services.ModificateurCompteService;
 import com.m2i.medic.services.implementations.AuthentificationServiceImpl;
 import com.m2i.medic.services.implementations.CompteServiceImpl;
+import com.m2i.medic.services.implementations.ModificateurCompteServiceImpl;
 
 /**
  * Cette classe représente une configuration de compte
@@ -31,6 +33,11 @@ public class CompteConfig {
 	@Bean
 	public AuthentificationService authentificationService(CompteRepository repository, ObjectMapper mapper) {
 		return new AuthentificationServiceImpl(repository, mapper);
+	}
+	
+	@Bean
+	public ModificateurCompteService modificateurCompteService(CompteRepository repository, ObjectMapper mapper) {
+		return new ModificateurCompteServiceImpl(repository, mapper);
 	}
 
 	@Bean

@@ -97,7 +97,7 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();
 		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixTousLesXJours");
-
+		System.out.println("c'est imminent on va bietot commencer le code");
 		return listeJours;
 	}
 

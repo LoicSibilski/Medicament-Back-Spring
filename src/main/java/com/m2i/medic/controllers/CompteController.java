@@ -69,7 +69,7 @@ public class CompteController {
 	 * @param id
 	 */
 	@DeleteMapping("{id}")
-	public void supprimerUncompte(String id) {
+	public void supprimerUncompte(@PathVariable String id) {
 		this.service.supprimerUnCompte(id);
 	}
 }

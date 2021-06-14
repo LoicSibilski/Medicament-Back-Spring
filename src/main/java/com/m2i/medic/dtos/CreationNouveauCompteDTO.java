@@ -12,5 +12,6 @@ public class CreationNouveauCompteDTO {
 
 	private String email;
 	private String motDePasse;
-	
+	private String motDePasseConfirme; // vérifier que le mot de passe confirmé est identique au mot de passe
+
 }

@@ -99,7 +99,7 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 	private List<LocalTime> creationListeHeureChaqueJoursToutesLesXHeures(Map<String, Object> mapFreq) {
 		List<LocalTime> listeHeures = new ArrayList<>();
 		LocalTime debut = creationLocalTimeAvecString(mapFreq.get("heureDebut").toString());
-		LocalTime fin = creationLocalTimeAvecString(mapFreq.get("heureDebut").toString());
+		LocalTime fin = creationLocalTimeAvecString(mapFreq.get("heureFin").toString());
 		Integer x = Integer.parseInt(mapFreq.get("x").toString());
 		
 		for(LocalTime time = debut; (time.getHour()<=fin.getHour());time.plusHours(x)) {

@@ -17,8 +17,13 @@ public class Duree {
 
 	@Id
 	private String id;
-	
-	private int nbJour;
-	
+
 	private LocalDateTime dateDebut;
+
+	private LocalDateTime dateFin;
+
+	public Duree(String id) {
+		this.id = id;
+	}
+
 }

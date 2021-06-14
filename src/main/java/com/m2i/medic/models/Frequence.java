@@ -1,7 +1,6 @@
 package com.m2i.medic.models;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -20,8 +19,10 @@ public class Frequence {
 	@Id
 	private String id;
 	
-	private List<LocalDate> jours;
+	private List<LocalDateTime> prises;
 	
-	private List<LocalTime> horaires;
-
+	public Frequence(String id) {
+		this.id = id;
+	}
+	
 }

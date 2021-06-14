@@ -66,8 +66,8 @@ public class CompteController {
 	 * @param un compte
 	 */
 	@PatchMapping("")
-	public void modifierEmailMotDePasse(@RequestBody CompteDTO compte) {
-		this.modificateurCompteService.modifierEmailMotDePasse(compte);
+	public void modifierCompte(@RequestBody CompteDTO compte) {
+		this.modificateurCompteService.modifierCompte(compte);
 	}
 	
 	

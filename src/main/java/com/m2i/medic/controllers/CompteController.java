@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.InscriptionDTO;
 import com.m2i.medic.services.CompteService;
+import com.m2i.medic.services.ModificateurCompteService;
 
 /**
  * Cette classe représente un controller de compte
@@ -25,7 +27,10 @@ import com.m2i.medic.services.CompteService;
 public class CompteController {
 
 	@Autowired
-	private CompteService service;
+	private CompteService compteService;
+	
+	@Autowired
+	private ModificateurCompteService modificateurCompteService;
 	
 	/**
 	 * Cette méthode permet de retourner un service pour créer un nouveau compte
@@ -34,7 +39,7 @@ public class CompteController {
 	 */
 	@PostMapping("")
 	public CompteDTO creationNouveauCompte(@RequestBody InscriptionDTO nouveauCompte) {
-		return this.service.creationNouveauCompte(nouveauCompte);
+		return this.modificateurCompteService.creerNouveauCompte(nouveauCompte);
 	}
 	
 	/**
@@ -43,7 +48,7 @@ public class CompteController {
 	 */
 	@GetMapping("")
 	public List<CompteDTO> recupererTousLesComptes(){
-		return this.service.recupererTousLesComptes();
+		return this.compteService.recupererTousLesComptes();
 	}
 	
 	/**
@@ -53,15 +58,25 @@ public class CompteController {
 	 */
 	@GetMapping("{id}")
 	public CompteDTO recupererUnCompte(@PathVariable String id) {
-		return this.service.recupererUnCompte(id);
+		return this.compteService.recupererUnCompte(id);
 	}
+	
+	/**
+	 * Cette méthode permet de retourne un service pour modifier un email
+	 * @param un compte
+	 */
+	@PatchMapping("")
+	public void modifierEmailMotDePasse(@RequestBody CompteDTO compte) {
+		this.modificateurCompteService.modifierEmailMotDePasse(compte);
+	}
+	
 	
 	/**
 	 * Cette méthode permet de supprimer tous les comptes
 	 */
 	@DeleteMapping("")
 	public void supprimerTousLesComptes() {
-		this.service.supprimerTousLesComptes();
+		this.modificateurCompteService.supprimerTousLesComptes();
 	}
 	
 	/**
@@ -70,6 +85,6 @@ public class CompteController {
 	 */
 	@DeleteMapping("{id}")
 	public void supprimerUncompte(@PathVariable String id) {
-		this.service.supprimerUnCompte(id);
+		this.modificateurCompteService.supprimerUnCompte(id);
 	}
 }

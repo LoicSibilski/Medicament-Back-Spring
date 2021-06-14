@@ -64,8 +64,8 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	/**
-	 * Cette méthode permet de vérifier si les attributs (email, mot de passe, mot de passe confirmé) d'un compte sont remplis
-	 * @param dto
+	 * Cette méthode permet de vérifier si l'email existe en base de données
+	 * @param un compte
 	 */
 	private void verifierEmailExiste(InscriptionDTO compte) {
 		Optional<Compte> compteRecupere = this.repository.findByEmail(compte.getEmail()); // modification
@@ -75,9 +75,8 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	/**
-	 * Cette méthode permet de vérifier que les deux mots de passe sont identiques
-	 * @param motDePasse
-	 * @param motDePasseConfirme
+	 * Cette méthode permet de vérifier si l'email correspond au bon format (regex)
+	 * @param un compte
 	 */
 	private void verifierEmailFormat(InscriptionDTO compte) {
 		String email = compte.getEmail();
@@ -129,5 +128,5 @@ public class CompteServiceImpl implements CompteService {
 	public void supprimerTousLesComptes() {
 		this.repository.deleteAll();
 	}
-	
+		
 }

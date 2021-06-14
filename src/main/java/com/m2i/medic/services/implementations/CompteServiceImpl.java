@@ -28,10 +28,6 @@ public class CompteServiceImpl implements CompteService {
 	
 	private CompteRepository repository;
 	
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+)$");
-	
-	public static final Pattern VALID_MOTDEPASSE_ADDRESS_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
-	
 	/**
 	 * Constructeur
 	 * @param repository
@@ -64,8 +60,8 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	/**
-	 * Cette méthode permet de vérifier si l'email existe dans la base de données
-	 * @param un compte
+	 * Cette méthode permet de vérifier si les attributs (email, mot de passe, mot de passe confirmé) d'un compte sont remplis
+	 * @param dto
 	 */
 	private void verifierEmailExiste(InscriptionDTO compte) {
 		Optional<Compte> compteRecupere = this.repository.findByEmail(compte.getEmail()); // modification
@@ -75,8 +71,9 @@ public class CompteServiceImpl implements CompteService {
 	}
 	
 	/**
-	 * Cette méthode permet de vérifier si l'email correspond au bon format (regex)
-	 * @param un compte
+	 * Cette méthode permet de vérifier que les deux mots de passe sont identiques
+	 * @param motDePasse
+	 * @param motDePasseConfirme
 	 */
 	private void verifierEmailFormat(InscriptionDTO compte) {
 		String email = compte.getEmail();
@@ -128,7 +125,5 @@ public class CompteServiceImpl implements CompteService {
 	public void supprimerTousLesComptes() {
 		this.repository.deleteAll();
 	}
-	
-	
 	
 }

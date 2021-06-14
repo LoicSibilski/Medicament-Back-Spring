@@ -1,7 +1,5 @@
 package com.m2i.medic.services;
 
-import java.util.List;
-
 import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.InscriptionDTO;
 
@@ -36,7 +34,7 @@ public interface CompteService {
 	 * Cette méthode permet de supprimer un compte à partir d'un identifiant
 	 * @param l'identifiant d'un compte
 	 */
-	public void supprimerUnCompte(String identifiant);
+	public CompteDTO creationNouveauCompte(CreationNouveauCompteDTO dto);
 	
 	/**
 	 * Cette méthode permet de supprimer tous les comptes

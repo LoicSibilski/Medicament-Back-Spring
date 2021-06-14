@@ -31,17 +31,4 @@ public class CompteConfig {
 	public CompteService compteService(CompteRepository repository, ObjectMapper mapper) {
 		return new CompteServiceImpl(repository, mapper);
 	}
-
-	/**
-	 * Cette méthode permet de retourner un objet pour faire la correspondance avec un modèle
-	 * @return objet mapper utile pour convertir un objet en entrée avec un modèle
-	 */
-	@Bean
-	public ObjectMapper objectMapper() {
-		return new ObjectMapper().registerModule(new JavaTimeModule())
-				.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-				.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).setVisibility(
-						VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-
-	}
 }

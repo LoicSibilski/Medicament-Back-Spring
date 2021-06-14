@@ -30,13 +30,6 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	}
 
 	@Override
-	public void save(Utilisateur[] entity) {
-		for (Utilisateur utilisateur : entity) {
-			this.repository.save(utilisateur);
-		}
-	}
-
-	@Override
 	public Utilisateur updateById(Utilisateur entity) {
 		return this.repository.save(entity);
 	}

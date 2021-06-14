@@ -3,7 +3,6 @@ package com.m2i.medic.services.implementations;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.bson.internal.Base64;
@@ -68,7 +67,7 @@ public class CompteServiceImpl implements CompteService {
 	 * @param un compte
 	 */
 	private void verifierEmailExiste(InscriptionDTO compte) {
-		Optional<Compte> compteRecupere = this.repository.findByEmail(compte.getEmail()); // modification
+		InscriptionDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
 		if(compteRecupere != null) {			
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
 		}

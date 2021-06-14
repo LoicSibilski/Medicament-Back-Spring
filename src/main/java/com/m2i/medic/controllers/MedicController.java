@@ -1,7 +1,10 @@
 package com.m2i.medic.controllers;
 
+import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.m2i.medic.dtos.medic.MedicDto;
-import com.m2i.medic.dtos.medic.SimpleMedicDto;
-import com.m2i.medic.services.medic.ModificationMedicService;
-import com.m2i.medic.services.medic.SimpleMedicDtoService;
+import com.m2i.medic.models.Medic;
+import com.m2i.medic.models.MedicTmp;
+import com.m2i.medic.services.GenericService;
+import com.m2i.medic.services.MedicService;
+
 
 @RestController
 @RequestMapping("medics")
@@ -26,42 +29,42 @@ import com.m2i.medic.services.medic.SimpleMedicDtoService;
 public class MedicController {
 
 	@Autowired
-	private ModificationMedicService modificationMedicDtoService;
+	private MedicService medicService;
 
-	@Autowired
-	private SimpleMedicDtoService simpleMedicDtoService;
-
-	@GetMapping("")
-	public List<SimpleMedicDto> getAll() {
-		return this.simpleMedicDtoService.getAll();
+	@GetMapping()
+	public List<Medic> getAll() {
+		return this.medicService.getAll();
 	}
 
-	@GetMapping("/{id}")
-	public SimpleMedicDto findSimpleMedicById(@PathVariable String id) {
-		return this.simpleMedicDtoService.getById(id);
+	@GetMapping("medic/{id}")
+	public Medic getMedicById(@PathVariable String id) {
+		return this.medicService.getById(id);
 	}
 
-	@PostMapping("")
-	public MedicDto save(@RequestBody JsonNode jsonNode)
-			throws JsonProcessingException, IllegalArgumentException {
-
-		return this.modificationMedicDtoService.save(jsonNode);
-
+	@PostMapping()
+	public void save(@RequestBody JsonNode medicTmp) {
+		System.out.println(medicTmp);
+		try {
+			this.medicService.convertTmpToReal(medicTmp);
+		} catch (IllegalArgumentException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		this.medicService.save(medics);
 	}
 
 	@PutMapping()
-	public void updateById(@RequestBody JsonNode jsonNode) throws JsonProcessingException, IllegalArgumentException {
-		this.modificationMedicDtoService.update(jsonNode);
+	public void updateById( @RequestBody Medic medic) {
+		this.medicService.updateById(medic);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteByID(@PathVariable String id) {
-		this.simpleMedicDtoService.deleteByID(id);
+		this.medicService.deleteByID(id);
 	}
-
+	
 	@DeleteMapping()
 	public void deleteAll() {
-		this.simpleMedicDtoService.deleteAll();
+		this.medicService.deleteAll();
 	}
 }

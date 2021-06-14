@@ -20,7 +20,6 @@ public class Compte {
 	private String id;
 	private String email;
 	private String motDePasse; // ajouter un chiffrement
-	private Boolean etat;
 	private LocalDateTime dateCreation;
 	private LocalDateTime dateMisJour;
 	
@@ -102,22 +101,6 @@ public class Compte {
 	 */
 	public void setDateMisJour(LocalDateTime dateMisJour) {
 		this.dateMisJour = dateMisJour;
-	}
-
-	/**
-	 * Cette accesseur permet de récupérer l'état d'un compte
-	 * @return Boolean
-	 */
-	public Boolean getEtat() {
-		return etat;
-	}
-
-	/**
-	 * Ce mutateur permet de modifier l'état d'un compte
-	 * @param etat
-	 */
-	public void setEtat(Boolean etat) {
-		this.etat = etat;
 	}
 	
 

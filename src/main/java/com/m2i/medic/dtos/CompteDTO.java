@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Cette classe représente un DTO d'un compte
+ * @author fabien
+ *
+ */
 @Data
 @NoArgsConstructor
 public class CompteDTO {

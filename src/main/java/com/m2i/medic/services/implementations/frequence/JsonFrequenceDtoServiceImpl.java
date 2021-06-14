@@ -105,9 +105,15 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 			Map<String, Object> mapFreq) {
 
 		List<LocalDateTime> listeJours = new ArrayList<>();
-		System.out.println("COUCOU JE SUIS DANS creationListeJoursAvexChoixCertainsjours");
+		List<String> listeJoursDeLaSemaine = creationListeJoursDeLaSemaine(mapFreq);
 
-		List<String> listeJoursDeLaSemaine = createlisteJoursDeLaSemaine(mapFreq);
+		for (LocalDateTime date = dureeDto.getDateDebut(); date
+				.isBefore(dureeDto.getDateFin()); date = date.plusDays(1)) {
+			if(listeJoursDeLaSemaine.contains(date.getDayOfWeek().toString())) {
+				listeJours.add(date);
+			}
+		}
+
 		return listeJours;
 	}
 
@@ -134,15 +140,15 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 	}
 
 	/**
-	 * La methode permet de creer une liste de jours de la semaines.
+	 * creer une liste de jours de la semaines sous format Java.LocalDateTime.
 	 * 
 	 * @param mapFreq : Map contenant toutes les informations concernant la
 	 *                frequence dans le Json envoye par l'utilisateur
 	 * 
-	 * @return List<String> = liste des jours de la semaines ["Lundi", "Mercredi",
-	 *         "Jeudi", "Dimanche"]
-	 */
-	private List<String> createlisteJoursDeLaSemaine(Map<String, Object> mapFreq) {
+	 * @return List<String> = liste des jours de la semaines ["MONDAY", "WEDNESDAY",
+	 *         "THURSDAY", "SUNDAY"]
+	 */					
+	private List<String> creationListeJoursDeLaSemaine(Map<String, Object> mapFreq) {
 		List<String> listeJoursDeLaSemaine = new ArrayList<>();
 		for (int i = 5; i < mapFreq.keySet().size(); i++) {
 			Boolean bool = (Boolean) mapFreq.get(mapFreq.keySet().toArray()[i]);
@@ -150,7 +156,46 @@ public class JsonFrequenceDtoServiceImpl implements JsonFrequenceDtoService {
 				listeJoursDeLaSemaine.add((String) mapFreq.keySet().toArray()[i]);
 			}
 		}
-		return listeJoursDeLaSemaine;
+		
+		return convertListeJoursEnListDaysOfWeek(listeJoursDeLaSemaine);
+	}
+	
+	/**
+	 * Convertie une liste de jours avec le nommage en francais en une liste de jours avec le nommage de Java.LocalDateTime.
+	 * </br>
+	 * EXEMPLE : ["lundi","mardi","jeudi","dimanche"] ====> ["MONDAY","TUESDAY","THURSDAY","SUNDAY"]
+	 * @param listeJours
+	 * @return
+	 */
+	private List<String> convertListeJoursEnListDaysOfWeek(List<String> listeJours){
+		List<String> listDays = new ArrayList<>(); 
+		for (String jour : listeJours) {
+			listDays.add(convertJourEnDay(jour));
+		}
+		return listDays;
+	}
+	
+	/**
+	 * Convertie un nom de jour en Français en un nom de jour sous le format Java.LocalDateTime </br>
+	 * EXEMPLE : "lundi" ====> "MONDAY"
+	 * @param jour : String = "lundi"
+	 * @return 
+	 */
+	private String convertJourEnDay(String jour) {
+		if (jour == "lundi")
+			return "MONDAY";
+		else if (jour == "mardi")
+			return "TUESDAY";
+		else if (jour == "mercredi")
+			return "WEDNESDAY";
+		else if (jour == "jeudi")
+			return "THURSDAY";
+		else if (jour == "vendredi")
+			return "FRIDAY";
+		else if (jour == "samedi")
+			return "SATURDAY";
+		else
+			return "SUNDAY";
 	}
 
 }

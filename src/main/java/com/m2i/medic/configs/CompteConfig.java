@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.m2i.medic.repositories.CompteRepository;
+import com.m2i.medic.services.AuthentificationService;
 import com.m2i.medic.services.CompteService;
+import com.m2i.medic.services.implementations.AuthentificationServiceImpl;
 import com.m2i.medic.services.implementations.CompteServiceImpl;
 
 /**
@@ -24,6 +26,11 @@ public class CompteConfig {
 	@Bean
 	public CompteService compteService(CompteRepository repository, ObjectMapper mapper) {
 		return new CompteServiceImpl(repository, mapper);
+	}
+	
+	@Bean
+	public AuthentificationService authentificationService(CompteRepository repository, ObjectMapper mapper) {
+		return new AuthentificationServiceImpl(repository, mapper);
 	}
 
 	@Bean

@@ -21,7 +21,7 @@ public interface ModificateurCompteService {
 	 * Cette méthode permet de modifier l'email d'un compte
 	 * @param une adresse email
 	 */
-	public void modifierEmailMotDePasse(CompteDTO compte);
+	public void modifierCompte(CompteDTO compte);
 	
 	/**
 	 * Cette méthode permet de supprimer un compte à partir d'un id

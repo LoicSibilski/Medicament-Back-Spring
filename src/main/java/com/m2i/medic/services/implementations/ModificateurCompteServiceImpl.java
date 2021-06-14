@@ -40,7 +40,7 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 	}
 	
 	@Override
-	public void modifierEmailMotDePasse(CompteDTO compte) {		
+	public void modifierCompte(CompteDTO compte) {		
 		String email = compte.getEmail();
 		String motDePasse = compte.getMotDePasse();
 		verifierCompteExiste(email);

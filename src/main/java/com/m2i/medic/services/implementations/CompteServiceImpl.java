@@ -28,6 +28,10 @@ public class CompteServiceImpl implements CompteService {
 	
 	private CompteRepository repository;
 	
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+)$");
+	
+	public static final Pattern VALID_MOTDEPASSE_ADDRESS_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
+	
 	/**
 	 * Constructeur
 	 * @param repository

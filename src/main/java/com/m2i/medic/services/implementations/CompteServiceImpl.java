@@ -67,8 +67,8 @@ public class CompteServiceImpl implements CompteService {
 	 * @param un compte
 	 */
 	private void verifierEmailExiste(InscriptionDTO compte) {
-		InscriptionDTO compteRecupere = this.repository.findByEmail(compte.getEmail());
-		if(compteRecupere != null) {			
+		Compte emailExiste = this.repository.findByEmail(compte.getEmail());
+		if(emailExiste == null) {			
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
 		}
 	}

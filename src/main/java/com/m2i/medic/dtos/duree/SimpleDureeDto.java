@@ -1,9 +1,6 @@
-package com.m2i.medic.models;
+package com.m2i.medic.dtos.duree;
 
 import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,18 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
-public class Duree {
-
-	@Id
+public class SimpleDureeDto {
+	
 	private String id;
 
 	private LocalDateTime dateDebut;
 
 	private LocalDateTime dateFin;
-
-	public Duree(String id) {
-		this.id = id;
-	}
 
 }

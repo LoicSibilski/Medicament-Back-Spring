@@ -5,14 +5,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.m2i.medic.models.Duree;
-import com.m2i.medic.models.Frequence;
-import com.m2i.medic.services.GenericService;
-import com.m2i.medic.services.MedicService;
 import com.m2i.medic.services.UtilisateurService;
-import com.m2i.medic.services.implementations.DureeServiceImpl;
-import com.m2i.medic.services.implementations.FrequenceServiceImpl;
-import com.m2i.medic.services.implementations.MedicServiceImpl;
 import com.m2i.medic.services.implementations.UtilisateurServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.DeserializationFeature;

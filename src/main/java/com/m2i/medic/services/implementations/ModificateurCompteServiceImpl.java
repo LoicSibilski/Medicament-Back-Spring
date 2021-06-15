@@ -80,7 +80,7 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 	 * @param un compte
 	 */
 	private void verifierCompteExiste(String email) {
-		InscriptionDTO compteRecupere = this.repository.findByEmail(email);
+		CompteDTO compteRecupere = this.repository.findByEmail(email);
 		if(compteRecupere != null) {			
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
 		}
@@ -94,7 +94,7 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 	private void verifierAttributFormat(String attribut, Pattern pattern) {
         boolean attributValide = pattern.matcher(attribut).find();
         if(!attributValide) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'attribut ne respecte pas le bon format");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'attribut : " + attribut  + " ne respecte pas le bon format");
         }
 	}
 	

@@ -6,6 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.AuthentificationDTO;
+import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.dtos.InscriptionDTO;
 import com.m2i.medic.models.Compte;
 import com.m2i.medic.repositories.CompteRepository;
@@ -26,7 +27,7 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 	@Override
 	public String connexion(AuthentificationDTO authentificationDTO) {
 		String email = authentificationDTO.getEmail();
-		InscriptionDTO dto = this.repository.findByEmail(email); // modifier InscriptionDTO
+		CompteDTO dto = this.repository.findByEmail(email); // modifier InscriptionDTO
 		Compte compte = this.mapper.convertValue(dto, Compte.class);
 
 		if(compte == null) {

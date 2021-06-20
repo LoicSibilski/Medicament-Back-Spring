@@ -6,27 +6,26 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.repositories.MedicRepository;
-import com.m2i.medic.services.implementations.medic.JsonMedicDtoServiceImpl;
+import com.m2i.medic.services.duree.CreationDureeDtoService;
+import com.m2i.medic.services.frequence.CreationFrequenceDtoService;
+import com.m2i.medic.services.implementations.medic.CreationMedicDtoServiceImpl;
 import com.m2i.medic.services.implementations.medic.ModificationMedicServiceImpl;
 import com.m2i.medic.services.implementations.medic.SimpleMedicDtoServiceImpl;
-import com.m2i.medic.services.json.JsonNodeService;
-import com.m2i.medic.services.duree.JsonDureeDtoService;
-import com.m2i.medic.services.frequence.JsonFrequenceDtoService;
-import com.m2i.medic.services.medic.JsonMedicDtoService;
+import com.m2i.medic.services.medic.CreationMedicDtoService;
 
 @Configuration
 public class MedicConfig {
 
-	@Bean
-	public JsonMedicDtoServiceImpl jsonMedicDtoServiceFactory(JsonNodeService jsonNodeService,
-			JsonFrequenceDtoService jsonFrequenceService, JsonDureeDtoService jsonDureeService) {
-		return new JsonMedicDtoServiceImpl(jsonNodeService, jsonFrequenceService, jsonDureeService);
+	@Bean 
+	public CreationMedicDtoServiceImpl creationMedicDtoServiceFactory(CreationDureeDtoService creationDureeDtoService,
+			CreationFrequenceDtoService creationFrequenceDtoService) {
+		return new CreationMedicDtoServiceImpl(creationDureeDtoService, creationFrequenceDtoService);
 	}
-
+	
 	@Bean
-	public ModificationMedicServiceImpl modifMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepo,
-			JsonMedicDtoService jsonMedicService) {
-		return new ModificationMedicServiceImpl(mapper, medicRepo, jsonMedicService);
+	public ModificationMedicServiceImpl modifMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepository,
+			CreationMedicDtoService creationMedicService) {
+		return new ModificationMedicServiceImpl(mapper, medicRepository, creationMedicService);
 	}
 
 	@Bean

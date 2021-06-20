@@ -46,17 +46,16 @@ public class MedicController {
 	@PostMapping("")
 	public MedicDto save(@RequestBody CreationMedicDto dto)
 			throws JsonProcessingException, IllegalArgumentException {
-		System.out.println(dto);
-		System.out.println(dto.getNom().getClass());
-		System.out.println(dto.getDureeData());
-		System.out.println(dto.getFrequenceData());
-		System.out.println(dto.getListeHeuresData());
-		System.out.println(dto.getListeHeuresData().get(0));
-		for (String iterable_element : dto.getListeHeuresData()) {
-			System.out.println(iterable_element);
-		}
-		return null;
-//		return this.modificationMedicDtoService.save(dto);
+//		System.out.println(dto);
+//		System.out.println(dto.getNom().getClass());
+//		System.out.println(dto.getDureeData());
+//		System.out.println(dto.getFrequenceData());
+//		System.out.println(dto.getListeHeuresData());
+//		System.out.println(dto.getListeHeuresData().get(0));
+//		for (String iterable_element : dto.getListeHeuresData()) {
+//			System.out.println(iterable_element);
+//		}
+		return this.modificationMedicDtoService.save(dto);
 
 //		this.medicService.save(medics);
 	}
@@ -71,8 +70,8 @@ public class MedicController {
 //	}
 
 	@PutMapping()
-	public void updateById(@RequestBody JsonNode jsonNode) throws JsonProcessingException, IllegalArgumentException {
-		this.modificationMedicDtoService.update(jsonNode);
+	public void updateById(@RequestBody CreationMedicDto dto) throws JsonProcessingException, IllegalArgumentException {
+		this.modificationMedicDtoService.update(dto);
 	}
 
 	@DeleteMapping("/{id}")

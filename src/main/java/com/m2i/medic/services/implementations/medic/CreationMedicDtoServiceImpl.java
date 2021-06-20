@@ -56,22 +56,27 @@ public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 	 * La methode permet de convertir une liste de String en une liste de
 	 * LocalDateTime
 	 * 
-	 * @param listeHeures : liste des dates en String sous le format : "27:05",
-	 *                    "14:07" ....
+	 * @param listeHeures : liste des dates en String sous le format : 27:05,
+	 *                    14:07 ....
 	 * @return la liste des dates sous format LocalDateTime.
 	 */
 	private List<LocalTime> convertListHeuresStringToListHeureLocalTime(List<String> listeHeures) {
-		List<LocalTime> listLocalTime = new ArrayList<>();
-		Integer heure;
-		Integer minute;
-		for (String str : listeHeures) {
-			heure = Integer.parseInt(str.substring(0, 2));
-			minute = Integer.parseInt(str.substring(3, 5));
-			LocalTime tmp = LocalTime.of(heure, minute);
-			listLocalTime.add(tmp);
+		if (listeHeures == null)
+			return null;
+		else {
+			List<LocalTime> listLocalTime = new ArrayList<>();
+			Integer heure;
+			Integer minute;
+			for (String str : listeHeures) {
+				heure = Integer.parseInt(str.substring(0, 2));
+				minute = Integer.parseInt(str.substring(3, 5));
+				LocalTime tmp = LocalTime.of(heure, minute);
+				listLocalTime.add(tmp);
+			}
+
+			return listLocalTime;
 		}
 
-		return listLocalTime;
 	}
 
 }

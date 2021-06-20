@@ -22,7 +22,6 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 	private ObjectMapper mapper;
 	private ModificationFrequenceDtoService modifFrequenceService;
 
-
 	public CreationFrequenceDtoServiceImpl(ObjectMapper mapper, ModificationFrequenceDtoService modifFrequenceService) {
 		super();
 		this.mapper = mapper;
@@ -48,8 +47,6 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 
 		return frequenceDto;
 	}
-
-
 
 	/**
 	 * La methode permet de creer une liste de jours a partir du choix de
@@ -95,6 +92,18 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 		return listeJours;
 	}
 
+	/**
+	 * La methode permet part de la date de debut du traitement, et ajoute tous les
+	 * jours dans la liste jusqu'a la date de fin. </br>
+	 * Exemple : </br>
+	 * dateDebut : 12/06/2021 </br>
+	 * datefin : 20/06/2021 </br>
+	 * listeJours : [12/06, 13/06, 14/06, 15/06 .... 20/06]
+	 * 
+	 * @param creationFrequenceDto
+	 * @param dureeDto
+	 * @return
+	 */
 	private List<LocalDateTime> creationListeJoursAvexChoixChaqueJoursToutesLesXHeures(
 			CreationFrequenceDto creationFrequenceDto, DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = creationListeJoursAvexChoixChaqueJoursXParJour(dureeDto);
@@ -103,26 +112,46 @@ public class CreationFrequenceDtoServiceImpl implements CreationFrequenceDtoServ
 		return creationPrisesAvecJoursEtHeures(listeJours, listeHeures);
 	}
 
+	/**
+	 * Créer une liste de LocalTime à partir de l'heure de début, l'heure de fin et
+	 * l'intervalle de rappel. </br>
+	 * Exemple : </br>
+	 * Debut : 09:00 </br>
+	 * Fin : 19:00 </br>
+	 * Rappel : 01:30 </br>
+	 * ==> [ 09:00, 10:30, 12:00, 13:30, 15:00, 16:30, 18:00]
+	 * 
+	 * @param creationFrequenceDto
+	 * @return Liste de toutes les heures.
+	 */
 	private List<LocalTime> creationListeHeureChaqueJoursToutesLesXHeures(CreationFrequenceDto creationFrequenceDto) {
 		List<LocalTime> listeHeures = new ArrayList<>();
 
-		LocalTime debut = creationLocalTimeAvecString(creationFrequenceDto.getHeureDebut().toString());
-		LocalTime fin = creationLocalTimeAvecString(creationFrequenceDto.getHeureFin().toString());
-		Integer x = Integer.parseInt(creationFrequenceDto.getX().toString());
+		LocalTime debut = creationFrequenceDto.getHeureDebut();
+		LocalTime fin = creationFrequenceDto.getHeureFin();
+		LocalTime rappel = creationFrequenceDto.getRappel();
 
-		for (LocalTime time = debut; (time.getHour() <= fin.getHour()); time.plusHours(x)) {
+		for (LocalTime time = debut; time.compareTo(fin) <= 0; time = time.plusHours(rappel.getHour()), time = time
+				.plusMinutes(rappel.getMinute())) {
 			listeHeures.add(time);
 		}
 		return listeHeures;
 	}
 
-	private LocalTime creationLocalTimeAvecString(String str) {
-
-		Integer heure = Integer.parseInt(str.substring(1, 3));
-		Integer minute = Integer.parseInt(str.substring(4, 6));
-		return LocalTime.of(heure, minute);
-	}
-
+	/**
+	 * Méthode, qui retourne une liste de LocalDateTime contenant tous les jours
+	 * depuis la date de debut de dureeDto jusque sa date de fin avec un intervalle
+	 * de x </br>
+	 * Exemple => </br>
+	 * debut : 14/06/2021</br>
+	 * fin : 20/06/2021</br>
+	 * x : 2</br>
+	 * RETURN : [14/06/2021, 16/06/2021, 18/06/2021, 20/06/2021]
+	 * 
+	 * @param creationFrequenceDto
+	 * @param dureeDto
+	 * @return
+	 */
 	private List<LocalDateTime> creationListeJoursAvexChoixTousLesXJours(CreationFrequenceDto creationFrequenceDto,
 			DureeDto dureeDto) {
 		List<LocalDateTime> listeJours = new ArrayList<>();

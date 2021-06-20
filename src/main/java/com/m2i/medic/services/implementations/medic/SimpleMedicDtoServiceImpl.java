@@ -57,7 +57,7 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 	/**
 	 * Convertis un objet Medic en un SimpleMedicDto.
 	 * 
-	 * @param medic : Frais comme un gardon, tous juste sortie de la base 
+	 * @param medic : Frais comme un gardon, tous juste sortie de la base de données
 	 * @return SimpleMedicDto
 	 */
 	private SimpleMedicDto convertSimpleDtoFromMedic(Medic medic) {

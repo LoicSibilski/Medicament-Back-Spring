@@ -1,5 +1,6 @@
 package com.m2i.medic.controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.m2i.medic.dtos.medic.CreationMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.dtos.medic.SimpleMedicDto;
 import com.m2i.medic.services.medic.ModificationMedicService;
@@ -42,13 +44,31 @@ public class MedicController {
 	}
 
 	@PostMapping("")
-	public MedicDto save(@RequestBody JsonNode jsonNode)
+	public MedicDto save(@RequestBody CreationMedicDto dto)
 			throws JsonProcessingException, IllegalArgumentException {
-
-		return this.modificationMedicDtoService.save(jsonNode);
+		System.out.println(dto);
+		System.out.println(dto.getNom().getClass());
+		System.out.println(dto.getDureeData());
+		System.out.println(dto.getFrequenceData());
+		System.out.println(dto.getListeHeuresData());
+		System.out.println(dto.getListeHeuresData().get(0));
+		for (String iterable_element : dto.getListeHeuresData()) {
+			System.out.println(iterable_element);
+		}
+		return null;
+//		return this.modificationMedicDtoService.save(dto);
 
 //		this.medicService.save(medics);
 	}
+	
+//	@PostMapping("")
+//	public MedicDto save(@RequestBody JsonNode jsonNode)
+//			throws JsonProcessingException, IllegalArgumentException {
+//
+//		return this.modificationMedicDtoService.save(jsonNode);
+//
+////		this.medicService.save(medics);
+//	}
 
 	@PutMapping()
 	public void updateById(@RequestBody JsonNode jsonNode) throws JsonProcessingException, IllegalArgumentException {

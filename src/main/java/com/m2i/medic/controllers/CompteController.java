@@ -62,7 +62,7 @@ public class CompteController {
 	}
 	
 	/**
-	 * Cette méthode permet de retourne un service pour modifier un email
+	 * Cette méthode permet de retourne un service pour modifier un compte
 	 * @param un compte
 	 */
 	@PatchMapping("")

@@ -31,6 +31,7 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 		String motDePasse = nouveauCompte.getMotDePasse();
 		verifierCompteExiste(email);
 		verifierAttributsCompte(email, motDePasse);
+		verifierTailleMaximum(email.length(), 320);
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
 		compte.setMotDePasse(Base64.encode(motDePasse.getBytes())); // modifier le chiffrement
 		compte.setDateCreation(LocalDateTime.now());
@@ -45,6 +46,7 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 		String motDePasse = compte.getMotDePasse();
 		verifierCompteExiste(email);
 		verifierAttributsCompte(email, motDePasse);
+		verifierTailleMaximum(email.length(), 320);
 		Compte compteModifie = this.mapper.convertValue(compte, Compte.class);
 		compteModifie.setMotDePasse(Base64.encode(motDePasse.getBytes()));
 		compteModifie.setDateMisJour(LocalDateTime.now());
@@ -80,9 +82,9 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 	 * @param un compte
 	 */
 	private void verifierCompteExiste(String email) {
-		InscriptionDTO compteRecupere = this.repository.findByEmail(email);
+		CompteDTO compteRecupere = this.repository.findByEmail(email);
 		if(compteRecupere != null) {			
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'email existe déjà");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le compte existe déjà");
 		}
 	}
 	
@@ -94,8 +96,18 @@ public class ModificateurCompteServiceImpl implements ModificateurCompteService 
 	private void verifierAttributFormat(String attribut, Pattern pattern) {
         boolean attributValide = pattern.matcher(attribut).find();
         if(!attributValide) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'attribut ne respecte pas le bon format");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'attribut : " + attribut  + " ne respecte pas le bon format");
         }
+	}
+	
+	/**
+	 * Cette méthode permet de vérifier la taille maximum d'une adresse email
+	 * @param tailleEmail
+	 */
+	private void verifierTailleMaximum(int tailleEmail, int tailleMax) {
+		if(tailleEmail > tailleMax) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'adresse email ne respecte pas la taille maximum de caractères");
+		}
 	}
 	
 }

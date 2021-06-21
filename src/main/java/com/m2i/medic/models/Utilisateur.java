@@ -23,6 +23,5 @@ public class Utilisateur {
 	private String prenom;
 	private LocalDateTime dateNaissance;
 	private List<AssistantOuAssisteDTO> assistants;
-	private List<AssistantOuAssisteDTO> assistes;
 	
 }

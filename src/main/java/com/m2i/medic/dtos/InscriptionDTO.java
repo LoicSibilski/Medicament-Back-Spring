@@ -1,6 +1,7 @@
 package com.m2i.medic.dtos;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Cette classe représente un DTO de création de compte
@@ -8,9 +9,9 @@ import lombok.Data;
  *
  */
 @Data
-public class CreationNouveauCompteDTO {
+@NoArgsConstructor
+public class InscriptionDTO {
 
 	private String email;
 	private String motDePasse;
-	
 }

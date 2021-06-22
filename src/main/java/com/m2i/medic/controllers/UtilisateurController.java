@@ -23,6 +23,11 @@ public class UtilisateurController {
 	@Autowired
 	private UtilisateurService service;
 	
+	@GetMapping("{id}/utilisateurs")
+	public List<Utilisateur> getAllByCompteId(@PathVariable String id){
+		return this.service.findAllByCompteId(id);
+	}
+	
 	@GetMapping("")
 	public List<Utilisateur> getAll(){
 		return this.service.getAll();

@@ -2,7 +2,7 @@ package com.m2i.medic.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.m2i.medic.dtos.CreationNouveauCompteDTO;
+import com.m2i.medic.dtos.CompteDTO;
 import com.m2i.medic.models.Compte;
 
 /**
@@ -17,6 +17,6 @@ public interface CompteRepository extends MongoRepository<Compte, String> {
 	 * @param une adresse email
 	 * @return un compte
 	 */
-	public CreationNouveauCompteDTO findByEmail(String email);
+	public CompteDTO findByEmail(String email);
 	
 }

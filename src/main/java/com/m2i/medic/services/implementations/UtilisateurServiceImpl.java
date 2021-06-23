@@ -55,8 +55,8 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	}
 
 	@Override
-	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id) {
-		return this.repository.findAllAssistesByCompteId(id);
+	public List<AssistantOuAssisteDTO> findAllByAssistantOuAssiteDTOId(String id) {
+		return this.repository.findAllByAssistantOuAssisteDTOId(id);
 	}
 
 }

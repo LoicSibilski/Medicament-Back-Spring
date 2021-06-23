@@ -13,5 +13,5 @@ public interface UtilisateurRepository extends MongoRepository<Utilisateur, Stri
 	
 	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id);
 	
-	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id);
+	public List<AssistantOuAssisteDTO> findAllByAssistantOuAssisteDTOId(String id);
 }

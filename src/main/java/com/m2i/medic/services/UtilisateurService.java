@@ -13,6 +13,6 @@ public interface UtilisateurService extends GenericSimpleCRUDService<Utilisateur
 	
 	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id);
 	
-	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id);
+	public List<AssistantOuAssisteDTO> findAllByAssistantOuAssiteDTOId(String id);
 
 }

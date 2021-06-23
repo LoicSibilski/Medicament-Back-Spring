@@ -43,6 +43,11 @@ public class UtilisateurController {
 		return this.service.findAllAssistantsByCompteId(id);
 	}
 	
+	@GetMapping("{id}/assistes")
+	public List<AssistantOuAssisteDTO> getAllByAssistantOuAssisteDTOId(@PathVariable String id){
+		return this.service.findAllByAssistantOuAssiteDTOId(id);
+	}
+	
 	@DeleteMapping("")
 	public void deleteAll() {
 		this.service.deleteAll();

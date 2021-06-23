@@ -25,8 +25,4 @@ public interface CompteService {
 	 */
 	public CompteDTO recupererUnCompte(String id);	
 	
-	/**
-	 * Cette méthode permet de supprimer tous les comptes
-	 */
-	public void supprimerTousLesComptes();
 }

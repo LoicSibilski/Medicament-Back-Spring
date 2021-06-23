@@ -46,12 +46,4 @@ public class CompteConfig {
 		return new ModificateurCompteServiceImpl(repository, mapper);
 	}
 
-	@Bean
-	public ObjectMapper objectMapper() {
-		return new ObjectMapper().registerModule(new JavaTimeModule())
-				.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-				.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).setVisibility(
-						VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-
-	}
 }

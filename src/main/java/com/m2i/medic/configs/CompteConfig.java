@@ -26,32 +26,36 @@ import com.m2i.medic.services.implementations.ModificateurCompteServiceImpl;
 public class CompteConfig {
 	
 	/**
-	 * Cette méthode permet de retourner un objet pour le service d'un compte
+	 * Cette méthode permet de retourner un objet pour utiliser le service de récupération d'un compte
 	 * @param repository
 	 * @param mapper
-	 * @return un objet utile à l'implémentation des services d'un compte
+	 * @return un service
 	 */
 	@Bean
 	public CompteService compteService(CompteRepository repository, ObjectMapper mapper) {
 		return new CompteServiceImpl(repository, mapper);
 	}
 	
+	/**
+	 * Cette méthode permet de retourner un objet pour utiliser le service d'authentification d'un compte
+	 * @param repository
+	 * @param mapper
+	 * @return un service
+	 */
 	@Bean
 	public AuthentificationService authentificationService(CompteRepository repository, ObjectMapper mapper) {
 		return new AuthentificationServiceImpl(repository, mapper);
 	}
 	
+	/**
+	 * Cette méthode permet de retourner un objet pour utiliser le service de modification d'un compte
+	 * @param repository
+	 * @param mapper
+	 * @return un service
+	 */
 	@Bean
 	public ModificateurCompteService modificateurCompteService(CompteRepository repository, ObjectMapper mapper) {
 		return new ModificateurCompteServiceImpl(repository, mapper);
 	}
 
-	@Bean
-	public ObjectMapper objectMapper() {
-		return new ObjectMapper().registerModule(new JavaTimeModule())
-				.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-				.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).setVisibility(
-						VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-
-	}
 }

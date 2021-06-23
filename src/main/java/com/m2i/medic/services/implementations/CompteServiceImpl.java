@@ -22,10 +22,7 @@ public class CompteServiceImpl implements CompteService {
 	private ObjectMapper mapper;
 	
 	private CompteRepository repository;
-	
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+)$");
-	
-	public static final Pattern VALID_MOTDEPASSE_ADDRESS_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
+		
 	
 	/**
 	 * Constructeur
@@ -54,7 +51,6 @@ public class CompteServiceImpl implements CompteService {
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte n'existe pas"));
 		return mapper.convertValue(compte, CompteDTO.class);
 	}
-
 
 		
 }

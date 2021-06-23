@@ -89,22 +89,4 @@ public class CompteController {
 		this.modificateurCompteService.supprimerUnCompte(id);
 	}
 	
-	/**
-	 * Cette méthode permet de supprimer un compte
-	 * @param l'identifiant d'un compte
-	 */
-	@DeleteMapping("{id}")
-	public void supprimerUnCompte(@PathVariable String id) {
-		this.service.supprimerUnCompte(id);
-	}
-	
-	/**
-	 * Cette méthode permet de supprimer tous les comptes
-	 */
-	@DeleteMapping()
-	public void supprimerTousLesComptes() {
-		this.service.supprimerTousLesComptes();
-	}
-	
-	
 }

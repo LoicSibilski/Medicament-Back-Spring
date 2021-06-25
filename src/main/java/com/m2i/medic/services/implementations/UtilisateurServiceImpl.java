@@ -1,5 +1,6 @@
 package com.m2i.medic.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +52,28 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 
 	@Override
 	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id) {
-		return this.repository.findAllAssistantsByCompteId(id);
+		List<Utilisateur> utilisateurs = this.repository.findAllByCompteId(id);
+		List<AssistantOuAssisteDTO> assistants = new ArrayList<>();
+		for (Utilisateur utilisateur : utilisateurs) {
+			List<AssistantOuAssisteDTO> assistantsUtilisateur = utilisateur.getAssistants();
+			for (AssistantOuAssisteDTO assistantUtilisateur : assistantsUtilisateur) {
+				assistants.add(assistantUtilisateur);
+			}	
+		}
+		return assistants;
 	}
 
 	@Override
-	public List<AssistantOuAssisteDTO> findAllByAssistantOuAssiteDTOId(String id) {
-		return this.repository.findAllByAssistantOuAssisteDTOId(id);
+	public List<AssistantOuAssisteDTO> findAllAssistesByUtilisateurId(String id) {
+		List<Utilisateur> liste = this.repository.findAllByAssistantsId(id);
+		List<AssistantOuAssisteDTO> assistes = new ArrayList<>();
+		for (Utilisateur utilisateur : liste) {
+			AssistantOuAssisteDTO assiste = new AssistantOuAssisteDTO(utilisateur.getId(), utilisateur.getNom(), utilisateur.getPrenom());
+			assistes.add(assiste);
+			}
+		return assistes;
 	}
+
+
 
 }

@@ -27,11 +27,8 @@ public class ModificationMedicServiceImpl implements ModificationMedicService {
 	@Override
 	public MedicDto save(CreationMedicDto creationMedicDto) {
 		MedicDto medicDto = this.creationMedicService.convertCreationMedicDtoToMedicDto(creationMedicDto);
-		System.out.println("creationMedicDto => " + medicDto);
 		Medic entity = this.convertMedicFromDto(medicDto);
-		System.out.println("entity >>>> " + entity);
 		Medic result = this.medicRepository.save(entity);
-		System.out.println("result =>> "+ result);
 		return this.mapper.convertValue(result, MedicDto.class);
 	}
 

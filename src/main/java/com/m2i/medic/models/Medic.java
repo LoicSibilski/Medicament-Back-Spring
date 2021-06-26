@@ -25,4 +25,8 @@ public class Medic {
 	@DBRef
 	private Frequence frequence;
 	
+	@DBRef
+	private InfoMedic infoMedic;
+	
+	
 }

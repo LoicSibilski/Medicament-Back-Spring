@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.m2i.medic.configs.compte.entities.Compte;
 import com.m2i.medic.dtos.AssistantOuAssisteDTO;
 
 import lombok.Data;

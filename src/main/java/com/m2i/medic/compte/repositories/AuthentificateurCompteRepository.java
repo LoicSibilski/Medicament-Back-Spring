@@ -1,8 +1,8 @@
-package com.m2i.medic.configs.compte.repositories;
+package com.m2i.medic.compte.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.m2i.medic.configs.compte.entities.Compte;
+import com.m2i.medic.compte.entities.Compte;
 
 
 /**

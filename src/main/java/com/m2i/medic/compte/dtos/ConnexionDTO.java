@@ -1,4 +1,4 @@
-package com.m2i.medic.configs.compte.dtos;
+package com.m2i.medic.compte.dtos;
 
 import java.time.LocalDateTime;
 

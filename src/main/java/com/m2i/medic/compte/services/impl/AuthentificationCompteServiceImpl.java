@@ -1,9 +1,9 @@
-package com.m2i.medic.configs.compte.services.impl;
+package com.m2i.medic.compte.services.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m2i.medic.configs.compte.dtos.ConnexionDTO;
-import com.m2i.medic.configs.compte.repositories.AuthentificateurCompteRepository;
-import com.m2i.medic.configs.compte.services.AuthentificateurCompteService;
+import com.m2i.medic.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.repositories.AuthentificateurCompteRepository;
+import com.m2i.medic.compte.services.AuthentificateurCompteService;
 
 /**
  * Cette classe représente l'implémentation du service d'authentification d'un compte

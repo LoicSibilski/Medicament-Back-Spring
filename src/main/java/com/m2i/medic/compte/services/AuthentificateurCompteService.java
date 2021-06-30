@@ -1,6 +1,6 @@
-package com.m2i.medic.configs.compte.services;
+package com.m2i.medic.compte.services;
 
-import com.m2i.medic.configs.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.dtos.ConnexionDTO;
 
 /**
  * Cette classe représente un service d'authentication d'un compte

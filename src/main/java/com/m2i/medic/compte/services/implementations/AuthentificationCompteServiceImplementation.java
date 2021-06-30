@@ -1,4 +1,4 @@
-package com.m2i.medic.compte.services.impl;
+package com.m2i.medic.compte.services.implementations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.dtos.ConnexionDTO;
@@ -10,7 +10,7 @@ import com.m2i.medic.compte.services.AuthentificateurCompteService;
  * @author fabien
  *
  */
-public class AuthentificationCompteServiceImpl implements AuthentificateurCompteService {
+public class AuthentificationCompteServiceImplementation implements AuthentificateurCompteService {
 
 	private ObjectMapper mapper;
 
@@ -21,7 +21,7 @@ public class AuthentificationCompteServiceImpl implements AuthentificateurCompte
 	 * @param mapper
 	 * @param repository
 	 */
-	public AuthentificationCompteServiceImpl(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
+	public AuthentificationCompteServiceImplementation(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
 		super();
 		this.mapper = mapper;
 		this.repository = repository;

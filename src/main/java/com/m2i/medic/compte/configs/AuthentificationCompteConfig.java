@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.repositories.AuthentificateurCompteRepository;
 import com.m2i.medic.compte.services.AuthentificateurCompteService;
-import com.m2i.medic.compte.services.impl.AuthentificationCompteServiceImpl;
+import com.m2i.medic.compte.services.implementations.AuthentificationCompteServiceImplementation;
 
 /**
  * Cette classe représente la configuration de l'authentificaiton d'un compte
@@ -24,7 +24,7 @@ public class AuthentificationCompteConfig {
 	 */
 	@Bean
 	public AuthentificateurCompteService creerBeanAuthentificationCompteServiceImpl(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
-		return new AuthentificationCompteServiceImpl(mapper, repository);
+		return new AuthentificationCompteServiceImplementation(mapper, repository);
 	}
 	
 }

@@ -17,10 +17,10 @@ import com.m2i.medic.compte.services.implementations.AuthentificationCompteServi
 public class AuthentificationCompteConfig {
 
 	/**
-	 * Cette méthode permet de retourner un objet pour utiliser le service d'authentification d'un compte
+	 * Cette méthode permet de retourner un bean pour utiliser le service d'authentification d'un compte
 	 * @param repository
 	 * @param mapper
-	 * @return un service
+	 * @return un bean
 	 */
 	@Bean
 	public AuthentificateurCompteService creerBeanAuthentificationCompteServiceImplementation(ObjectMapper mapper, AuthentificateurCompteRepository repository) {

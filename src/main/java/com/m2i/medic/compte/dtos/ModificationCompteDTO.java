@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class ModificaitonCompteDTO {
+public class ModificationCompteDTO {
 
 	private String id;
 	private String email;

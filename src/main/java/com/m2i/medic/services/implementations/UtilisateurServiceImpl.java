@@ -74,6 +74,19 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 		return assistes;
 	}
 
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id) {
+		List<Utilisateur> utilisateurs = this.findAllByCompteId(id);
+		List<AssistantOuAssisteDTO> assistesDuCompte = new ArrayList<>();
+		for (Utilisateur utilisateur : utilisateurs) {
+			List<AssistantOuAssisteDTO> assistesDeLUtilisateur = this.findAllAssistesByUtilisateurId(utilisateur.getId());
+			for (AssistantOuAssisteDTO assiste : assistesDeLUtilisateur) {
+				assistesDuCompte.add(assiste);
+			}
+		}
+		return assistesDuCompte;
+	}
+
 
 
 }

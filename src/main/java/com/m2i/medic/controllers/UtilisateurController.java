@@ -46,8 +46,8 @@ public class UtilisateurController {
 	}
 
 	@GetMapping("{id}/assistes")
-	public List<AssistantOuAssisteDTO> getAllAssistesByUtilisateurId(@PathVariable String id){
-		return this.service.findAllAssistesByUtilisateurId(id);
+	public List<AssistantOuAssisteDTO> getAllAssistesByCompteId(@PathVariable String id){
+		return this.service.findAllAssistesByCompteId(id);
 	}
 	
 	@DeleteMapping("")

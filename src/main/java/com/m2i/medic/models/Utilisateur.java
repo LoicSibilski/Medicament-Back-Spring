@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document
 public class Utilisateur {
-	
 	@Id
 	private String id;
 	private Compte compte;
@@ -23,5 +22,4 @@ public class Utilisateur {
 	private String prenom;
 	private LocalDateTime dateNaissance;
 	private List<AssistantOuAssisteDTO> assistants;
-	
 }

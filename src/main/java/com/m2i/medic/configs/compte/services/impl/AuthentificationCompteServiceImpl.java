@@ -15,6 +15,19 @@ public class AuthentificationCompteServiceImpl implements AuthentificateurCompte
 	private ObjectMapper mapper;
 
 	private AuthentificateurCompteRepository repository;
+	
+	/**
+	 * Constructeur
+	 * @param mapper
+	 * @param repository
+	 */
+	public AuthentificationCompteServiceImpl(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
+		super();
+		this.mapper = mapper;
+		this.repository = repository;
+	}
+
+
 
 	@Override
 	public String seConnecterCompte(ConnexionDTO connexion) {

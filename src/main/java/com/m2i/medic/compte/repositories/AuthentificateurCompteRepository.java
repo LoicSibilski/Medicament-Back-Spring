@@ -6,14 +6,14 @@ import com.m2i.medic.compte.entities.Compte;
 
 
 /**
- * Cette classe représente le repository d'un compte
+ * Cette classe représente le repository authentificateur d'un compte
  * @author fabien
  *
  */
 public interface AuthentificateurCompteRepository extends MongoRepository<Compte, String> {
 
 	/**
-	 * Cette méthode permet de récupérer un compte à partir d'un pseudo ou un email
+	 * Cette méthode permet de vérifier si un compte existe à partir d'un pseudo ou un email
 	 * @param email
 	 * @param pseudo
 	 * @return un compte

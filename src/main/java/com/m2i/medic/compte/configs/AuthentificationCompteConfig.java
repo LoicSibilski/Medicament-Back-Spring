@@ -1,6 +1,7 @@
 package com.m2i.medic.compte.configs;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.repositories.AuthentificateurCompteRepository;
@@ -12,6 +13,7 @@ import com.m2i.medic.compte.services.impl.AuthentificationCompteServiceImpl;
  * @author fabien
  *
  */
+@Configuration
 public class AuthentificationCompteConfig {
 
 	/**

@@ -1,7 +1,5 @@
 package com.m2i.medic.compte.dtos;
 
-import java.time.LocalDateTime;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

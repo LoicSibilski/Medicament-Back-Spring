@@ -2,6 +2,9 @@ package com.m2i.medic.compte.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +30,8 @@ public class ModificationCompteController {
 	 * Cette méthode permet de creer un compte à partir du service
 	 * @param nouveauCompte
 	 */
-	public void creerCompte(InscriptionDTO nouveauCompte) {
+	@PostMapping("")
+	public void creerCompte(@RequestBody InscriptionDTO nouveauCompte) {
 		this.service.creerCompte(nouveauCompte);
 	}
 	
@@ -35,7 +39,8 @@ public class ModificationCompteController {
 	 * Cette méthode permet de modifier un compte à partir du service
 	 * @param compteModifie
 	 */
-	public void modifierCompte(ModificationCompteDTO compteModifie) {
+	@PatchMapping("")
+	public void modifierCompte(@RequestBody ModificationCompteDTO compteModifie) {
 		this.service.modifierCompte(compteModifie);
 	}
 	
@@ -43,7 +48,8 @@ public class ModificationCompteController {
 	 * Cette méthode permet de desactiver un compte à partir du service
 	 * @param compteDesactive
 	 */
-	public void desactiverCompte(DesactivationCompteDTO compteDesactive) {
+	@PatchMapping("/desactiver")
+	public void desactiverCompte(@RequestBody DesactivationCompteDTO compteDesactive) {
 		this.service.desactiverCompte(compteDesactive);
 	}
 	

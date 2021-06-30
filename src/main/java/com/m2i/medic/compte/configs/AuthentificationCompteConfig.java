@@ -23,7 +23,7 @@ public class AuthentificationCompteConfig {
 	 * @return un service
 	 */
 	@Bean
-	public AuthentificateurCompteService creerBeanAuthentificationCompteServiceImpl(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
+	public AuthentificateurCompteService creerBeanAuthentificationCompteServiceImplementation(ObjectMapper mapper, AuthentificateurCompteRepository repository) {
 		return new AuthentificationCompteServiceImplementation(mapper, repository);
 	}
 	

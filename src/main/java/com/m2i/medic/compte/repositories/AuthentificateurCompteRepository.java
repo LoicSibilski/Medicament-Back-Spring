@@ -6,7 +6,7 @@ import com.m2i.medic.compte.entities.Compte;
 
 
 /**
- * Cette classe représente le repository authentificateur d'un compte
+ * Cette interface représente le repository authentificateur d'un compte
  * @author fabien
  *
  */

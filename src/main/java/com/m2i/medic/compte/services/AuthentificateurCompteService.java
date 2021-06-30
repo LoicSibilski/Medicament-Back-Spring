@@ -3,7 +3,7 @@ package com.m2i.medic.compte.services;
 import com.m2i.medic.compte.dtos.ConnexionDTO;
 
 /**
- * Cette classe représente un service d'authentication d'un compte
+ * Cette interface représente un service authentificateur d'un compte
  * @author fabien
  *
  */

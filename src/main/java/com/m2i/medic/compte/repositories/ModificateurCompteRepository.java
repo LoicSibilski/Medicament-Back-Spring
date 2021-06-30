@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.m2i.medic.compte.entities.Compte;
 
 /**
- * Cette classe représente le repository modificateur d'un compte
+ * Cette interface représente le repository modificateur d'un compte
  * @author fabien
  *
  */

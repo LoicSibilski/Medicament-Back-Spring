@@ -25,7 +25,7 @@ public class Compte {
 	private String email;
 	private String pseudo;
 	private String motDePasse;
-	private Boolean etat;
+	private boolean etat;
 	private LocalDateTime dateCreation;
 	private LocalDateTime dateConnexion;	
 	private LocalDateTime dateMisJour;

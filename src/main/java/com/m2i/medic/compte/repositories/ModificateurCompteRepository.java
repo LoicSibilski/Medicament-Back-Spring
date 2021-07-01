@@ -16,6 +16,6 @@ public interface ModificateurCompteRepository extends MongoRepository<Compte, St
 	 * @param emailOrPseudo
 	 * @return vrai ou faux
 	 */
-	public Boolean findByEmailOrPseudo(String emailOrPseudo);
+	public boolean findByEmailOrPseudo(String emailOrPseudo);
 	
 }

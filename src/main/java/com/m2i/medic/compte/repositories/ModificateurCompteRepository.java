@@ -12,10 +12,16 @@ import com.m2i.medic.compte.entities.Compte;
 public interface ModificateurCompteRepository extends MongoRepository<Compte, String> {
 
 	/**
-	 * Cette méthode permet de récupérer une valeur vrai ou fausse, si un pseudo ou email existe
-	 * @param emailOrPseudo
+	 * Cette méthode permet de récupérer une valeur vrai ou fausse, si l'email de l'utilisateur existe
+	 * @param email
 	 * @return vrai ou faux
 	 */
-	public boolean findByEmailOrPseudo(String emailOrPseudo);
+	public boolean findByEmail(String email);
 	
+	/**
+	 * Cette méthode permet de récupérer une valeur vrai ou fausse, si le pseudo de l'utilisateur existe
+	 * @param pseudo
+	 * @return vrai ou faux
+	 */
+	public boolean findByPseudo(String pseudo);
 }

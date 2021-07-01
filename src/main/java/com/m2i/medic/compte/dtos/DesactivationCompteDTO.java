@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class DesactivationCompteDTO {
 
 	private String id;
-	private Boolean etat;
+	private boolean etat;
 }

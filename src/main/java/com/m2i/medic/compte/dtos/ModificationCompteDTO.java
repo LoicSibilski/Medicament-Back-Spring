@@ -16,5 +16,4 @@ public class ModificationCompteDTO {
 	private String email;
 	private String pseudo;
 	private String motDePasse;
-	private Character type;
 }

@@ -1,7 +1,6 @@
 package com.m2i.medic.compte.services.implementations;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.http.HttpStatus;
@@ -48,6 +47,23 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		compte.setDateMisJour(LocalDateTime.now());
 		this.repository.save(compte);
 	}
+	
+	@Override
+	public void modifierCompte(ModificationCompteDTO compteModifie) {
+
+	}
+
+	@Override
+	public void desactiverCompte(DesactivationCompteDTO compteDesactive) {
+
+	}
+
+	/**
+	 * Cette méthode permet de supprimer un compte
+	 */
+	private void supprimerCompte() {
+
+	}
 
 	/**
 	 * Cette méthode permet de vérifier la conformité d'un nouveau compte
@@ -55,12 +71,8 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	 * @param nouveauCompte
 	 */
 	private void verifierCompte(InscriptionDTO nouveauCompte) {
-		String email = this.repository.findByEmail(nouveauCompte.getEmail());
-		String pseudo = this.repository.findByPseudo(nouveauCompte.getPseudo());
-
-		boolean emailExiste = email == null ? false : true;
-		boolean pseudoExiste = pseudo == null ? false : true;
-
+		boolean emailExiste = this.repository.findByEmail(nouveauCompte.getEmail()) == null ? false : true;;
+		boolean pseudoExiste = this.repository.findByPseudo(nouveauCompte.getPseudo()) == null ? false : true;;
 		boolean emailFormatValide = verifierFormatEmail(nouveauCompte.getEmail());
 		boolean pseudoFormatValide = verifierFormatPseudo(nouveauCompte.getPseudo());
 		boolean motDePasseFormatValide = verifierFormatMotDePasse(nouveauCompte.getMotDePasse());
@@ -107,20 +119,4 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		return pattern.matcher(motDePasse).matches();
 	}
 
-	@Override
-	public void modifierCompte(ModificationCompteDTO compteModifie) {
-
-	}
-
-	@Override
-	public void desactiverCompte(DesactivationCompteDTO compteDesactive) {
-
-	}
-
-	/**
-	 * Cette méthode permet de supprimer un compte
-	 */
-	private void supprimerCompte() {
-
-	}
 }

@@ -1,7 +1,13 @@
 package com.m2i.medic.compte.services.implementations;
 
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.entities.Compte;
 import com.m2i.medic.compte.repositories.AuthentificateurCompteRepository;
 import com.m2i.medic.compte.services.AuthentificateurCompteService;
 
@@ -27,10 +33,17 @@ public class AuthentificationCompteServiceImplementation implements Authentifica
 		this.repository = repository;
 	}
 
-
-
 	@Override
-	public String seConnecterCompte(ConnexionDTO connexion) {
-		return null;
+	public String seConnecterCompte(ConnexionDTO compteConnexion) {
+		Optional<Compte> optional = this.repository.findFirstByPseudoOrEmail(
+				compteConnexion.getPseudoOrEmail(), compteConnexion.getPseudoOrEmail());
+		
+		Compte compte = optional.orElseThrow(()->{ 
+			return new ResponseStatusException(HttpStatus.NOT_FOUND);
+		});
+		
+		if (compte.getMotDePasse().equals(compteConnexion.getMotDePasse()))
+			return compte.getId();
+		throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 	}
 }

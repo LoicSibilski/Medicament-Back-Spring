@@ -1,6 +1,7 @@
 package com.m2i.medic.compte.services.implementations;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.http.HttpStatus;
@@ -44,14 +45,35 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		verifierCompte(nouveauCompte);
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
 		compte.setDateCreation(LocalDateTime.now());
-		compte.setDateMisJour(LocalDateTime.now());
+		compte.setEtat(true);
 		this.repository.save(compte);
 	}
-	
+
 	@Override
 	public void modifierCompte(ModificationCompteDTO compteModifie) {
-
-	}
+		
+		Optional<Compte> optionnel = this.repository.findById(compteModifie.getId());
+		Compte nouveauCompte = optionnel.orElseThrow(()-> {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		});
+		
+		if(!compteModifie.getEmail().isEmpty() && compteModifie.getEmail() != nouveauCompte.getEmail()) {
+			verifierEmail(compteModifie);			
+			nouveauCompte.setEmail(compteModifie.getEmail());
+		}
+		
+		if(!compteModifie.getPseudo().isEmpty() && compteModifie.getPseudo() != nouveauCompte.getPseudo()) {
+			verifierPseudo(compteModifie);			
+			nouveauCompte.setPseudo(compteModifie.getPseudo());
+		}
+		
+		if(!compteModifie.getMotDePasse().isEmpty() && compteModifie.getMotDePasse() != nouveauCompte.getMotDePasse()) {
+			nouveauCompte.setMotDePasse(compteModifie.getMotDePasse());
+		}
+		
+		nouveauCompte.setDateMisJour(LocalDateTime.now());
+		this.repository.save(nouveauCompte);
+	}	
 
 	@Override
 	public void desactiverCompte(DesactivationCompteDTO compteDesactive) {
@@ -71,18 +93,36 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	 * @param nouveauCompte
 	 */
 	private void verifierCompte(InscriptionDTO nouveauCompte) {
-		boolean emailExiste = this.repository.findByEmail(nouveauCompte.getEmail()) == null ? false : true;;
-		boolean pseudoExiste = this.repository.findByPseudo(nouveauCompte.getPseudo()) == null ? false : true;;
+		boolean emailExiste = this.repository.findByEmail(nouveauCompte.getEmail()) == null ? false : true;
 		boolean emailFormatValide = verifierFormatEmail(nouveauCompte.getEmail());
+		
+		boolean pseudoExiste = this.repository.findByPseudo(nouveauCompte.getPseudo()) == null ? false : true;		
 		boolean pseudoFormatValide = verifierFormatPseudo(nouveauCompte.getPseudo());
+		
 		boolean motDePasseFormatValide = verifierFormatMotDePasse(nouveauCompte.getMotDePasse());
 
 		if (!emailFormatValide || !pseudoFormatValide || !motDePasseFormatValide || emailExiste || pseudoExiste)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	public void verifierEmail(ModificationCompteDTO nouveauCompte) {
+		boolean emailExiste = this.repository.findByEmail(nouveauCompte.getEmail()) == null ? false : true;
+		boolean emailFormatValide = verifierFormatEmail(nouveauCompte.getEmail());
+		if (!emailFormatValide ||  emailExiste)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+	}
+	
+	public void verifierPseudo(ModificationCompteDTO nouveauCompte) {
+		boolean pseudoExiste = this.repository.findByPseudo(nouveauCompte.getPseudo()) == null ? false : true;		
+		boolean pseudoFormatValide = verifierFormatPseudo(nouveauCompte.getPseudo());
+		if (!pseudoFormatValide || pseudoExiste)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+	}
 
 	/**
-	 * Cette méthode permet de vérifier que le format de l'email correspond à la norme RFC 5322
+	 * Cette méthode permet de vérifier que le format de l'email correspond à la
+	 * norme RFC 5322
 	 * 
 	 * @param email
 	 * @return vrai ou faux

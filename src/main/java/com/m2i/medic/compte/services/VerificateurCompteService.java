@@ -11,41 +11,41 @@ public interface VerificateurCompteService {
 	 * Cette méthode permet de vérifier si l'identifiant existe
 	 * @return vrai ou faux
 	 */
-	public boolean idExiste(String id);
+	public boolean verifierIdExiste(String id);
 	
 	/**
 	 * Cette méthode permet de vérifier si l'email existe
 	 * @return vrai ou faux
 	 */
-	public boolean emailExiste(String email);
+	public boolean verifierEmailExiste(String email);
 	
 	/**
 	 * Cette méthode permet de vérifier si le pseudo existe
 	 * @return vrai ou faux
 	 */
-	public boolean pseudoExiste(String pseudo);
+	public boolean verifierPseudoExiste(String pseudo);
 	
 	/**
 	 * Cette méthode permet de vérifier si le format de l'email est conforme
 	 * @return vrai ou faux
 	 */
-	public boolean emailFormatValide(String email);
+	public boolean verifierEmailFormatValide(String email);
 	
 	/**
 	 * Cette méthode permet de vérifier si le format de le pseudo est conforme
 	 * @return vrai ou faux
 	 */
-	public boolean pseudoFormatValide(String pseudo);
+	public boolean verifierPseudoFormatValide(String pseudo);
 	
 	/**
 	 * Cette méthode permet de vérifier si le format du mot de passe est conforme
 	 * @return vrai ou faux
 	 */
-	public boolean motDePasseFormatValide(String motDePasse);
+	public boolean verifierMotDePasseFormatValide(String motDePasse);
 	
 	/**
 	 * Cette méthode permet de vérifier si le chiffrement du mot de passe est conforme
 	 * @return vrai ou faux
 	 */
-	public boolean motDePasseChiffrementValide(String motDePasse);
+	public boolean verifierMotDePasseChiffrementValide(String motDePasse);
 }

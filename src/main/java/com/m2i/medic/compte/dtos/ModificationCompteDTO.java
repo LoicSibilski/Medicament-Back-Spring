@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Cette classe représente un DTO de modificaiton d'un compte
+ * Cette classe représente un DTO de modification d'un compte
  * @author fabien
  *
  */

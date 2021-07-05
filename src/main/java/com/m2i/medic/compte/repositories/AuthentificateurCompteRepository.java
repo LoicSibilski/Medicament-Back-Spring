@@ -1,5 +1,7 @@
 package com.m2i.medic.compte.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.m2i.medic.compte.entities.Compte;
@@ -18,6 +20,6 @@ public interface AuthentificateurCompteRepository extends MongoRepository<Compte
 	 * @param pseudo
 	 * @return un compte
 	 */
-	public Compte findFirstByPseudoOrEmail(String email, String pseudo);
+	public Optional<Compte> findFirstByPseudoOrEmail(String email, String pseudo);
 
 }

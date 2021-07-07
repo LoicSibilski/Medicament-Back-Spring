@@ -7,6 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.dtos.DesactivationCompteDTO;
+import com.m2i.medic.compte.dtos.InscriptionDTO;
 import com.m2i.medic.compte.entities.Compte;
 import com.m2i.medic.compte.repositories.AuthentificateurCompteRepository;
 import com.m2i.medic.compte.services.AuthentificateurCompteService;
@@ -42,8 +44,9 @@ public class AuthentificationCompteServiceImplementation implements Authentifica
 			return new ResponseStatusException(HttpStatus.NOT_FOUND);
 		});
 		
-		if (compte.getMotDePasse().equals(compteConnexion.getMotDePasse()))
+		if (compte.getMotDePasse().equals(compteConnexion.getMotDePasse()) && compte.isEtat()) {
 			return compte.getId();
+		}
 		throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 	}
 }

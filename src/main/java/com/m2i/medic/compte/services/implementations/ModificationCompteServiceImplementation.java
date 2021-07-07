@@ -1,7 +1,6 @@
 package com.m2i.medic.compte.services.implementations;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,6 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	private ModificateurCompteRepository repository;
 	
 	private VerificationCompteServiceImplementation verificateur;
-	
-	@Autowired
-	private BCryptPasswordEncoder encoder;
 		
 	/**
 	 * Constructeur
@@ -49,7 +45,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	public void creerCompte(InscriptionDTO nouveauCompte) {
 		this.verificateur.verifierDonneesCompte(nouveauCompte);
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
-		compte.setMotDePasse(encoder.encode(compte.getMotDePasse()));
+		compte.setMotDePasse(new BCryptPasswordEncoder().encode(nouveauCompte.getMotDePasse()));
 		compte.setDateCreation(LocalDateTime.now());
 		compte.setEtat(true);
 		this.repository.save(compte);
@@ -61,7 +57,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		Compte nouveauCompte = this.mapper.convertValue(compteModifie, Compte.class);
 		nouveauCompte.setEmail(compteModifie.getEmail());
 		nouveauCompte.setPseudo(compteModifie.getPseudo());
-		nouveauCompte.setMotDePasse(encoder.encode(compteModifie.getMotDePasse()));
+		nouveauCompte.setMotDePasse(new BCryptPasswordEncoder().encode(compteModifie.getMotDePasse()));
 		nouveauCompte.setDateMisJour(LocalDateTime.now());
 		nouveauCompte.setEtat(true);
 		this.repository.save(nouveauCompte);
@@ -74,7 +70,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		Compte compteSuspendu = this.mapper.convertValue(compte, Compte.class);
 		compteSuspendu.setEmail(compte.get().getEmail());
 		compteSuspendu.setPseudo(compte.get().getPseudo());
-		compteSuspendu.setMotDePasse(encoder.encode(compte.get().getMotDePasse()));
+		compteSuspendu.setMotDePasse(new BCryptPasswordEncoder().encode(compte.get().getMotDePasse()));
 		compteSuspendu.setDateMisJour(LocalDateTime.now());
 		compteSuspendu.setEtat(false);
 		this.repository.save(compteSuspendu);

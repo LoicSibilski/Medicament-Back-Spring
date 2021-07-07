@@ -41,7 +41,7 @@ public class VerificationCompteServiceImplementation implements VerificateurComp
 	}
 	
 	/**
-	 * Cette méthode est une surcharge de la méthode précédente
+	 * Cette méthode permet de vérifier les données d'un dto quand le compte est modifié
 	 * @param compteModifie
 	 */
 	public void verifierDonneesCompte(ModificationCompteDTO compteModifie) {
@@ -52,6 +52,10 @@ public class VerificationCompteServiceImplementation implements VerificateurComp
 		verifierDonneesCompte(compteAVerifier);
 	}
 	
+	/**
+	 * Cette méthode permet de vérifier les données d'un dto quand le compte est désactivé
+	 * @param compteDesactive
+	 */
 	public void verifierDonneesCompte(DesactivationCompteDTO compteDesactive) {
 		boolean idExiste = verifierIdExiste(compteDesactive.getId());
 		

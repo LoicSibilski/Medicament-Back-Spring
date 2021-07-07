@@ -10,7 +10,7 @@ import com.m2i.medic.compte.dtos.ConnexionDTO;
 public interface AuthentificateurCompteService {
 
 	/**
-	 * Cette méthode permet de recupérer se connecter à un compte
+	 * Cette méthode permet de recupérer l'identifiant d'un compte
 	 * @param connexion
 	 * @return l'identificant d'un compte
 	 */

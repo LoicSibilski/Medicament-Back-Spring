@@ -2,6 +2,8 @@ package com.m2i.medic.compte.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.repositories.ModificateurCompteRepository;
@@ -15,6 +17,15 @@ import com.m2i.medic.compte.services.implementations.VerificationCompteServiceIm
  */
 @Configuration
 public class ModificationCompteConfig {
+	
+	/**
+	 * Cette méthode permet de retourner un bean pour utiliser le service de chiffrement de mot de passe
+	 * @return un bean
+	 */
+	@Bean
+	public PasswordEncoder encoder() {
+	    return new BCryptPasswordEncoder();
+	}
 
 	/**
 	 * Cette méthode permet de retourner un bean pour utiliser le service de modification d'un compte

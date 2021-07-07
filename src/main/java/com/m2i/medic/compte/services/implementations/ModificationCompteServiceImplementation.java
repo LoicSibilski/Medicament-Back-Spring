@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.compte.dtos.DesactivationCompteDTO;
 import com.m2i.medic.compte.dtos.InscriptionDTO;
@@ -26,6 +29,9 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	private ModificateurCompteRepository repository;
 	
 	private VerificationCompteServiceImplementation verificateur;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 		
 	/**
 	 * Constructeur
@@ -43,6 +49,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 	public void creerCompte(InscriptionDTO nouveauCompte) {
 		this.verificateur.verifierDonneesCompte(nouveauCompte);
 		Compte compte = this.mapper.convertValue(nouveauCompte, Compte.class);
+		compte.setMotDePasse(encoder.encode(compte.getMotDePasse()));
 		compte.setDateCreation(LocalDateTime.now());
 		compte.setEtat(true);
 		this.repository.save(compte);
@@ -54,7 +61,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		Compte nouveauCompte = this.mapper.convertValue(compteModifie, Compte.class);
 		nouveauCompte.setEmail(compteModifie.getEmail());
 		nouveauCompte.setPseudo(compteModifie.getPseudo());
-		nouveauCompte.setMotDePasse(compteModifie.getMotDePasse());
+		nouveauCompte.setMotDePasse(encoder.encode(compteModifie.getMotDePasse()));
 		nouveauCompte.setDateMisJour(LocalDateTime.now());
 		nouveauCompte.setEtat(true);
 		this.repository.save(nouveauCompte);
@@ -67,7 +74,7 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		Compte compteSuspendu = this.mapper.convertValue(compte, Compte.class);
 		compteSuspendu.setEmail(compte.get().getEmail());
 		compteSuspendu.setPseudo(compte.get().getPseudo());
-		compteSuspendu.setMotDePasse(compte.get().getMotDePasse());
+		compteSuspendu.setMotDePasse(encoder.encode(compte.get().getMotDePasse()));
 		compteSuspendu.setDateMisJour(LocalDateTime.now());
 		compteSuspendu.setEtat(false);
 		supprimerCompte(compte.get().getId());

@@ -77,7 +77,6 @@ public class ModificationCompteServiceImplementation implements ModificateurComp
 		compteSuspendu.setMotDePasse(encoder.encode(compte.get().getMotDePasse()));
 		compteSuspendu.setDateMisJour(LocalDateTime.now());
 		compteSuspendu.setEtat(false);
-		supprimerCompte(compte.get().getId());
 		this.repository.save(compteSuspendu);
 	}
 

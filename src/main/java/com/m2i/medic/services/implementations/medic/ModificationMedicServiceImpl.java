@@ -1,12 +1,13 @@
 package com.m2i.medic.services.implementations.medic;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.medic.CreationMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Duree;
 import com.m2i.medic.models.Frequence;
+import com.m2i.medic.models.InfoMedic;
 import com.m2i.medic.models.Medic;
+import com.m2i.medic.repositories.InfoMedicRepository;
 import com.m2i.medic.repositories.MedicRepository;
 import com.m2i.medic.services.medic.CreationMedicDtoService;
 import com.m2i.medic.services.medic.ModificationMedicService;
@@ -43,6 +44,7 @@ public class ModificationMedicServiceImpl implements ModificationMedicService {
 		med.setNom(dto.getNom());
 		med.setDuree(this.mapper.convertValue(dto.getDureeDto(), Duree.class));
 		med.setFrequence(this.mapper.convertValue(dto.getFrequenceDto(), Frequence.class));
+		med.setInfoMedic(this.mapper.convertValue(dto.getInfoMedicDto(), InfoMedic.class));
 		return med;
 	}
 

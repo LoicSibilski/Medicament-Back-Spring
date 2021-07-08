@@ -6,26 +6,28 @@ import java.util.List;
 
 import com.m2i.medic.dtos.duree.DureeDto;
 import com.m2i.medic.dtos.frequence.FrequenceDto;
+import com.m2i.medic.dtos.infoMedic.InfoMedicDto;
+import com.m2i.medic.dtos.infoMedic.ModificationInfoMedicDto;
 import com.m2i.medic.dtos.medic.CreationMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.services.duree.CreationDureeDtoService;
 import com.m2i.medic.services.frequence.CreationFrequenceDtoService;
+import com.m2i.medic.services.infoMedic.ModificationInfoMedicService;
 import com.m2i.medic.services.medic.CreationMedicDtoService;
 
 public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 
 	private CreationDureeDtoService creationDureeDtoService;
 	private CreationFrequenceDtoService creationFrequenceDtoService;
-
-	public CreationMedicDtoServiceImpl() {
-		super();
-	}
+	private ModificationInfoMedicService modificationInfoMedicService;
 
 	public CreationMedicDtoServiceImpl(CreationDureeDtoService creationDureeDtoService,
-			CreationFrequenceDtoService creationFrequenceDtoService) {
+			CreationFrequenceDtoService creationFrequenceDtoService,
+			ModificationInfoMedicService modificationInfoMedicService) {
 		super();
 		this.creationDureeDtoService = creationDureeDtoService;
 		this.creationFrequenceDtoService = creationFrequenceDtoService;
+		this.modificationInfoMedicService = modificationInfoMedicService;
 	}
 
 	@Override
@@ -43,10 +45,15 @@ public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 		FrequenceDto frequenceDto = this.creationFrequenceDtoService
 				.convertCreationFrequenceDtoToFrequenceDto(creationMedicDto.getFrequenceData(), dureeDto, listeHeures);
 
+		ModificationInfoMedicDto modifInfoMedicDto = new ModificationInfoMedicDto(creationMedicDto);
+
+		InfoMedicDto infoMedicDto =  this.modificationInfoMedicService.save(modifInfoMedicDto);
+		System.out.println("infoMedicDtp => " + infoMedicDto);
 		MedicDto medicDto = new MedicDto();
 		medicDto.setNom(creationMedicDto.getNom());
 		medicDto.setDureeDto(dureeDto);
 		medicDto.setFrequenceDto(frequenceDto);
+		medicDto.setInfoMedicDto(infoMedicDto);
 		System.out.println("''''''''''''''''''''''''''''''''''''''''''''''''''''");
 
 		return medicDto;
@@ -56,8 +63,8 @@ public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 	 * La methode permet de convertir une liste de String en une liste de
 	 * LocalDateTime
 	 * 
-	 * @param listeHeures : liste des dates en String sous le format : 27:05,
-	 *                    14:07 ....
+	 * @param listeHeures : liste des dates en String sous le format : 27:05, 14:07
+	 *                    ....
 	 * @return la liste des dates sous format LocalDateTime.
 	 */
 	private List<LocalTime> convertListHeuresStringToListHeureLocalTime(List<String> listeHeures) {

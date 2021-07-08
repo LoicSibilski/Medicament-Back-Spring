@@ -7,7 +7,7 @@ public interface ModificationInfoMedicService {
 	
 	public InfoMedicDto save(ModificationInfoMedicDto modificationInfoMedicDto);
 
-	public InfoMedicDto update(ModificationInfoMedicDto modificationInfoMedicDto);
+	public InfoMedicDto update(InfoMedicDto InfoMedicDto);
 
 	
 }

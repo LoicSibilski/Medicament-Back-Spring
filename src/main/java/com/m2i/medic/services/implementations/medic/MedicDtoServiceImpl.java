@@ -9,34 +9,35 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.duree.DureeDto;
 import com.m2i.medic.dtos.frequence.FrequenceDto;
-import com.m2i.medic.dtos.medic.SimpleMedicDto;
+import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.MedicRepository;
-import com.m2i.medic.services.medic.SimpleMedicDtoService;
+import com.m2i.medic.services.medic.MedicDtoService;
 
-public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
+public class MedicDtoServiceImpl implements MedicDtoService {
 
 	private MedicRepository medicRepository;
 	private ObjectMapper mapper;
 
-	public SimpleMedicDtoServiceImpl(MedicRepository medicRepo, ObjectMapper mapper) {
+	public MedicDtoServiceImpl(MedicRepository medicRepo, ObjectMapper mapper) {
 		this.medicRepository = medicRepo;
 		this.mapper = mapper;
 	}
 
 	@Override
-	public List<SimpleMedicDto> getAll() {
+	public List<MedicDto> getAll() {
 		List<Medic> medics = this.medicRepository.findAll();
+		System.out.println("mes couilles => " + medics);
 		return medics.stream().map(medic -> {
-			return convertSimpleDtoFromMedic(medic);
+			return convertMedicToDto(medic);
 		}).collect(Collectors.toList());
 	}
 
 	@Override
-	public SimpleMedicDto getById(String id) {
+	public MedicDto getById(String id) {
 		Medic medic = this.medicRepository.findById(id).get();
 		System.out.println("MEDIC => " + medic);
-		return mapper.convertValue(medic, SimpleMedicDto.class);
+		return mapper.convertValue(medic, MedicDto.class);
 	}
 
 	@Override
@@ -56,19 +57,19 @@ public class SimpleMedicDtoServiceImpl implements SimpleMedicDtoService {
 	}
 	
 	/**
-	 * Convertis un objet Medic en un SimpleMedicDto.
+	 * Convertis un objet Medic en un MedicDto.
 	 * 
 	 * @param medic : Frais comme un gardon, tous juste sortie de la base de données
-	 * @return SimpleMedicDto
+	 * @return MedicDto
 	 */
-	private SimpleMedicDto convertSimpleDtoFromMedic(Medic medic) {
-		SimpleMedicDto simpleMedicDto = new SimpleMedicDto();
-		simpleMedicDto.setId(medic.getId());
-		simpleMedicDto.setNom(medic.getNom());
-		simpleMedicDto.setDureeDto(this.mapper.convertValue(medic.getDuree(), DureeDto.class));
-		simpleMedicDto.setFrequenceDto(this.mapper.convertValue(medic.getFrequence(), FrequenceDto.class));
+	private MedicDto convertMedicToDto(Medic medic) {
+		MedicDto medicDto = new MedicDto();
+		medicDto.setId(medic.getId());
+		medicDto.setNom(medic.getNom());
+		medicDto.setDureeDto(this.mapper.convertValue(medic.getDuree(), DureeDto.class));
+		medicDto.setFrequenceDto(this.mapper.convertValue(medic.getFrequence(), FrequenceDto.class));
 		
-		return simpleMedicDto;
+		return medicDto;
 	}
 
 }

@@ -7,34 +7,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
+import com.m2i.medic.dtos.frequence.FrequenceDto;
 import com.m2i.medic.models.Frequence;
 import com.m2i.medic.repositories.FrequenceRepository;
-import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
+import com.m2i.medic.services.frequence.FrequenceDtoService;
 
-public class SimpleFrequenceDtoServiceImpl implements SimpleFrequenceDtoService {
+public class FrequenceDtoServiceImpl implements FrequenceDtoService {
 
 	private FrequenceRepository frequenceRepository;
 	private ObjectMapper mapper;
 
-	public SimpleFrequenceDtoServiceImpl(FrequenceRepository medicRepo, ObjectMapper mapper) {
+	public FrequenceDtoServiceImpl(FrequenceRepository medicRepo, ObjectMapper mapper) {
 		this.frequenceRepository = medicRepo;
 		this.mapper = mapper;
 	}
 
 	@Override
-	public List<SimpleFrequenceDto> getAll() {
+	public List<FrequenceDto> getAll() {
 		List<Frequence> medics = this.frequenceRepository.findAll();
 
 		return medics.stream().map(medic -> {
-			return this.mapper.convertValue(medic, SimpleFrequenceDto.class);
+			return this.mapper.convertValue(medic, FrequenceDto.class);
 		}).collect(Collectors.toList());
 	}
 
 	@Override
-	public SimpleFrequenceDto getById(String id) {
+	public FrequenceDto getById(String id) {
 		Frequence medic = this.frequenceRepository.findById(id).get();
-		return mapper.convertValue(medic, SimpleFrequenceDto.class);
+		return mapper.convertValue(medic, FrequenceDto.class);
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class SimpleFrequenceDtoServiceImpl implements SimpleFrequenceDtoService 
 	@Override
 	public void deleteAll() {
 		List<Frequence> liste = this.frequenceRepository.findAll();
-		for (Frequence medic : liste) {
-			this.deleteByID(medic.getId());
+		for (Frequence freq : liste) {
+			this.deleteByID(freq.getId());
 		}
 	}
 

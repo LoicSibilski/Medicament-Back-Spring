@@ -14,49 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.m2i.medic.dtos.medic.CreationMedicDto;
-import com.m2i.medic.dtos.medic.MedicDto;
-import com.m2i.medic.services.medic.ModificationMedicService;
-import com.m2i.medic.services.medic.MedicDtoService;
+import com.m2i.medic.dtos.infoMedic.InfoMedicDto;
+import com.m2i.medic.dtos.infoMedic.ModificationInfoMedicDto;
+import com.m2i.medic.models.InfoMedic;
+import com.m2i.medic.services.infoMedic.InfoMedicDtoService;
+import com.m2i.medic.services.infoMedic.ModificationInfoMedicService;
 
 @RestController
-@RequestMapping("medics")
+@RequestMapping("infoMedics")
 @CrossOrigin
-public class MedicController {
+public class InfoMedicController {
 
 	@Autowired
-	private ModificationMedicService modificationMedicDtoService;
+	private ModificationInfoMedicService modificationInfoMedicDtoService;
 
 	@Autowired
-	private MedicDtoService simpleMedicDtoService;
+	private InfoMedicDtoService infoMedicDtoService;
 
 	@GetMapping("")
-	public List<MedicDto> getAll() {
-		return this.simpleMedicDtoService.getAll();
+	public List<InfoMedicDto> getAll() {
+		return this.infoMedicDtoService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public MedicDto findSimpleMedicById(@PathVariable String id) {
-		return this.simpleMedicDtoService.getById(id);
-	}
-
-	@PostMapping("")
-	public MedicDto save(@RequestBody CreationMedicDto dto) {
-		return this.modificationMedicDtoService.save(dto);
+	public InfoMedicDto findInfoMedicById(@PathVariable String id) {
+		return this.infoMedicDtoService.getById(id);
 	}
 
 	@PutMapping()
-	public void updateById(@RequestBody CreationMedicDto dto) throws JsonProcessingException, IllegalArgumentException {
-		this.modificationMedicDtoService.update(dto);
+	public void updateById(@RequestBody InfoMedicDto dto) throws JsonProcessingException, IllegalArgumentException {
+		this.modificationInfoMedicDtoService.update(dto);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteByID(@PathVariable String id) {
-		this.simpleMedicDtoService.deleteByID(id);
+		this.infoMedicDtoService.deleteByID(id);
 	}
 
 	@DeleteMapping()
 	public void deleteAll() {
-		this.simpleMedicDtoService.deleteAll();
+		this.infoMedicDtoService.deleteAll();
 	}
 }

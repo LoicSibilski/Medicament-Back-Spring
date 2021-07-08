@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.dtos.frequence.FrequenceDto;
-import com.m2i.medic.dtos.frequence.SimpleFrequenceDto;
 import com.m2i.medic.services.frequence.ModificationFrequenceDtoService;
-import com.m2i.medic.services.frequence.SimpleFrequenceDtoService;
+import com.m2i.medic.services.frequence.FrequenceDtoService;
 
 
 @RestController
@@ -28,15 +27,15 @@ public class FrequenceController {
 	private ModificationFrequenceDtoService modifFrequenceService;
 
 	@Autowired
-	private SimpleFrequenceDtoService simpleFrequenceService;
+	private FrequenceDtoService simpleFrequenceService;
 	
 	@GetMapping("")
-	public List<SimpleFrequenceDto> getAll() {
+	public List<FrequenceDto> getAll() {
 		return this.simpleFrequenceService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public SimpleFrequenceDto getFrequenceById(@PathVariable String id) {
+	public FrequenceDto getFrequenceById(@PathVariable String id) {
 		return this.simpleFrequenceService.getById(id);
 	}
 

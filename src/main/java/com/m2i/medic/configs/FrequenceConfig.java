@@ -8,7 +8,7 @@ import com.m2i.medic.repositories.FrequenceRepository;
 import com.m2i.medic.services.frequence.ModificationFrequenceDtoService;
 import com.m2i.medic.services.implementations.frequence.CreationFrequenceDtoServiceImpl;
 import com.m2i.medic.services.implementations.frequence.ModificationFrequenceDtoServiceImpl;
-import com.m2i.medic.services.implementations.frequence.SimpleFrequenceDtoServiceImpl;
+import com.m2i.medic.services.implementations.frequence.FrequenceDtoServiceImpl;
 
 @Configuration
 public class FrequenceConfig {
@@ -26,8 +26,8 @@ public class FrequenceConfig {
 	}
 
 	@Bean
-	public SimpleFrequenceDtoServiceImpl simpleFrequenceDtoServiceFactory(FrequenceRepository frequenceRepo,
+	public FrequenceDtoServiceImpl simpleFrequenceDtoServiceFactory(FrequenceRepository frequenceRepo,
 			ObjectMapper mapper) {
-		return new SimpleFrequenceDtoServiceImpl(frequenceRepo, mapper);
+		return new FrequenceDtoServiceImpl(frequenceRepo, mapper);
 	}
 }

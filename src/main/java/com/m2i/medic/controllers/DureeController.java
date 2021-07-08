@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.dtos.duree.DureeDto;
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
 import com.m2i.medic.services.duree.ModificationDureeService;
-import com.m2i.medic.services.duree.SimpleDureeDtoService;
+import com.m2i.medic.services.duree.DureeDtoService;
 
 @RestController
 @CrossOrigin
@@ -27,15 +26,15 @@ public class DureeController {
 	private ModificationDureeService modifDureeService;
 
 	@Autowired
-	private SimpleDureeDtoService simpleDureeService;
+	private DureeDtoService simpleDureeService;
 	
 	@GetMapping("")
-	public List<SimpleDureeDto> getAll() {
+	public List<DureeDto> getAll() {
 		return this.simpleDureeService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public SimpleDureeDto getDureeById(@PathVariable String id) {
+	public DureeDto getDureeById(@PathVariable String id) {
 		return this.simpleDureeService.getById(id);
 	}
 

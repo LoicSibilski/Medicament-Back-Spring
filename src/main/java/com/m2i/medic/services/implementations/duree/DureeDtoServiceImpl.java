@@ -7,34 +7,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.m2i.medic.dtos.duree.SimpleDureeDto;
+import com.m2i.medic.dtos.duree.DureeDto;
 import com.m2i.medic.models.Duree;
 import com.m2i.medic.repositories.DureeRepository;
-import com.m2i.medic.services.duree.SimpleDureeDtoService;
+import com.m2i.medic.services.duree.DureeDtoService;
 
-public class SimpleDureeDtoServiceImpl implements SimpleDureeDtoService {
+public class DureeDtoServiceImpl implements DureeDtoService {
 
 	private ObjectMapper mapper;
 	private DureeRepository dureeRepo;
 
-	public SimpleDureeDtoServiceImpl(DureeRepository dureeRepo, ObjectMapper mapper) {
+	public DureeDtoServiceImpl(DureeRepository dureeRepo, ObjectMapper mapper) {
 		this.dureeRepo = dureeRepo;
 		this.mapper = mapper;
 	}
 	
 	@Override
-	public List<SimpleDureeDto> getAll() {
+	public List<DureeDto> getAll() {
 		List<Duree> durees = this.dureeRepo.findAll();
 
 		return durees.stream().map(duree -> {
-			return this.mapper.convertValue(duree, SimpleDureeDto.class);
+			return this.mapper.convertValue(duree, DureeDto.class);
 		}).collect(Collectors.toList());
 	}
 
 	@Override
-	public SimpleDureeDto getById(String id) {
+	public DureeDto getById(String id) {
 		Duree duree = this.dureeRepo.findById(id).get();
-		return mapper.convertValue(duree, SimpleDureeDto.class);
+		return mapper.convertValue(duree, DureeDto.class);
 	}
 	@Override
 	public void deleteByID(String id) {

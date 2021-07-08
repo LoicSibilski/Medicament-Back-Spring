@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.repositories.DureeRepository;
 import com.m2i.medic.services.duree.ModificationDureeService;
 import com.m2i.medic.services.implementations.duree.CreationDureeDtoServiceImpl;
+import com.m2i.medic.services.implementations.duree.DureeDtoServiceImpl;
 import com.m2i.medic.services.implementations.duree.ModificationDureeDtoServiceImpl;
-import com.m2i.medic.services.implementations.duree.SimpleDureeDtoServiceImpl;
 
 @Configuration
 public class DureeConfig {
@@ -27,8 +27,8 @@ public class DureeConfig {
 	}
 
 	@Bean
-	public SimpleDureeDtoServiceImpl simpleDureeDtoServiceFactory(DureeRepository dureeRepo, ObjectMapper mapper) {
-		return new SimpleDureeDtoServiceImpl(dureeRepo, mapper);
+	public DureeDtoServiceImpl simpleDureeDtoServiceFactory(DureeRepository dureeRepo, ObjectMapper mapper) {
+		return new DureeDtoServiceImpl(dureeRepo, mapper);
 	}
 
 }

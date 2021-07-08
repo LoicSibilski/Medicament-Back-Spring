@@ -22,8 +22,4 @@ public class Duree {
 
 	private LocalDateTime dateFin;
 
-	public Duree(String id) {
-		this.id = id;
-	}
-
 }

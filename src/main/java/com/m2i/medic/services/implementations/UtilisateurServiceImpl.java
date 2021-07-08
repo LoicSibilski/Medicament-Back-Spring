@@ -2,6 +2,7 @@ package com.m2i.medic.services.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,6 +50,16 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	public List<Utilisateur> findAllByCompteId(String id) {
 		return this.repository.findAllByCompteId(id);
 	}
+	
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistantsByUtilisateurId(String id){
+		Optional<Utilisateur> utilisateurOptionel = this.repository.findById(id);
+		if (utilisateurOptionel.isPresent()) {
+			return utilisateurOptionel.get().getAssistants();
+		}else {
+			return null;
+		}
+	}
 
 	@Override
 	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id) {
@@ -86,7 +97,4 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 		}
 		return assistesDuCompte;
 	}
-
-
-
 }

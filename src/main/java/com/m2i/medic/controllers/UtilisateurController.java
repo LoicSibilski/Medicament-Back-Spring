@@ -25,48 +25,58 @@ public class UtilisateurController {
 	@Autowired
 	private UtilisateurService service;
 	
-	@GetMapping("{id}/utilisateurs")
-	public List<Utilisateur> getAllByCompteId(@PathVariable String id){
-		return this.service.findAllByCompteId(id);
+	@GetMapping("{compteId}/utilisateurs")
+	public List<Utilisateur> getAllByCompteId(@PathVariable String compteId){
+		return this.service.findAllByCompteId(compteId);
 	}
 	
 	@GetMapping("")
-	public List<Utilisateur> getAll(){
+	public List<Utilisateur> getAllUtilisateurs(){
 		return this.service.getAll();
 	}
 	
-	@GetMapping("{id}")
-	public Utilisateur getById(@PathVariable String id) {
-		return this.service.getById(id);
+	@GetMapping("{utilisateurId}")
+	public Utilisateur getByUtilisateurId(@PathVariable String utilisateurId) {
+		return this.service.getById(utilisateurId);
 	}
 	
-	@GetMapping("{id}/assistants")
-	public List<AssistantOuAssisteDTO> getAllAssistants(@PathVariable String id){
-		return this.service.findAllAssistantsByCompteId(id);
+	@GetMapping("{compteId}/assistants")
+	public List<AssistantOuAssisteDTO> getAllAssistantsByCompteId(@PathVariable String compteId){
+		return this.service.findAllAssistantsByCompteId(compteId);
+	}
+	
+	@GetMapping("assistants/{utilisateurId}")
+	public List<AssistantOuAssisteDTO> getAllAssistantsByUtilisateurId(@PathVariable String utilisateurId){
+		return this.service.findAllAssistantsByUtilisateurId(utilisateurId);
 	}
 
-	@GetMapping("{id}/assistes")
-	public List<AssistantOuAssisteDTO> getAllAssistesByCompteId(@PathVariable String id){
-		return this.service.findAllAssistesByCompteId(id);
+	@GetMapping("{compteId}/assistes")
+	public List<AssistantOuAssisteDTO> getAllAssistesByCompteId(@PathVariable String compteId){
+		return this.service.findAllAssistesByCompteId(compteId);
+	}
+	
+	@GetMapping("assistes/{utilisateurId}")
+	public List<AssistantOuAssisteDTO> getAllAssistesByUtilisateurId(@PathVariable String utilisateurId){
+		return this.service.findAllAssistesByUtilisateurId(utilisateurId);
 	}
 	
 	@DeleteMapping("")
-	public void deleteAll() {
+	public void deleteAllUtilisateurs() {
 		this.service.deleteAll();
 	}
 	
-	@DeleteMapping("{id}")
-	public void deleteById(@PathVariable String id) {
-		this.service.deleteByID(id);
+	@DeleteMapping("{utilisateurId}")
+	public void deleteByUtilisateurId(@PathVariable String utilisateurId) {
+		this.service.deleteByID(utilisateurId);
 	}
 	
 	@PostMapping("")
-	public Utilisateur save(@RequestBody Utilisateur user) {
+	public Utilisateur saveUtilisateur(@RequestBody Utilisateur user) {
 		return this.service.save(user);
 	}
 	
 	@PatchMapping("")
-	public Utilisateur update(@RequestBody Utilisateur user) {
+	public Utilisateur updateUtilisateur(@RequestBody Utilisateur user) {
 		return this.service.save(user);
 	}
 	

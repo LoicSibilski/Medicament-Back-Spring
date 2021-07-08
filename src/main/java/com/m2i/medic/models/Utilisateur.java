@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Utilisateur {
 	@Id
 	private String id;
-	private Compte compte;
+	private String compteId;
 	private String nom;
 	private String prenom;
 	private LocalDateTime dateNaissance;

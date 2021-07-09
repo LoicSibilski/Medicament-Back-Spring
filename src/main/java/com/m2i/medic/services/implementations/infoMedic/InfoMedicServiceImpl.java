@@ -28,7 +28,6 @@ public class InfoMedicServiceImpl implements InfoMedicDtoService {
 	@Override
 	public List<InfoMedicDto> getAll() {
 		List<InfoMedic> infoMedics = this.infoMedicRepository.findAll();
-		System.out.println("mes couilles => " + infoMedics);
 		return infoMedics.stream().map(medic -> {
 			return this.mapper.convertValue(medic, InfoMedicDto.class);
 		}).collect(Collectors.toList());
@@ -37,7 +36,7 @@ public class InfoMedicServiceImpl implements InfoMedicDtoService {
 	@Override
 	public InfoMedicDto getById(String id) {
 		InfoMedic medic = this.infoMedicRepository.findById(id).get();
-		System.out.println("MEDIC => " + medic);
+		System.out.println("MEDICINOGETID => " + medic.getId());
 		return mapper.convertValue(medic, InfoMedicDto.class);
 	}
 

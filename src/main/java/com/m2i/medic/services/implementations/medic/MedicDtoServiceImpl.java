@@ -36,8 +36,7 @@ public class MedicDtoServiceImpl implements MedicDtoService {
 	@Override
 	public MedicDto getById(String id) {
 		Medic medic = this.medicRepository.findById(id).get();
-		System.out.println("MEDIC => " + medic);
-		return mapper.convertValue(medic, MedicDto.class);
+		return convertMedicToDto(medic);
 	}
 
 	@Override

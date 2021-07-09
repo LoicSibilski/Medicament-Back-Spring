@@ -75,8 +75,11 @@ public class CreationMedicDtoServiceImpl implements CreationMedicDtoService {
 			Integer heure;
 			Integer minute;
 			for (String str : listeHeures) {
-				heure = Integer.parseInt(str.substring(11, 13));
-				minute = Integer.parseInt(str.substring(14, 16));
+				System.out.println(" str => " + str);
+				System.out.println(" str => " + str.substring(0,2));
+				System.out.println(" str => " + str.substring(3,5));
+				heure = Integer.parseInt(str.substring(0,2));
+				minute = Integer.parseInt(str.substring(3,5));
 				LocalTime tmp = LocalTime.of(heure, minute);
 				listLocalTime.add(tmp);
 			}

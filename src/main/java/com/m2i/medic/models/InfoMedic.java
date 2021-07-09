@@ -32,6 +32,8 @@ public class InfoMedic {
 	private Integer nbJour;
 	
 	//Data de la frequence
+	private String choixFrequence;
+	
 	private Integer x;
 	
 	private LocalTime heureDebut;

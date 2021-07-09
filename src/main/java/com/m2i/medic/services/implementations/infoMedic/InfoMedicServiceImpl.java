@@ -13,6 +13,7 @@ import com.m2i.medic.models.InfoMedic;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.InfoMedicRepository;
 import com.m2i.medic.services.infoMedic.InfoMedicDtoService;
+import com.m2i.medic.services.medic.MedicDtoService;
 
 public class InfoMedicServiceImpl implements InfoMedicDtoService {
 
@@ -35,9 +36,10 @@ public class InfoMedicServiceImpl implements InfoMedicDtoService {
 
 	@Override
 	public InfoMedicDto getById(String id) {
-		InfoMedic medic = this.infoMedicRepository.findById(id).get();
-		System.out.println("MEDICINOGETID => " + medic.getId());
-		return mapper.convertValue(medic, InfoMedicDto.class);
+		InfoMedic infoMedic = this.infoMedicRepository.findById(id)
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+		System.out.println(infoMedic);
+		return mapper.convertValue(infoMedic, InfoMedicDto.class);
 	}
 
 	@Override

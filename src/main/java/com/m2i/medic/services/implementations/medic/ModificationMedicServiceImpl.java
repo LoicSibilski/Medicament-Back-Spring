@@ -34,7 +34,7 @@ public class ModificationMedicServiceImpl implements ModificationMedicService {
 	}
 
 	@Override
-	public MedicDto update(CreationMedicDto creationMedicDto) {
+	public MedicDto update(MedicDto medicDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

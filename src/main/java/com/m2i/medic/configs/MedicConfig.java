@@ -9,6 +9,7 @@ import com.m2i.medic.services.duree.CreationDureeDtoService;
 import com.m2i.medic.services.frequence.CreationFrequenceDtoService;
 import com.m2i.medic.services.implementations.medic.CreationMedicDtoServiceImpl;
 import com.m2i.medic.services.implementations.medic.ModificationMedicServiceImpl;
+import com.m2i.medic.services.infoMedic.InfoMedicDtoService;
 import com.m2i.medic.services.infoMedic.ModificationInfoMedicService;
 import com.m2i.medic.services.implementations.medic.MedicDtoServiceImpl;
 import com.m2i.medic.services.medic.CreationMedicDtoService;
@@ -31,8 +32,9 @@ public class MedicConfig {
 	}
 
 	@Bean
-	public MedicDtoServiceImpl simpleMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepo) {
-		return new MedicDtoServiceImpl(medicRepo, mapper);
+	public MedicDtoServiceImpl simpleMedicDtoServiceFactory(ObjectMapper mapper, MedicRepository medicRepo,
+			InfoMedicDtoService infoMedicService) {
+		return new MedicDtoServiceImpl(medicRepo, mapper, infoMedicService);
 	}
 
 }

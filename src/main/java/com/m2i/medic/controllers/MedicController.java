@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.m2i.medic.dtos.infoMedic.InfoMedicDto;
 import com.m2i.medic.dtos.medic.CreationMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.services.medic.ModificationMedicService;
@@ -28,16 +30,21 @@ public class MedicController {
 	private ModificationMedicService modificationMedicDtoService;
 
 	@Autowired
-	private MedicDtoService simpleMedicDtoService;
+	private MedicDtoService medicDtoService;
 
 	@GetMapping("")
 	public List<MedicDto> getAll() {
-		return this.simpleMedicDtoService.getAll();
+		return this.medicDtoService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public MedicDto findSimpleMedicById(@PathVariable String id) {
-		return this.simpleMedicDtoService.getById(id);
+	public MedicDto findMedicById(@PathVariable String id) {
+		return this.medicDtoService.getById(id);
+	}
+	
+	@GetMapping("/informations/{id}")
+	public InfoMedicDto findInfoMedicById(@PathVariable String id) {
+		return this.medicDtoService.getInformationById(id);
 	}
 
 	@PostMapping("")
@@ -45,18 +52,18 @@ public class MedicController {
 		return this.modificationMedicDtoService.save(dto);
 	}
 
-	@PutMapping()
-	public void updateById(@RequestBody CreationMedicDto dto) throws JsonProcessingException, IllegalArgumentException {
+	@PatchMapping()
+	public void updateById(@RequestBody MedicDto dto) throws JsonProcessingException, IllegalArgumentException {
 		this.modificationMedicDtoService.update(dto);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteByID(@PathVariable String id) {
-		this.simpleMedicDtoService.deleteByID(id);
+		this.medicDtoService.deleteByID(id);
 	}
 
 	@DeleteMapping()
 	public void deleteAll() {
-		this.simpleMedicDtoService.deleteAll();
+		this.medicDtoService.deleteAll();
 	}
 }

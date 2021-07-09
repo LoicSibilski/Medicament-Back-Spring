@@ -9,19 +9,23 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2i.medic.dtos.duree.DureeDto;
 import com.m2i.medic.dtos.frequence.FrequenceDto;
+import com.m2i.medic.dtos.infoMedic.InfoMedicDto;
 import com.m2i.medic.dtos.medic.MedicDto;
 import com.m2i.medic.models.Medic;
 import com.m2i.medic.repositories.MedicRepository;
+import com.m2i.medic.services.infoMedic.InfoMedicDtoService;
 import com.m2i.medic.services.medic.MedicDtoService;
 
 public class MedicDtoServiceImpl implements MedicDtoService {
 
 	private MedicRepository medicRepository;
 	private ObjectMapper mapper;
+	private InfoMedicDtoService infoMedicService;
 
-	public MedicDtoServiceImpl(MedicRepository medicRepo, ObjectMapper mapper) {
+	public MedicDtoServiceImpl(MedicRepository medicRepo, ObjectMapper mapper, InfoMedicDtoService infoMedicService) {
 		this.medicRepository = medicRepo;
 		this.mapper = mapper;
+		this.infoMedicService = infoMedicService;
 	}
 
 	@Override
@@ -35,9 +39,18 @@ public class MedicDtoServiceImpl implements MedicDtoService {
 
 	@Override
 	public MedicDto getById(String id) {
-		Medic medic = this.medicRepository.findById(id).get();
+		Medic medic = this.medicRepository.findById(id)
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return convertMedicToDto(medic);
 	}
+	
+	@Override
+	public InfoMedicDto getInformationById(String id) {
+		MedicDto dto = getById(id);
+		InfoMedicDto info =  this.infoMedicService.getById(dto.getInfoMedicDto().getId());
+		return info;
+	}
+
 
 	@Override
 	public void deleteByID(String id) {
@@ -67,8 +80,9 @@ public class MedicDtoServiceImpl implements MedicDtoService {
 		medicDto.setNom(medic.getNom());
 		medicDto.setDureeDto(this.mapper.convertValue(medic.getDuree(), DureeDto.class));
 		medicDto.setFrequenceDto(this.mapper.convertValue(medic.getFrequence(), FrequenceDto.class));
-		
+		medicDto.setInfoMedicDto(this.mapper.convertValue(medic.getInfoMedic(), InfoMedicDto.class));
 		return medicDto;
 	}
+
 
 }

@@ -1,6 +1,8 @@
 package com.m2i.medic.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,15 +50,51 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	public List<Utilisateur> findAllByCompteId(String id) {
 		return this.repository.findAllByCompteId(id);
 	}
+	
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistantsByUtilisateurId(String id){
+		Optional<Utilisateur> utilisateurOptionel = this.repository.findById(id);
+		if (utilisateurOptionel.isPresent()) {
+			return utilisateurOptionel.get().getAssistants();
+		}else {
+			return null;
+		}
+	}
 
 	@Override
 	public List<AssistantOuAssisteDTO> findAllAssistantsByCompteId(String id) {
-		return this.repository.findAllAssistantsByCompteId(id);
+		List<Utilisateur> utilisateurs = this.repository.findAllByCompteId(id);
+		List<AssistantOuAssisteDTO> assistants = new ArrayList<>();
+		for (Utilisateur utilisateur : utilisateurs) {
+			List<AssistantOuAssisteDTO> assistantsUtilisateur = utilisateur.getAssistants();
+			for (AssistantOuAssisteDTO assistantUtilisateur : assistantsUtilisateur) {
+				assistants.add(assistantUtilisateur);
+			}	
+		}
+		return assistants;
+	}
+
+	@Override
+	public List<AssistantOuAssisteDTO> findAllAssistesByUtilisateurId(String id) {
+		List<Utilisateur> liste = this.repository.findAllByAssistantsId(id);
+		List<AssistantOuAssisteDTO> assistes = new ArrayList<>();
+		for (Utilisateur utilisateur : liste) {
+			AssistantOuAssisteDTO assiste = new AssistantOuAssisteDTO(utilisateur.getId(), utilisateur.getNom(), utilisateur.getPrenom());
+			assistes.add(assiste);
+			}
+		return assistes;
 	}
 
 	@Override
 	public List<AssistantOuAssisteDTO> findAllAssistesByCompteId(String id) {
-		return this.repository.findAllAssistesByCompteId(id);
+		List<Utilisateur> utilisateurs = this.findAllByCompteId(id);
+		List<AssistantOuAssisteDTO> assistesDuCompte = new ArrayList<>();
+		for (Utilisateur utilisateur : utilisateurs) {
+			List<AssistantOuAssisteDTO> assistesDeLUtilisateur = this.findAllAssistesByUtilisateurId(utilisateur.getId());
+			for (AssistantOuAssisteDTO assiste : assistesDeLUtilisateur) {
+				assistesDuCompte.add(assiste);
+			}
+		}
+		return assistesDuCompte;
 	}
-
 }

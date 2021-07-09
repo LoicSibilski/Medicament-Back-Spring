@@ -21,7 +21,7 @@ EXPOSE 8080
 
 RUN mkdir /app
 COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar /app/spring-boot-application.jar
-
-CMD [ "-Djava.security.egd=file:/dev/./urandom",  "-Dspring.profiles.active=test" ]
+# "-Dspring.profiles.active=test"
+CMD [ "-Djava.security.egd=file:/dev/./urandom", "-Dmaven.test.skip=true" ]
 # j'ai mis spring en profile de "test" via le paramètre Dspring.profiles
 ENTRYPOINT ["java", "-jar", "/app/spring-boot-application.jar"]

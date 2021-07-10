@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.dtos.DesactivationCompteDTO;
 import com.m2i.medic.compte.services.AuthentificateurCompteService;
 
 /**
@@ -26,10 +27,10 @@ public class AuthentificationCompteController {
 	/**
 	 * Cette méthode permet de se connecter à un compte à partir du service
 	 * @param connexion
-	 * @return l'identifiant du compte
+	 * @return l'identifiant et l'état du compte
 	 */
 	@PostMapping("connexion")
-	public String seConnecterCompte(@RequestBody ConnexionDTO compteConnexion) {
+	public DesactivationCompteDTO seConnecterCompte(@RequestBody ConnexionDTO compteConnexion) {
 		return this.service.seConnecterCompte(compteConnexion);
 	}
 }

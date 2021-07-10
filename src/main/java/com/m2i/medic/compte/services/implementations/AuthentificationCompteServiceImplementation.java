@@ -36,7 +36,7 @@ public class AuthentificationCompteServiceImplementation implements Authentifica
 	}
 
 	@Override
-	public String seConnecterCompte(ConnexionDTO compteConnexion) {
+	public DesactivationCompteDTO seConnecterCompte(ConnexionDTO compteConnexion) {
 		Optional<Compte> optional = this.repository.findFirstByPseudoOrEmail(
 				compteConnexion.getPseudoOrEmail(), compteConnexion.getPseudoOrEmail());
 		
@@ -45,7 +45,8 @@ public class AuthentificationCompteServiceImplementation implements Authentifica
 		});
 		
 		if (compte.getMotDePasse().equals(compteConnexion.getMotDePasse()) && compte.isEtat()) {
-			return compte.getId();
+			DesactivationCompteDTO dto = this.mapper.convertValue(compte, DesactivationCompteDTO.class);
+			return dto;
 		}
 		throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 	}

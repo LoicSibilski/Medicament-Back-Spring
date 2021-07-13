@@ -3,6 +3,8 @@ package com.m2i.medic.compte.services.implementations;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +46,9 @@ public class AuthentificationCompteServiceImplementation implements Authentifica
 			return new ResponseStatusException(HttpStatus.NOT_FOUND);
 		});
 		
-		if (compte.getMotDePasse().equals(compteConnexion.getMotDePasse()) && compte.isEtat()) {
+		boolean isMotDePasse = new BCryptPasswordEncoder().matches(compteConnexion.getMotDePasse(), compte.getMotDePasse());
+				
+		if (isMotDePasse && compte.isEtat()) {
 			DesactivationCompteDTO dto = this.mapper.convertValue(compte, DesactivationCompteDTO.class);
 			return dto;
 		}

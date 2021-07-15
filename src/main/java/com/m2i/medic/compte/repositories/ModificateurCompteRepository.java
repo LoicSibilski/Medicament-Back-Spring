@@ -19,11 +19,4 @@ public interface ModificateurCompteRepository extends MongoRepository<Compte, St
 	 * @return une chaîne de caractères
 	 */
 	public String findByEmail(String email);
-	
-	/**
-	 * Cette méthode permet de vérifier si le pseudo de l'utilisateur existe
-	 * @param pseudo
-	 * @return une chaîne de caractères
-	 */
-	public String findByPseudo(String pseudo);
 }

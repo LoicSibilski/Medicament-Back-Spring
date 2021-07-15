@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class ConnexionDTO {
+public class ConnexionCompteDTO {
 
-	private String pseudoOrEmail;
+	private String email;
 	private String motDePasse;
 	
 }

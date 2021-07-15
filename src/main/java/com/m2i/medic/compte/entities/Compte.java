@@ -23,7 +23,6 @@ public class Compte {
 	@Id
 	private String id;
 	private String email;
-	private String pseudo;
 	private String motDePasse;
 	private boolean etat;
 	private LocalDateTime dateCreation;

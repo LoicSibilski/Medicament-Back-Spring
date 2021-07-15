@@ -17,7 +17,6 @@ import com.m2i.medic.dtos.AssistantOuAssisteDTO;
 import com.m2i.medic.models.Utilisateur;
 import com.m2i.medic.services.UtilisateurService;
 
-@CrossOrigin
 @RestController
 @RequestMapping("utilisateurs")
 @CrossOrigin

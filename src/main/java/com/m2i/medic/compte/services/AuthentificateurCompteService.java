@@ -1,6 +1,6 @@
 package com.m2i.medic.compte.services;
 
-import com.m2i.medic.compte.dtos.ConnexionDTO;
+import com.m2i.medic.compte.dtos.ConnexionCompteDTO;
 import com.m2i.medic.compte.dtos.DesactivationCompteDTO;
 
 /**
@@ -15,5 +15,5 @@ public interface AuthentificateurCompteService {
 	 * @param connexion
 	 * @return l'identifiant et l'état d'un compte
 	 */
-	public DesactivationCompteDTO seConnecterCompte(ConnexionDTO connexion);
+	public DesactivationCompteDTO seConnecterCompte(ConnexionCompteDTO connexion);
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m2i.medic.compte.dtos.DesactivationCompteDTO;
-import com.m2i.medic.compte.dtos.InscriptionDTO;
+import com.m2i.medic.compte.dtos.InscriptionCompteDTO;
 import com.m2i.medic.compte.dtos.ModificationCompteDTO;
 import com.m2i.medic.compte.services.ModificateurCompteService;
 
@@ -31,8 +31,8 @@ public class ModificationCompteController {
 	 * @param nouveauCompte
 	 */
 	@PostMapping("")
-	public void creerCompte(@RequestBody InscriptionDTO nouveauCompte) {
-		this.service.creerCompte(nouveauCompte);
+	public boolean creerCompte(@RequestBody InscriptionCompteDTO nouveauCompte) {
+		return this.service.creerCompte(nouveauCompte);
 	}
 	
 	/**
@@ -40,8 +40,8 @@ public class ModificationCompteController {
 	 * @param compteModifie
 	 */
 	@PatchMapping("")
-	public void modifierCompte(@RequestBody ModificationCompteDTO compteModifie) {
-		this.service.modifierCompte(compteModifie);
+	public boolean modifierCompte(@RequestBody ModificationCompteDTO compteModifie) {
+		return this.service.modifierCompte(compteModifie);
 	}
 	
 	/**

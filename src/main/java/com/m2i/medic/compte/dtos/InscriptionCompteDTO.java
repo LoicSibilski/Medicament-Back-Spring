@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class InscriptionDTO {
+public class InscriptionCompteDTO {
 	
 	private String email;
-	private String pseudo;
 	private String motDePasse; 
 }

@@ -20,6 +20,6 @@ public interface AuthentificateurCompteRepository extends MongoRepository<Compte
 	 * @param pseudo
 	 * @return un compte
 	 */
-	public Optional<Compte> findFirstByPseudoOrEmail(String email, String pseudo);
+	public Optional<Compte> findFirstByEmail(String email);
 
 }

@@ -34,12 +34,7 @@ public class NotificationServiceImplementation implements NotificateurService {
 
 
 	@Override
-	public void creerNotification(NotificationDTO notification) {
-		Notification nouvelleNotification = new Notification();
-		nouvelleNotification.setUtilisateurId(notification.getUtilisateurId());
-		nouvelleNotification.setMessage(notification.getMessage());
-		nouvelleNotification.setDateNotification(LocalDateTime.now());
-		nouvelleNotification.setVue(false);
+	public void creerNotification(Notification nouvelleNotification) {
 		this.repository.save(nouvelleNotification);
 	}
 

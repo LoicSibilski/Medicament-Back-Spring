@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.m2i.medic.notification.dtos.NotificationDTO;
 import com.m2i.medic.notification.entities.Notification;
 import com.m2i.medic.notification.services.NotificateurService;
 
@@ -33,7 +32,7 @@ public class NotificationController {
 	 * @param notification
 	 */
 	@PostMapping("")
-	public void creerNotification(@RequestBody NotificationDTO notification) {
+	public void creerNotification(@RequestBody Notification notification) {
 		this.service.creerNotification(notification);
 	}
 	

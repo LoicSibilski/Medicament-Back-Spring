@@ -2,9 +2,7 @@ package com.m2i.medic.notification.services;
 
 import java.util.List;
 
-import com.m2i.medic.notification.dtos.NotificationDTO;
 import com.m2i.medic.notification.entities.Notification;
-import com.m2i.medic.notification.repositories.NotificateurRepository;
 
 /**
  * Cette interface représente un service de notifications
@@ -17,7 +15,7 @@ public interface NotificateurService {
 	 * Cette méthode permet de créer une notification
 	 * @param message
 	 */
-	public void creerNotification(NotificationDTO notification);
+	public void creerNotification(Notification notification);
 		
 	/**
 	 * Cette méthode permet de récupérer toutes les notifications d'un utilisateur
